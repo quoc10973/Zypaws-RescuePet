@@ -30,7 +30,7 @@ require('dotenv').config();
       }),
       inject: [ConfigService],
     }),
-    UserModule, //import the UserModule for use glabally in the AppModule
+    UserModule, //import the UserModule for use globally in the AppModule
   ],
   controllers: [AppController],
   providers: [AppService, TestConnectionService],

@@ -7,6 +7,8 @@ require('dotenv').config();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.setGlobalPrefix('zypaws/api');
+
   const openApi = new DocumentBuilder()
     .setTitle('Zypaws open API document and testing')
     .setDescription('This is the open API document for Zypaws')
