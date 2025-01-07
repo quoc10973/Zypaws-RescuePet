@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from './user/user.entity';
 import { UserModule } from './user/user.module';
+import { AuthenticateModule } from './authenticate/authenticate.module';
 require('dotenv').config();
 
 
@@ -31,6 +32,7 @@ require('dotenv').config();
       inject: [ConfigService],
     }),
     UserModule, //import the UserModule for use globally in the AppModule
+    AuthenticateModule,
   ],
   controllers: [AppController],
   providers: [AppService, TestConnectionService],
