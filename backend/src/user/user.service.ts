@@ -4,7 +4,6 @@ import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { plainToInstance } from 'class-transformer';
 import { UserDTO } from 'src/model/userDTO';
-import e from 'express';
 
 @Injectable()
 export class UserService {
@@ -26,5 +25,10 @@ export class UserService {
         } catch (error) {
             throw new Error("Failed to get users");
         }
+    }
+
+    async findUserByEmail(email: string) {
+        const user = await this.userRepository.findOne({ where: { email: email } });
+        return user;
     }
 }

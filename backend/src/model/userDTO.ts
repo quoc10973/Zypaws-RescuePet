@@ -14,6 +14,8 @@ export class UserDTO {
     @Expose()
     age: number;
     @Expose()
+    address: string;
+    @Expose()
     role: string;
     password: string;
     createdAt: Date;

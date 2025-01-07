@@ -7,7 +7,6 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateCol
 export class User {
 
     @PrimaryGeneratedColumn('uuid')
-    @ApiProperty()
     id: string;
 
     @Column({ nullable: false, unique: true })
@@ -37,6 +36,11 @@ export class User {
     @IsOptional()
     @ApiProperty()
     age: number
+
+    @Column({ nullable: true })
+    @IsOptional()
+    @ApiProperty()
+    address: string
 
     @Column()
     @ApiProperty()
