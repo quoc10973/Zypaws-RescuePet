@@ -1,7 +1,6 @@
 import { BadRequestException, Body, Controller, Post, ValidationPipe } from '@nestjs/common';
 import { AuthenticateService } from './authenticate.service';
 import { LoginRequest } from 'src/model/loginRequest';
-import e from 'express';
 import { RegisterRequest } from 'src/model/registerRequest';
 
 @Controller('authenticate')

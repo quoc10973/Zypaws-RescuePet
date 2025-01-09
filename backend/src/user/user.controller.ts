@@ -1,7 +1,6 @@
 import { BadRequestException, Body, Controller, Get, HttpCode, Post, ValidationPipe } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.entity';
-import { ApiBody } from '@nestjs/swagger';
 
 @Controller('user')
 export class UserController {

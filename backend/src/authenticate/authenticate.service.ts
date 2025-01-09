@@ -3,14 +3,12 @@ import { JwtService } from '@nestjs/jwt';
 import { LoginRequest } from 'src/model/loginRequest';
 import { UserService } from 'src/user/user.service';
 import * as bcryptjs from 'bcryptjs';
-import { first } from 'rxjs';
 import { User } from 'src/user/user.entity';
 import { UserResponse } from 'src/model/userResponse';
 import { RegisterRequest } from 'src/model/registerRequest';
 import { Role } from 'src/model/enum';
 import { plainToInstance } from 'class-transformer';
 import { UserDTO } from 'src/model/userDTO';
-import e from 'express';
 
 @Injectable()
 export class AuthenticateService {
