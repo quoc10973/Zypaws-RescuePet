@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TestConnectionService } from './config/testConnection';
@@ -7,6 +7,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from './user/user.entity';
 import { UserModule } from './user/user.module';
 import { AuthenticateModule } from './authenticate/authenticate.module';
+import { JwtMiddleware } from './middleware/jwtMiddleware';
+import { LimitLoginAttemptsMiddleware } from './middleware/limitLoginAttemptMiddleware';
 require('dotenv').config();
 
 
@@ -37,4 +39,13 @@ require('dotenv').config();
   controllers: [AppController],
   providers: [AppService, TestConnectionService],
 })
-export class AppModule { }
+
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(JwtMiddleware)
+      .forRoutes('*')
+      .apply(LimitLoginAttemptsMiddleware)
+      .forRoutes('/authenticate/login');
+  }
+}
