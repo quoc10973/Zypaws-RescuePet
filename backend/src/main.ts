@@ -14,6 +14,7 @@ async function bootstrap() {
     .setDescription('This is the open API document for Zypaws')
     .setVersion('1.0')
     .addTag('Zypaws')
+    .addBearerAuth()
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, openApi);
