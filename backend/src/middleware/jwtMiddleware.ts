@@ -6,7 +6,7 @@ require('dotenv').config();
 const contextPath = '/zypaws/api';
 const PUBLIC_ROUTES = [
     `${contextPath}/authenticate/login`,
-    `${contextPath}/authenticate/reister`,
+    `${contextPath}/authenticate/register`,
 ];
 
 @Injectable()
