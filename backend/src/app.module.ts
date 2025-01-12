@@ -4,11 +4,13 @@ import { AppService } from './app.service';
 import { TestConnectionService } from './config/testConnection';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { User } from './user/user.entity';
-import { UserModule } from './user/user.module';
+import { User } from './entities/user/user.entity';
+import { UserModule } from './entities/user/user.module';
 import { AuthenticateModule } from './authenticate/authenticate.module';
 import { JwtMiddleware } from './middleware/jwtMiddleware';
 import { LimitLoginAttemptsMiddleware } from './middleware/limitLoginAttemptMiddleware';
+import { Pet } from './entities/pet/pet.entity';
+import { PetModule } from './entities/pet/pet.module';
 require('dotenv').config();
 
 
@@ -28,13 +30,14 @@ require('dotenv').config();
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
-        entities: [User],
+        entities: [User, Pet],
         synchronize: true,
       }),
       inject: [ConfigService],
     }),
     UserModule, //import the UserModule for use globally in the AppModule
     AuthenticateModule,
+    PetModule,
   ],
   controllers: [AppController],
   providers: [AppService, TestConnectionService],
