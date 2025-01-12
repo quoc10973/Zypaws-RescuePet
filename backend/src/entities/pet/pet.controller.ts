@@ -1,17 +1,17 @@
 import { BadRequestException, Body, Controller, Get, HttpCode, Post, ValidationPipe } from '@nestjs/common';
-import { UserService } from './user.service';
-import { User } from './user.entity';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { PetService } from './pet.service';
+import { Pet } from './pet.entity';
 
-@Controller('user')
+@Controller('pet')
 @ApiBearerAuth()
-export class UserController {
-    constructor(private readonly userService: UserService) { }
+export class PetController {
+    constructor(private readonly petService: PetService) { }
 
     @Get('getall')
-    async getUsers() {
+    async getAllPets() {
         try {
-            return await this.userService.getUsers();
+            return await this.petService.getAllPets();
         } catch (error) {
             throw new BadRequestException(error.message);
         }
@@ -19,10 +19,9 @@ export class UserController {
 
     @Post('create')
     @HttpCode(201)
-    async createUser(@Body(new ValidationPipe()) user: User) {
+    async createPet(@Body(new ValidationPipe()) pet: Pet) {
         try {
-            const createdUser = await this.userService.createUser(user);
-            return createdUser;
+            return await this.petService.createPet(pet);
         } catch (error) {
             throw new BadRequestException(error.message);
         }
