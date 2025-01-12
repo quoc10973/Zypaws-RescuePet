@@ -42,7 +42,11 @@ export class User {
     @ApiProperty()
     address: string
 
-    @Column()
+    @Column({
+        nullable: false,
+        type: 'enum',
+        enum: Role,
+    })
     @ApiProperty()
     role: Role
 
