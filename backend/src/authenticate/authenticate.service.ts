@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { LoginRequest } from 'src/model/loginRequest';
-import { UserService } from 'src/user/user.service';
+import { UserService } from 'src/entities/user/user.service';
 import * as bcryptjs from 'bcryptjs';
-import { User } from 'src/user/user.entity';
+import { User } from 'src/entities/user/user.entity';
 import { UserResponse } from 'src/model/userResponse';
 import { RegisterRequest } from 'src/model/registerRequest';
 import { Role } from 'src/model/enum';

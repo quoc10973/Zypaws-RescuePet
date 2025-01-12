@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { UserService } from "src/user/user.service";
+import { UserService } from "src/entities/user/user.service";
 require('dotenv').config();
 
 const contextPath = '/zypaws/api';
