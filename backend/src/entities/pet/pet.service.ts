@@ -12,6 +12,7 @@ export class PetService {
             const newPet = await this.petRepository.save(pet);
             return newPet;
         } catch (error) {
+            console.log(error.message);
             throw new Error("Failed to create pet");
         }
     }
@@ -21,6 +22,7 @@ export class PetService {
             const pets = await this.petRepository.find();
             return pets;
         } catch (error) {
+            console.log(error.message);
             throw new Error("Failed to get pets");
         }
     }

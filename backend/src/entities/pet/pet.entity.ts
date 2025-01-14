@@ -41,7 +41,7 @@ export class Pet {
     @ApiProperty()
     gender: Gender;
 
-    @Column()
+    @Column({ nullable: true })
     @ApiProperty()
     image: string;
 
