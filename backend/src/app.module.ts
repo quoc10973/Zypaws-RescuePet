@@ -15,6 +15,7 @@ import { Adoption } from './entities/adoption/adoption.entity';
 import { AdoptionModule } from './entities/adoption/adoption.module';
 import { DonationModule } from './entities/donation/donation.module';
 import { Donation } from './entities/donation/donation.entity';
+import { PaypalModule } from './entities/paypal/paypal.module';
 require('dotenv').config();
 
 
@@ -44,6 +45,7 @@ require('dotenv').config();
     PetModule,
     AdoptionModule,
     DonationModule,
+    PaypalModule,
   ],
   controllers: [AppController],
   providers: [AppService, TestConnectionService],
