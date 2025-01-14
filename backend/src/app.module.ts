@@ -13,6 +13,8 @@ import { Pet } from './entities/pet/pet.entity';
 import { PetModule } from './entities/pet/pet.module';
 import { Adoption } from './entities/adoption/adoption.entity';
 import { AdoptionModule } from './entities/adoption/adoption.module';
+import { DonationModule } from './entities/donation/donation.module';
+import { Donation } from './entities/donation/donation.entity';
 require('dotenv').config();
 
 
@@ -32,7 +34,7 @@ require('dotenv').config();
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
-        entities: [User, Pet, Adoption],
+        entities: [User, Pet, Adoption, Donation],
         synchronize: true,
       }),
       inject: [ConfigService],
@@ -41,6 +43,7 @@ require('dotenv').config();
     AuthenticateModule,
     PetModule,
     AdoptionModule,
+    DonationModule,
   ],
   controllers: [AppController],
   providers: [AppService, TestConnectionService],
