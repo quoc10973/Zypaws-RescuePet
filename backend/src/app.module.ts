@@ -4,18 +4,18 @@ import { AppService } from './app.service';
 import { TestConnectionService } from './config/testConnection';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { User } from './entities/user/user.entity';
-import { UserModule } from './entities/user/user.module';
+import { User } from './module/user/user.entity';
+import { UserModule } from './module/user/user.module';
 import { AuthenticateModule } from './authenticate/authenticate.module';
 import { JwtMiddleware } from './middleware/jwtMiddleware';
 import { LimitLoginAttemptsMiddleware } from './middleware/limitLoginAttemptMiddleware';
-import { Pet } from './entities/pet/pet.entity';
-import { PetModule } from './entities/pet/pet.module';
-import { Adoption } from './entities/adoption/adoption.entity';
-import { AdoptionModule } from './entities/adoption/adoption.module';
-import { DonationModule } from './entities/donation/donation.module';
-import { Donation } from './entities/donation/donation.entity';
-import { PaypalModule } from './entities/paypal/paypal.module';
+import { Pet } from './module/pet/pet.entity';
+import { PetModule } from './module/pet/pet.module';
+import { Adoption } from './module/adoption/adoption.entity';
+import { AdoptionModule } from './module/adoption/adoption.module';
+import { DonationModule } from './module/donation/donation.module';
+import { Donation } from './module/donation/donation.entity';
+import { PaypalModule } from './module/paypal/paypal.module';
 require('dotenv').config();
 
 
