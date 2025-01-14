@@ -3,6 +3,7 @@ import { IsEmail, IsOptional, IsPhoneNumber, Length } from "class-validator";
 import { Role } from "src/model/enum";
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Adoption } from "../adoption/adoption.entity";
+import { Donation } from "../donation/donation.entity";
 
 @Entity()
 export class User {
@@ -61,5 +62,8 @@ export class User {
 
     @OneToMany(() => Adoption, adoption => adoption.user)
     adoptions: Adoption[]
+
+    @OneToMany(() => Donation, donation => donation.user)
+    donations: Donation[]
 
 }
