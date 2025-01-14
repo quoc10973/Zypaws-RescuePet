@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { TestConnectionService } from './config/testConnection';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import helmet from 'helmet';
 require('dotenv').config();
 
 async function bootstrap() {
@@ -22,6 +23,11 @@ async function bootstrap() {
 
   const testConnectionService = app.get(TestConnectionService);
   await testConnectionService.testConnection();
+  app.use(
+    helmet({
+      contentSecurityPolicy: false,
+    }),
+  );
   await app.listen(process.env.PORT ?? 3000);
 }
 console.log(`Application is running on port ${process.env.PORT ?? 3000}`);
