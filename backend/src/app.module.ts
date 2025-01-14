@@ -11,6 +11,8 @@ import { JwtMiddleware } from './middleware/jwtMiddleware';
 import { LimitLoginAttemptsMiddleware } from './middleware/limitLoginAttemptMiddleware';
 import { Pet } from './entities/pet/pet.entity';
 import { PetModule } from './entities/pet/pet.module';
+import { Adoption } from './entities/adoption/adoption.entity';
+import { AdoptionModule } from './entities/adoption/adoption.module';
 require('dotenv').config();
 
 
@@ -30,7 +32,7 @@ require('dotenv').config();
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
-        entities: [User, Pet],
+        entities: [User, Pet, Adoption],
         synchronize: true,
       }),
       inject: [ConfigService],
@@ -38,6 +40,7 @@ require('dotenv').config();
     UserModule, //import the UserModule for use globally in the AppModule
     AuthenticateModule,
     PetModule,
+    AdoptionModule,
   ],
   controllers: [AppController],
   providers: [AppService, TestConnectionService],

@@ -26,4 +26,12 @@ export class PetService {
             throw new Error("Failed to get pets");
         }
     }
+
+    async getPetById(id: number) {
+        const pet = await this.petRepository.findOne({ where: { id: id } });
+        if (!pet) {
+            throw new Error("Pet not found");
+        }
+        return pet;
+    }
 }
