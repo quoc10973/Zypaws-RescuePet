@@ -46,7 +46,7 @@ export class Pet {
     @ApiProperty()
     image: string;
 
-    @Column()
+    @Column({ type: 'text' })
     @ApiProperty()
     description: string;
 
