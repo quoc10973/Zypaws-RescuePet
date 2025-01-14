@@ -21,6 +21,7 @@ export class AdoptionController {
 
     @Post('create')
     @HttpCode(201)
+    //@CurrentUser() decorator is used to get the current user from the request
     async createAdoption(@CurrentUser() user: User, @Body() createAdoptionDTO: CreateAdoptionDTO) {
         try {
             return await this.adoptionService.createAdoption(user, createAdoptionDTO);
