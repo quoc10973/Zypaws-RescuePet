@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsNumber, IsOptional } from "class-validator";
-import { Gender, Species, Status } from "src/model/enum";
+import { Gender, PetStatus, Species } from "src/model/enum";
 import { Column, CreateDateColumn, Entity, Generated, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
@@ -52,10 +52,10 @@ export class Pet {
     @Column({
         nullable: false,
         type: 'enum',
-        enum: Status
+        enum: PetStatus
     })
     @ApiProperty()
-    status: Status;
+    status: PetStatus;
 
     @Column()
     @CreateDateColumn()
