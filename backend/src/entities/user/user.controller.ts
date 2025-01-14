@@ -2,6 +2,7 @@ import { BadRequestException, Body, Controller, Get, HttpCode, Post, ValidationP
 import { UserService } from './user.service';
 import { User } from './user.entity';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { CurrentUser } from 'src/decorator/customDecorator';
 
 @Controller('user')
 @ApiBearerAuth()
@@ -23,6 +24,15 @@ export class UserController {
         try {
             const createdUser = await this.userService.createUser(user);
             return createdUser;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
+    @Get('getcurrent')
+    async getCurrentUser(@CurrentUser() user: User) {
+        try {
+            return user;
         } catch (error) {
             throw new BadRequestException(error.message);
         }
