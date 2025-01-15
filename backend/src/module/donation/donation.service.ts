@@ -71,7 +71,7 @@ export class DonationService {
                     },
                 },
             );
-            console.log(response.data);
+
             const captureDetails = response.data?.status;
             if (captureDetails !== 'COMPLETED') {
                 throw new HttpException(
