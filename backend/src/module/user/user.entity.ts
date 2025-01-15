@@ -63,7 +63,4 @@ export class User {
     @OneToMany(() => Adoption, adoption => adoption.user)
     adoptions: Adoption[]
 
-    @OneToMany(() => Donation, donation => donation.user)
-    donations: Donation[]
-
 }
