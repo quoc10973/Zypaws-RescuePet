@@ -1,6 +1,5 @@
 import { IsNumber } from "class-validator";
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "../user/user.entity";
 
 @Entity()
 export class Donation {
@@ -15,10 +14,11 @@ export class Donation {
     message: string;
 
     @Column()
+    donator: string;
+
+    @Column()
     @CreateDateColumn()
     createdAt: Date;
 
-    @ManyToOne(() => User, user => user.donations)
-    user: User;
 
 }
