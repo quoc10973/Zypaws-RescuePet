@@ -6,6 +6,7 @@ import { PaypalService } from '../paypal/paypal.service';
 import axios from 'axios';
 import { User } from '../user/user.entity';
 import { UserService } from '../user/user.service';
+import { application } from 'express';
 
 @Injectable()
 export class DonationService {
@@ -23,6 +24,10 @@ export class DonationService {
                 `${process.env.PAYPAL_API}/v2/checkout/orders`,
                 {
                     intent: 'CAPTURE',
+                    application_context: {
+                        return_url: 'http://localhost:8080/zypaws/api/donation/success',
+                        cancel_url: 'http://localhost:8080/zypaws/api/donation/cancel',
+                    },
                     purchase_units: [
                         {
                             amount: {
@@ -40,17 +45,6 @@ export class DonationService {
                     },
                 },
             )
-
-            // Save donation in database
-            const newDonation = new Donation();
-            const donator = await this.userService.findUserByEmail(user.email);
-            if (!donator) {
-                throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-            }
-            newDonation.user = donator;
-            newDonation.amount = createDonationDTO.amount;
-            newDonation.message = createDonationDTO.message;
-            await this.donationRepository.save(newDonation);
             return {
                 orderId: response.data.id,
                 approvalLink: response.data.links.find(link => link.rel === 'approve').href,
@@ -63,5 +57,52 @@ export class DonationService {
             );
         }
     }
+
+    async captureDonation(orderId: string) {
+        const accessPaypalToken = await this.paypalService.getPayPalAccessToken();
+        try {
+            const response = await axios.post(
+                `${process.env.PAYPAL_API}/v2/checkout/orders/${orderId}/capture`,
+                {}, // Empty body
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessPaypalToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                },
+            );
+            console.log(response.data);
+            const captureDetails = response.data?.status;
+            if (captureDetails !== 'COMPLETED') {
+                throw new HttpException(
+                    `Transaction not completed. Status: ${captureDetails?.status || 'Unknown'}`,
+                    HttpStatus.BAD_REQUEST,
+                );
+            }
+
+
+            // Save donation to database
+            const donation = new Donation();
+            const donatorEmail = response.data.payment_source.paypal.email_address;
+            donation.donator = donatorEmail;
+            donation.amount = response.data.purchase_units[0].payments.captures[0].amount.value;
+            donation.message = response.data.purchase_units[0].reference_id;
+            await this.donationRepository.save(donation);
+            return donation;
+        } catch (error) {
+            console.error('Error capturing order:', error.response?.data || error.message);
+            throw new HttpException('Failed to capture donation', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    async cancelDonation(orderId: string) {
+        try {
+            return { message: 'Donation canceled' };
+        } catch (error) {
+            console.error('Error canceling donation:', error.message);
+            throw new HttpException('Failed to cancel donation', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 }

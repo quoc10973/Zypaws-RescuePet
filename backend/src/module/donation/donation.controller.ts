@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, HttpException, HttpStatus, Post, Query } from '@nestjs/common';
 import { DonationService } from './donation.service';
 import { CurrentUser } from 'src/decorator/customDecorator';
 import { User } from '../user/user.entity';
@@ -19,4 +19,33 @@ export class DonationController {
             throw new BadRequestException(error.message);
         }
     }
+
+    @Post('success')
+    async handleSuccess(@Query('token') token: string) {
+        try {
+            const result = await this.donationService.captureDonation(token);
+            return {
+                message: 'Donation successful',
+                transaction: result,
+            };
+        } catch (error) {
+            console.error('Error in success endpoint:', error.message);
+            throw new HttpException('Failed to process success callback', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Get('cancel')
+    async handleCancel(@Query('token') token: string) {
+        try {
+            await this.donationService.cancelDonation(token);
+            return {
+                message: 'Donation cancelled',
+            };
+        } catch (error) {
+            console.error('Error in cancel endpoint:', error.message);
+            throw new HttpException('Failed to process cancel callback', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 }
