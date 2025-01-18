@@ -7,6 +7,10 @@ const contextPath = '/zypaws/api';
 const PUBLIC_ROUTES = [
     `${contextPath}/authenticate/login`,
     `${contextPath}/authenticate/register`,
+    `${contextPath}/authenticate/login-google`,
+    `${contextPath}/authenticate/google-callback`,
+    `${contextPath}/donation/success`,
+    `${contextPath}/donation/cancel`,
 ];
 
 @Injectable()
