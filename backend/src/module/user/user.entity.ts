@@ -44,6 +44,10 @@ export class User {
     @ApiProperty()
     address: string
 
+    @Column({ nullable: true }) // nullable: true means that this field can be null
+    @ApiProperty()
+    avatar: string;
+
     @Column({
         nullable: false,
         type: 'enum',
