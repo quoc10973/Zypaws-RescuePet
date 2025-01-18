@@ -1,7 +1,8 @@
-import { BadRequestException, Body, Controller, Post, ValidationPipe } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, Req, UseGuards, ValidationPipe } from '@nestjs/common';
 import { AuthenticateService } from './authenticate.service';
 import { LoginRequest } from 'src/model/loginRequest';
 import { RegisterRequest } from 'src/model/registerRequest';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('authenticate')
 export class AuthenticateController {
@@ -23,5 +24,24 @@ export class AuthenticateController {
         } catch (error) {
             throw new BadRequestException(error.message);
         }
+    }
+
+    @Get('login-google')
+    @UseGuards(AuthGuard('google'))
+    async googleLogin(): Promise<void> {
+        // Redirect to Google login
+    }
+
+    @Get('google-callback')
+    @UseGuards(AuthGuard('google'))
+    async googleLoginRedirect(@Req() req): Promise<any> {
+        // Return user information and accessToken from Google
+        const { user, accessToken } = req.user;
+
+        return {
+            message: 'User information from Google',
+            user,
+            accessToken,
+        };
     }
 }
