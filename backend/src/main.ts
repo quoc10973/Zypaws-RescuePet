@@ -28,6 +28,10 @@ async function bootstrap() {
       contentSecurityPolicy: false,
     }),
   );
+  app.enableCors({
+    origin: '*', // Allow all origins
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  });
   await app.listen(process.env.PORT ?? 3000);
 }
 console.log(`Application is running on port ${process.env.PORT ?? 3000}`);
