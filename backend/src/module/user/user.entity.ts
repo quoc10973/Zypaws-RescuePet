@@ -1,9 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEmail, IsOptional, IsPhoneNumber, Length } from "class-validator";
 import { Role } from "src/model/enum";
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Adoption } from "../adoption/adoption.entity";
-import { Donation } from "../donation/donation.entity";
+import { Pet } from "../pet/pet.entity";
 
 @Entity()
 export class User {
@@ -66,5 +66,9 @@ export class User {
 
     @OneToMany(() => Adoption, adoption => adoption.user)
     adoptions: Adoption[]
+
+    @ManyToMany(() => Pet, pet => pet.user)
+    @JoinTable({ name: 'favorite' })
+    pets: Pet[]
 
 }
