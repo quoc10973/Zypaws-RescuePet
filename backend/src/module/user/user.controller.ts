@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { User } from './user.entity';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { CurrentUser } from 'src/decorator/customDecorator';
+import { AddPetFavoriteDTO } from 'src/model/addPetFavoriteDTO';
 
 @Controller('user')
 @ApiBearerAuth()
@@ -33,6 +34,15 @@ export class UserController {
     async getCurrentUser(@CurrentUser() user: User) {
         try {
             return user;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
+    @Post('favorite')
+    async addFavorite(@CurrentUser() user: User, @Body(new ValidationPipe()) addPetFavoriteDTO: AddPetFavoriteDTO) {
+        try {
+            return await this.userService.addPetFavorite(user, addPetFavoriteDTO);
         } catch (error) {
             throw new BadRequestException(error.message);
         }

@@ -4,10 +4,12 @@ import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { plainToInstance } from 'class-transformer';
 import { UserDTO } from 'src/model/userDTO';
+import { PetService } from '../pet/pet.service';
+import { AddPetFavoriteDTO } from 'src/model/addPetFavoriteDTO';
 
 @Injectable()
 export class UserService {
-    constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) { }
+    constructor(@InjectRepository(User) private readonly userRepository: Repository<User>, private readonly petService: PetService) { }
 
     async createUser(user: User) {
         try {
@@ -33,5 +35,22 @@ export class UserService {
             throw new Error("User not found");
         }
         return user;
+    }
+
+    async addPetFavorite(currentUser: User, addPetFavoriteDTO: AddPetFavoriteDTO) {
+        try {
+            const pet = await this.petService.getPetById(addPetFavoriteDTO.petId);
+            const user = await this.findUserByEmail(currentUser.email);
+            if (!user.pets) {
+                user.pets = []; // initialize the pets array if user has no pets yet
+            }
+            user.pets.push(pet);
+            await this.userRepository.save(user);
+            return {
+                message: `Pet ${pet.name} added to favorites`,
+            }
+        } catch (error) {
+            throw new Error(error.message);
+        }
     }
 }
