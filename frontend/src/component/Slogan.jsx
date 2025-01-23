@@ -15,7 +15,7 @@ const Slogan = () => {
     return (
         <div className="flex flex-wrap justify-between items-center p-2 sm:p-4 bg-gray-100 relative font-quicksand">
             {/* Donate Button */}
-            <button className="flex items-center gap-2 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white font-semibold py-2 px-4 sm:py-2.5 sm:px-5 md:py-1.5 md:px-4 lg:py-2 lg:px-5 rounded-lg hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-2xl text-sm sm:text-base md:text-sm">
+            <button className="flex items-center ml-2 gap-2 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white font-semibold py-2 px-4 sm:py-2.5 sm:px-5 md:py-1.5 md:px-4 lg:py-2 lg:px-5 rounded-lg hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-2xl text-sm sm:text-base md:text-sm">
                 <HeartIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-4 md:w-4 lg:h-5 lg:w-5 text-white" />
                 Donate
             </button>
@@ -29,7 +29,7 @@ const Slogan = () => {
             </div>
 
             {/* Login and Sign Up Buttons */}
-            <div className="hidden sm:flex gap-3 items-center mt-2 sm:mt-0">
+            <div className="hidden mr-2 sm:flex gap-3 items-center mt-2 sm:mt-0">
                 <Link
                     to="/login"
                     className="flex items-center gap-2 bg-slate-500 text-white font-semibold py-1.5 px-3 rounded-lg hover:bg-slate-600 transition duration-300 shadow-lg hover:shadow-xl text-sm sm:text-base"
