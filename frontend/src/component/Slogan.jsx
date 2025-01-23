@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // Import Link từ react-router-dom
 import { assets } from '../assets/assets';
 import { Bars3Icon } from '@heroicons/react/24/outline';
-import { UserIcon, LockClosedIcon, HeartIcon } from '@heroicons/react/24/solid'; // Import các icon từ Heroicons
+import { UserIcon, LockClosedIcon, HeartIcon, LifebuoyIcon } from '@heroicons/react/24/solid'; // Import các icon từ Heroicons
 
 const Slogan = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -15,10 +15,13 @@ const Slogan = () => {
     return (
         <div className="flex flex-wrap justify-between items-center p-2 sm:p-4 bg-gray-100 relative font-quicksand">
             {/* Donate Button */}
-            <button className="flex items-center ml-2 gap-2 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white font-semibold py-2 px-4 sm:py-2.5 sm:px-5 md:py-1.5 md:px-4 lg:py-2 lg:px-5 rounded-lg hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-2xl text-sm sm:text-base md:text-sm">
+            <Link
+                to="/donation" // Link đến trang donation
+                className="flex items-center ml-2 gap-2 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white font-semibold py-2 px-4 sm:py-2.5 sm:px-5 md:py-1.5 md:px-4 lg:py-2 lg:px-5 rounded-lg hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-2xl text-sm sm:text-base md:text-sm animate-heartbeat"
+            >
                 <HeartIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-4 md:w-4 lg:h-5 lg:w-5 text-white" />
                 Donate
-            </button>
+            </Link>
 
 
             {/* Logo and Decorations */}
@@ -75,6 +78,41 @@ const Slogan = () => {
                         Sign Up
                     </Link>
                 </div>
+                <div className="mt-6 px-4 text-white">
+                    <h3 className="font-quicksand font-semibold text-lg mb-4 border-b border-gray-600 pb-2">
+                        Explore More
+                    </h3>
+                    <ul className="space-y-3">
+                        <li>
+                            <Link
+                                to="/how-you-can-help"
+                                className="flex items-center gap-2 hover:underline hover:text-yellow-400 transition duration-300"
+                            >
+                                <HeartIcon className="h-5 w-5 text-yellow-400" />
+                                How you can help
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/get-support"
+                                className="flex items-center gap-2 hover:underline hover:text-blue-400 transition duration-300"
+                            >
+                                <LifebuoyIcon className="h-5 w-5 text-blue-400" />
+                                Get support
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/about"
+                                className="flex items-center gap-2 hover:underline hover:text-green-400 transition duration-300"
+                            >
+                                <UserIcon className="h-5 w-5 text-green-400" />
+                                About Zypaws-PetRescue
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
         </div>
     );
