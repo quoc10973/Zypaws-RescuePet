@@ -10,7 +10,7 @@ const App = () => {
       <Slogan />
       <Header />
       <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[10vw]">
-        {/* Nơi hiển thị các trang con */}
+        {/* Children output */}
         <Outlet />
       </div>
       <Footer />
