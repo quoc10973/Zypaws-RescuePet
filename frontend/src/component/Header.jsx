@@ -1,24 +1,99 @@
-import React from 'react'
-import { assets } from '../assets/assets'
-import { NavLink } from 'react-router-dom'
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 const Header = () => {
+    const [activeDropdown, setActiveDropdown] = useState(null);
+
+    const toggleDropdown = (menu) => {
+        setActiveDropdown(activeDropdown === menu ? null : menu);
+    };
+
     return (
-        <div className='bg-gray-200 flex items-center justify-center font-medium h-[40px]'>
-            {/* <img src={assets.logo} alt='logo' className='w-36' /> */}
-            <ul className='hidden sm:flex gap-5 space-x-9 font-poppins text-sm text-gray-700'>
-                <NavLink to='/home' className='flex flex-col items-center gap-1' >
-                    <p>Home</p>
-                </NavLink>
-                <NavLink to='/about' className='flex flex-col items-center gap-1' >
-                    <p>About</p>
-                </NavLink>
-                <NavLink to='/contact' className='flex flex-col items-center gap-1' >
-                    <p>Contact</p>
-                </NavLink>
+        <div className='bg-gray-200 border border-gray-200 items-center justify-center font-medium h-[40px] hidden sm:flex'>
+            <ul className='flex gap-2 space-x-2 font-poppins text-sm text-gray-700 h-full'>
+                <li className='h-full relative'>
+                    <div
+                        onClick={() => toggleDropdown('dog')}
+                        className='flex items-center text-red-800 font-bold justify-center h-full hover:bg-slate-100 px-4 cursor-pointer'
+                    >
+                        Dog {activeDropdown === 'dog' ? <ChevronUpIcon className='h-3 w-4 ml-2' /> : <ChevronDownIcon className='h-3 w-4 ml-2' />}
+                    </div>
+                    <ul
+                        className={`absolute top-full left-0 bg-white shadow-md rounded-md py-2 w-56 transition-all duration-300 transform ${activeDropdown === 'dog' ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'
+                            } origin-top`}
+                    >
+                        <li className='px-4 py-2 hover:bg-gray-100'>
+                            <NavLink to='/dog/listing'>View All Dogs</NavLink>
+                        </li>
+                        <li className='px-4 py-2 hover:bg-gray-100'>
+                            <NavLink to='/dog/feeding'>Feeding Your Dog</NavLink>
+                        </li>
+                        <li className='px-4 py-2 hover:bg-gray-100'>
+                            <NavLink to='/dog/behavior'>Dog Behavior</NavLink>
+                        </li>
+                    </ul>
+                </li>
+                <li className='h-full relative'>
+                    <div
+                        onClick={() => toggleDropdown('cat')}
+                        className='flex items-center text-red-800 font-bold justify-center h-full hover:bg-slate-100 px-4 cursor-pointer'
+                    >
+                        Cat {activeDropdown === 'cat' ? <ChevronUpIcon className='h-3 w-4 ml-2' /> : <ChevronDownIcon className='h-3 w-4 ml-2' />}
+                    </div>
+                    <ul
+                        className={`absolute top-full left-0 bg-white shadow-md rounded-md py-2 w-56 transition-all duration-300 transform ${activeDropdown === 'cat' ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'
+                            } origin-top`}
+                    >
+                        <li className='px-4 py-2 hover:bg-gray-100'>
+                            <NavLink to='/cat/listing'>View All Cats</NavLink>
+                        </li>
+                        <li className='px-4 py-2 hover:bg-gray-100'>
+                            <NavLink to='/cat/feeding'>Feeding Your Cat</NavLink>
+                        </li>
+                        <li className='px-4 py-2 hover:bg-gray-100'>
+                            <NavLink to='/dog/behavior'>Cat Behavior</NavLink>
+                        </li>
+                    </ul>
+                </li>
+                <li className='h-full relative'>
+                    <div
+                        onClick={() => toggleDropdown('other-pets')}
+                        className='flex items-center text-red-800 font-bold justify-center h-full hover:bg-slate-100 px-4 cursor-pointer'
+                    >
+                        Other Pets {activeDropdown === 'other-pets' ? <ChevronUpIcon className='h-3 w-4 ml-2' /> : <ChevronDownIcon className='h-3 w-4 ml-2' />}
+                    </div>
+                    <ul
+                        className={`absolute top-full left-0 bg-white shadow-md rounded-md py-2 w-56 transition-all duration-300 transform ${activeDropdown === 'other-pets' ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'
+                            } origin-top`}
+                    >
+                        <li className='px-4 py-2 hover:bg-gray-100'>
+                            <NavLink to='/parrot'>Parrots</NavLink>
+                        </li>
+                        <li className='px-4 py-2 hover:bg-gray-100'>
+                            <NavLink to='/rodent'>Rodents</NavLink>
+                        </li>
+                        <li className='px-4 py-2 hover:bg-gray-100'>
+                            <NavLink to='/rabbit'>Rabbits</NavLink>
+                        </li>
+                        <li className='px-4 py-2 hover:bg-gray-100'>
+                            <NavLink to='/sheep'>Sheeps</NavLink>
+                        </li>
+                    </ul>
+                </li>
+                <li className='h-full'>
+                    <NavLink to='/about' className='flex items-center justify-center h-full hover:bg-slate-100 px-4 cursor-pointer hover:underline'>
+                        About Zypaws - PetRescue
+                    </NavLink>
+                </li>
+                <li className='h-full'>
+                    <NavLink to='/blog' className='flex items-center justify-center h-full hover:bg-slate-100 px-4 cursor-pointer hover:underline'>
+                        Good Reads
+                    </NavLink>
+                </li>
             </ul>
         </div>
-    )
-}
+    );
+};
 
-export default Header
+export default Header;
