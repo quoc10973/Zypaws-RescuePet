@@ -24,7 +24,7 @@ const Slogan = () => {
             {/* Logo and Decorations */}
             <div className="flex gap-5 items-center ml-0 sm:ml-16 sm:mt-0">
                 <img src={assets.decorate1} alt="Decorate 1" className="w-12 sm:w-24 md:w-36 lg:w-48 p-2" />
-                <img src={assets.logo} alt="Logo" className="w-16 sm:w-24 md:w-36 lg:w-48 p-2" />
+                <img src={assets.logo} alt="Logo" className="w-16 sm:w-36 md:w-36 lg:w-48 p-2" />
                 <img src={assets.decorate2} alt="Decorate 2" className="w-12 sm:w-24 md:w-36 lg:w-48 p-2" />
             </div>
 
