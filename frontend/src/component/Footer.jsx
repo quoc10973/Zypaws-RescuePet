@@ -9,46 +9,65 @@ const Footer = () => {
                 {/* Top Section */}
                 <div className="flex flex-wrap justify-between items-start mb-12">
                     {/* About Section */}
-                    <div className="w-full md:w-1/3 mb-6 md:mb-0">
-                        <h3 className="text-lg font-semibold mb-4">About Us</h3>
-                        <p className="text-sm leading-6">
-                            Zypaws-PetRescue is dedicated to rescuing and finding forever homes for abandoned pets. We believe every pet deserves a second chance.
+                    <div className="w-full md:w-1/4 mb-6 md:mb-0">
+                        <h3 className="text-lg font-semibold mb-4">Create Happiness - Save Lives</h3>
+                        <p className="text-sm leading-6 max-w-xs ">
+                            Zypaws-PetRescue is dedicated to rescuing abandoned pets and finding them forever homes.
                         </p>
-                        <p className="text-sm leading-6 mt-4">
-                            Our mission is to promote animal welfare and connect kind-hearted individuals with pets in need.
+                        <p className="text-sm leading-6 mt-4 max-w-xs">
+                            Our mission is to promote animal welfare and connect kind-hearted people with pets in need.
                         </p>
                     </div>
 
                     {/* Quick Links Section */}
-                    <div className="w-full md:w-1/3 mb-6 md:mb-0">
+                    <div className="w-full md:w-1/4 mb-6 md:mb-0">
                         <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
                         <ul className="space-y-2">
                             <li>
-                                <Link to="/donation" className="hover:underline hover:text-yellow-400">Donate</Link>
+                                <Link to="/donation" className="text-sm hover:underline hover:text-yellow-400">Donate for us </Link>
                             </li>
                             <li>
-                                <Link to="/adopt" className="hover:underline hover:text-yellow-400">Adopt a Pet</Link>
+                                <Link to="/adopt" className="text-sm hover:underline hover:text-yellow-400">Adopt a Pet</Link>
                             </li>
                             <li>
-                                <Link to="/volunteer" className="hover:underline hover:text-yellow-400">Volunteer</Link>
+                                <Link to="/volunteer" className="text-sm hover:underline hover:text-yellow-400">Volunteers</Link>
                             </li>
                             <li>
-                                <Link to="/contact" className="hover:underline hover:text-yellow-400">Contact Us</Link>
+                                <Link to="/contact" className="text-sm hover:underline hover:text-yellow-400">Contact to Zypaws</Link>
                             </li>
                             <li>
-                                <Link to="/faq" className="hover:underline hover:text-yellow-400">FAQs</Link>
+                                <Link to="/faq" className="text-sm hover:underline hover:text-yellow-400">FAQs</Link>
                             </li>
                             <li>
-                                <Link to="/blog" className="hover:underline hover:text-yellow-400">Blog</Link>
+                                <Link to="/blog" className="text-sm hover:underline hover:text-yellow-400">Blog - A place to know your pet</Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Pet Care Tips */}
+                    <div className="w-full md:w-1/4 mb-6 md:mb-0">
+                        <h3 className="text-lg font-semibold mb-4">Pet Care Tips</h3>
+                        <ul className="space-y-2">
+                            <li>
+                                <Link to="/pet-care/proper-feeding" className="text-sm hover:underline hover:text-yellow-400">Proper Feeding for Your Dog</Link>
+                            </li>
+                            <li>
+                                <Link to="/pet-care/training-puppy" className="text-sm hover:underline hover:text-yellow-400">How to Train Your New Puppy</Link>
+                            </li>
+                            <li>
+                                <Link to="/pet-care/grooming" className="text-sm hover:underline hover:text-yellow-400">Tips for Grooming Your Pet</Link>
+                            </li>
+                            <li>
+                                <Link to="/pet-care/health" className="text-sm hover:underline hover:text-yellow-400">Keeping Your Pet Healthy and Happy</Link>
                             </li>
                         </ul>
                     </div>
 
                     {/* Contact Section */}
-                    <div className="w-full md:w-1/3">
+                    <div className="w-full md:w-1/4">
                         <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
                         <p className="text-sm leading-6">
-                            Email: <a href="mailto:info@zypaws.com" className="hover:underline">info@zypaws.com</a>
+                            Email: <a href="mailto:info@zypaws.com" className="hover:underline hover:text-yellow-400">info@zypaws.com</a>
                         </p>
                         <p className="text-sm leading-6">Phone: (123) 456-7890</p>
                         <p className="text-sm leading-6 mt-4">
