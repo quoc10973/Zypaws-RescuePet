@@ -6,6 +6,7 @@ import LoginPage from '../pages/LoginPage';
 import SignUpPage from '../pages/SignUpPage';
 import DogPage from '../pages/DogPage';
 import CatPage from '../pages/CatPage';
+import SafeSoundProgramPage from '../pages/SafeSoundProgramPage';
 
 
 const AppRoutes = () => {
@@ -18,6 +19,7 @@ const AppRoutes = () => {
                 <Route path="/signup" element={<SignUpPage />} />
                 <Route path="/dog" element={<DogPage />} />
                 <Route path="/cat" element={<CatPage />} />
+                <Route path="/about-the-safe-sound-pets-program" element={<SafeSoundProgramPage />} />
             </Route>
         </Routes>
     );
