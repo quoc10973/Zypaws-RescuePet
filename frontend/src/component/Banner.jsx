@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { assets } from '../assets/assets';
 
 const Banner = () => {
+
+    const bannerList = [
+        assets.banner1,
+        assets.banner2,
+        assets.banner3,
+        assets.banner4,
+    ]
+
+    const [randomBanner, setRandomBanner] = useState('');
+
+    useEffect(() => {
+        // Randomly select a banner from the list
+        const randomIndex = Math.floor(Math.random() * bannerList.length);
+        setRandomBanner(bannerList[randomIndex]);
+    }, []); // Run only once on component mount
+
     return (
         <div className="w-full h-[50vh] sm:h-[40vh] md:h-[60vh] lg:h-[80vh] relative">
             {/* Banner Image */}
             <img
-                src={assets.banner}
+                src={randomBanner}
                 alt="banner"
                 className="w-full h-full object-cover"
             />
