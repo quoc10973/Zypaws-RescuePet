@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 const Header = () => {
     const [activeDropdown, setActiveDropdown] = useState(null);
+    const location = useLocation(); // Track the current location
+
+    useEffect(() => {
+        setActiveDropdown(null);
+    }, [location.pathname]); // Close dropdown when location changes
 
     const toggleDropdown = (menu) => {
         setActiveDropdown(activeDropdown === menu ? null : menu);
