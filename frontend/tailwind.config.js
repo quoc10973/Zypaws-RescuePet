@@ -12,6 +12,7 @@ export default {
         poppins: ['Poppins', 'sans-serif'],
         dancing: ['Dancing Script', 'cursive'],
         playwrite: ['Playwrite IN', "serif"],
+        lora: ['Lora', 'serif'],
       },
       animation: {
         heartbeat: "heartbeat 1.5s infinite", // define animation heartbeat
