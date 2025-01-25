@@ -44,7 +44,7 @@ const HomePage = () => {
                     <br />
                     <p
                         ref={elementRef}
-                        className={`text-justify font-quicksand text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+                        className={`text-justify font-lora text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
                     >
                         <b>For almost two decades</b>, PetRescue has been at the forefront of the animal rescue movement, tirelessly working to raise awareness about pet adoption and saving lives.
                         We've provided rescue, rehabilitation, and rehoming services to thousands of abandoned and stray animals, giving them a second chance at a better life.
