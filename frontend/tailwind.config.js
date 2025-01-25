@@ -11,6 +11,7 @@ export default {
         roboto: ['Roboto', 'sans-serif'],
         poppins: ['Poppins', 'sans-serif'],
         dancing: ['Dancing Script', 'cursive'],
+        playwrite: ['Playwrite IN', "serif"],
       },
       animation: {
         heartbeat: "heartbeat 1.5s infinite", // define animation heartbeat
