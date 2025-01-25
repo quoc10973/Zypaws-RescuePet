@@ -115,7 +115,7 @@ const Footer = () => {
 
                     {/* Testimonials Section */}
                     <div className="w-full md:w-1/2">
-                        <h3 className="text-lg font-semibold mb-4">What People Say</h3>
+                        <h3 className="text-lg font-semibold mb-4 mt-1">What People Say</h3>
                         <blockquote className="text-sm leading-6 italic text-gray-400">
                             "Zypaws is an amazing organization. Thanks to them, I found my best friend, Luna!" - Jane D.
                         </blockquote>
