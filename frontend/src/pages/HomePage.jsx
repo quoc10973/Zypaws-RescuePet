@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Banner from '../component/Banner';
 import { Link } from 'react-router-dom';
 import { assets } from '../assets/assets';
+import WaveBackground from '../component/WaveBackground';
 
 const HomePage = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -75,11 +76,13 @@ const HomePage = () => {
                     <p ref={elementRef} className={`font-quicksand font-semibold text-gray-600 text-xs sm:text-xs md:text-sm transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
                         We've been saving lives and creating families for over 3 years.
                     </p>
-
-
+                </div>
+                <div className='flex justify-center mb-14' >
+                    <img src={assets.decorate4} alt="Decorate 4" className="w-28 h-50" />
                 </div>
             </div>
-        </div >
+            <WaveBackground />
+        </div>
     );
 };
 
