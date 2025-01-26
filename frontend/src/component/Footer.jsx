@@ -4,7 +4,7 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa'
 
 const Footer = () => {
     return (
-        <footer className="bg-gray-800 text-white py-12 font-quicksand">
+        <footer className="bg-gray-800 text-white px-3 py-12 font-quicksand">
             <div className="container mx-auto px-4">
                 {/* Top Section */}
                 <div className="flex flex-wrap justify-between items-start mb-12">
