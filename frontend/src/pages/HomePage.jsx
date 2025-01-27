@@ -77,7 +77,7 @@ const HomePage = () => {
                         We've been saving lives and creating families for over 3 years.
                     </p>
                 </div>
-                <div className='flex justify-center mb-14' >
+                <div className='flex justify-center mb-2' >
                     <img src={assets.decorate4} alt="Decorate 4" className="w-28 h-50" />
                 </div>
             </div>
