@@ -3,6 +3,7 @@ import Banner from '../component/Banner';
 import { Link } from 'react-router-dom';
 import { assets } from '../assets/assets';
 import WaveBackground from '../component/WaveBackground';
+import Search from '../component/Search';
 
 const HomePage = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -82,6 +83,9 @@ const HomePage = () => {
                 </div>
             </div>
             <WaveBackground />
+            <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[10vw]">
+                <Search />
+            </div>
         </div>
     );
 };
