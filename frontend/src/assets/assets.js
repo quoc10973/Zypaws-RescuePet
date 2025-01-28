@@ -4,6 +4,7 @@ import decorate2 from './decorate2.png'
 import decorate3 from './decorate3.png'
 import decorate4 from './decorate4.gif'
 import decorate5 from './decorate5.png'
+import decorate6 from './decorate6.png'
 import banner1 from './banner1.jpg'
 import banner2 from './banner2.jpg'
 import banner3 from './banner3.jpg'
@@ -11,6 +12,7 @@ import banner4 from './banner4.jpg'
 import confetti1 from './confetti1.svg'
 import confetti2 from './confetti2.svg'
 import confetti3 from './confetti3.svg'
+import bestie from './bestie.png'
 
 export const assets = {
     logo,
@@ -19,11 +21,13 @@ export const assets = {
     decorate3,
     decorate4,
     decorate5,
+    decorate6,
     banner1,
     banner2,
     banner3,
     banner4,
     confetti1,
     confetti2,
-    confetti3
+    confetti3,
+    bestie
 }
