@@ -13,6 +13,7 @@ export default {
         dancing: ['Dancing Script', 'cursive'],
         playwrite: ['Playwrite IN', "serif"],
         lora: ['Lora', 'serif'],
+        signika: ['Signika Negative', 'serif'],
       },
       animation: {
         heartbeat: "heartbeat 1.5s infinite", // define animation heartbeat
