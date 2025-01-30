@@ -9,6 +9,7 @@ import banner1 from './banner1.jpg'
 import banner2 from './banner2.jpg'
 import banner3 from './banner3.jpg'
 import banner4 from './banner4.jpg'
+import banner5 from './banner5.jpg'
 import confetti1 from './confetti1.svg'
 import confetti2 from './confetti2.svg'
 import confetti3 from './confetti3.svg'
@@ -26,8 +27,9 @@ export const assets = {
     banner2,
     banner3,
     banner4,
+    banner5,
     confetti1,
     confetti2,
     confetti3,
-    bestie
+    bestie,
 }
