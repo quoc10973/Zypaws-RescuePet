@@ -3,7 +3,7 @@ import { assets } from '../assets/assets';
 
 const Search = () => {
     return (
-        <div className="flex flex-col py-10 px-6 sm:px-10 md:flex-row justify-between items-center space-y-8 md:space-y-0">
+        <div className="flex flex-col my-10 py-10 px-6 sm:px-10 md:flex-row justify-between items-center space-y-8 md:space-y-0">
             {/* Form */}
             <form className="flex flex-col items-start justify-between space-y-3 md:space-y-3 md:space-x-3">
                 <p className="font-lora font-bold sm:ml-0 md:ml-2 text-slate-700 text-4xl">
