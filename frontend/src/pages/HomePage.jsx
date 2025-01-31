@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion'; // Import framer-motion
 import Banner from '../component/Banner';
 import { Link } from 'react-router-dom';
 import { assets } from '../assets/assets';
@@ -39,6 +40,7 @@ const HomePage = () => {
                 <div className="flex justify-center items-center py-10">
                     <img src={assets.decorate3} alt="Decorate 3" className="w-12 h-44 mb-[-50px]" />
                 </div>
+                <br />
                 <div className="text-center items-start space-y-4 p-12">
                     <p className="font-playwrite font-bold text-green-700 text-1xl sm:text-3xl md:text-3xl lg:text-4xl">
                         Rescue Stray Pet,
@@ -84,10 +86,28 @@ const HomePage = () => {
                 </div>
             </div>
             <WaveBackground />
-            <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[10vw]">
+            <div className="flex justify-center items-center py-10">
+                <img src={assets.decorate7} alt="Decorate 3" className="w-52 h-48 mb-[-90px]" />
+            </div>
+            <div className="px-9 sm:px-[5vw] md:px-[7vw] lg:px-[10vw] text-center">
+                <div className='mt-14 space-y-10'>
+                    <h1 className="text-2xl px-5 sm:text-3xl font-playwrite font-bold md:text-3xl lg:text-4xl text-green-700">Find Your Rescue Pet with Ease!!!</h1>
+                    <div className='flex flex-col sm:flex-row space-y-6 shadow-md rounded-md sm:space-x-12 py-2'>
+                        <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: isVisible ? 0 : 1 }}
+                            transition={{ duration: 1.5 }}
+                            className="text-lg sm:text-lg md:text-xl italic text-justify leading-relaxed px-7 font-lora text-gray-700 -mt-5 md:mt-10 mx-auto"
+                        >
+                            With just a few simple steps, you can discover adorable pets waiting for a loving home.
+                            Select the type of pet you're looking for, explore their unique stories, and take the first step toward giving them a second chance at happiness.
+                            Every pet deserves a warm and caring home — Start your journey to finding your new best friend today! ❤️🐶🐱🐰
+                        </motion.p>
+                        <img src={assets.catbanner} alt="Cat Banner" className="w-full p-3 sm:p-0 sm:w-7/12 h-52 sm:h-64 object-cover mt-4" />
+                    </div>
+                </div>
                 <Search />
             </div>
-
             <DonatetionBanner />
         </div>
     );
