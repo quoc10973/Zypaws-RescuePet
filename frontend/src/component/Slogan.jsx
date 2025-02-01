@@ -13,7 +13,7 @@ const Slogan = () => {
     };
 
     return (
-        <div className="flex flex-wrap justify-between items-center p-2 sm:p-4 bg-gray-100 relative font-quicksand">
+        <div className="flex flex-wrap justify-between items-center p-2 sm:p-4 bg-zinc-50 relative font-quicksand">
             {/* Donate Button */}
             <Link
                 to="/donation" // Link đến trang donation
@@ -28,9 +28,9 @@ const Slogan = () => {
             <div className="flex gap-5 items-center ml-0 sm:ml-16 sm:mt-0">
                 {/* Decorate 1 - Hidden on small screens */}
                 <img
-                    src={assets.decorate1}
+                    src={assets.decorate7}
                     alt="Decorate 1"
-                    className="hidden sm:block w-12 sm:w-24 md:w-36 lg:w-48 p-2"
+                    className="hidden sm:block w-12 sm:w-24 md:w-36 lg:w-36 p-2"
                 />
                 {/* Logo - Always visible */}
                 <Link to="/" className="p-2">
@@ -42,9 +42,9 @@ const Slogan = () => {
                 </Link>
                 {/* Decorate 2 - Hidden on small screens */}
                 <img
-                    src={assets.decorate2}
+                    src={assets.decorate7}
                     alt="Decorate 2"
-                    className="hidden sm:block w-12 sm:w-24 md:w-36 lg:w-48 p-2"
+                    className="hidden sm:block w-12 sm:w-24 md:w-36 lg:w-36 p-2 scale-x-[-1]"
                 />
             </div>
 

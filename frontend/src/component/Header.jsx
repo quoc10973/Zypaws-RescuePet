@@ -16,11 +16,11 @@ const Header = () => {
 
     return (
         <div className='bg-gray-200 border border-gray-200 items-center justify-center font-medium h-[40px] hidden sm:flex'>
-            <ul className='flex gap-2 space-x-2 font-poppins text-md text-gray-700 h-full'>
+            <ul className='flex gap-7 space-x-2 font-signika text-md text-gray-700 h-full'>
                 <li className='h-full relative z-10'>
                     <div
                         onClick={() => toggleDropdown('dog')}
-                        className='flex items-center text-red-800 font-bold justify-center h-full hover:bg-slate-100 px-4 cursor-pointer'
+                        className='flex items-center text-red-900 font-semibold justify-center h-full hover:bg-slate-100 px-4 cursor-pointer'
                     >
                         Dogs {activeDropdown === 'dog' ? <ChevronUpIcon className='h-3 w-4 ml-2' /> : <ChevronDownIcon className='h-3 w-4 ml-2' />}
                     </div>
@@ -48,7 +48,7 @@ const Header = () => {
                 <li className='h-full relative z-10'>
                     <div
                         onClick={() => toggleDropdown('cat')}
-                        className='flex items-center text-red-800 font-bold justify-center h-full hover:bg-slate-100 px-4 cursor-pointer'
+                        className='flex items-center text-red-900 font-semibold justify-center h-full hover:bg-slate-100 px-4 cursor-pointer'
                     >
                         Cats {activeDropdown === 'cat' ? <ChevronUpIcon className='h-3 w-4 ml-2' /> : <ChevronDownIcon className='h-3 w-4 ml-2' />}
                     </div>
@@ -76,7 +76,7 @@ const Header = () => {
                 <li className='h-full relative z-10'>
                     <div
                         onClick={() => toggleDropdown('other-pets')}
-                        className='flex items-center text-red-800 font-bold justify-center h-full hover:bg-slate-100 px-4 cursor-pointer'
+                        className='flex items-center text-red-900 font-semibold justify-center h-full hover:bg-slate-100 px-4 cursor-pointer'
                     >
                         Other Pets {activeDropdown === 'other-pets' ? <ChevronUpIcon className='h-3 w-4 ml-2' /> : <ChevronDownIcon className='h-3 w-4 ml-2' />}
                     </div>
