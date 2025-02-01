@@ -6,6 +6,7 @@ import { assets } from '../assets/assets';
 import WaveBackground from '../component/WaveBackground';
 import Search from '../component/Search';
 import DonatetionBanner from '../component/DonatetionBanner';
+import Partners from '../component/Partners';
 
 const HomePage = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -108,7 +109,9 @@ const HomePage = () => {
                 </div>
                 <Search />
             </div>
+            <Partners />
             <DonatetionBanner />
+
         </div>
     );
 };

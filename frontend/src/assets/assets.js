@@ -1,6 +1,6 @@
 import logo from './logo.png'
-import decorate1 from './decorate1.png'
-import decorate2 from './decorate2.png'
+import decorate1 from './decorate1.svg'
+import decorate2 from './decorate2.svg'
 import decorate3 from './decorate3.png'
 import decorate4 from './decorate4.gif'
 import decorate5 from './decorate5.png'
@@ -16,6 +16,9 @@ import confetti1 from './confetti1.svg'
 import confetti2 from './confetti2.svg'
 import confetti3 from './confetti3.svg'
 import bestie from './bestie.png'
+import partner1 from './partner1.png'
+import partner2 from './partner2.png'
+import partner3 from './partner3.svg'
 
 export const assets = {
     logo,
@@ -36,4 +39,7 @@ export const assets = {
     confetti2,
     confetti3,
     bestie,
+    partner1,
+    partner2,
+    partner3
 }
