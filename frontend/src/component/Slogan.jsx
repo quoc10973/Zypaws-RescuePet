@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // Import Link từ react-router-dom
 import { assets } from '../assets/assets';
 import { Bars3Icon } from '@heroicons/react/24/outline';
-import { UserIcon, LockClosedIcon, HeartIcon, LifebuoyIcon } from '@heroicons/react/24/solid'; // Import các icon từ Heroicons
+import { UserIcon, UserPlusIcon, HeartIcon, LifebuoyIcon } from '@heroicons/react/24/solid'; // Import các icon từ Heroicons
 
 const Slogan = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -62,7 +62,7 @@ const Slogan = () => {
                     to="/signup"
                     className="flex items-center gap-2 bg-slate-500 text-white font-semibold py-1.5 px-3 rounded-lg hover:bg-slate-600 transition duration-300 shadow-lg hover:shadow-xl text-sm sm:text-base"
                 >
-                    <LockClosedIcon className="h-4 w-4" />
+                    <UserPlusIcon className="h-4 w-4" />
                     Sign Up
                 </Link>
             </div>
@@ -91,7 +91,7 @@ const Slogan = () => {
                         to="/signup"
                         className="flex items-center gap-2 bg-slate-500 py-2 px-4 rounded-lg hover:bg-slate-600 transition duration-300 shadow-lg hover:shadow-xl"
                     >
-                        <LockClosedIcon className="h-5 w-5" />
+                        <UserPlusIcon className="h-5 w-5" />
                         Sign Up
                     </Link>
                 </div>
