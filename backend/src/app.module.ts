@@ -55,8 +55,8 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(JwtMiddleware)
-      .forRoutes('*')
-      .apply(LimitLoginAttemptsMiddleware)
-      .forRoutes('/authenticate/login');
+      .forRoutes('*');
+    // .apply(LimitLoginAttemptsMiddleware)
+    // .forRoutes('/authenticate/login');
   }
 }

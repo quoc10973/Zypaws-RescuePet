@@ -5,44 +5,56 @@ import { AuthenticateService } from "./authenticate.service";
 import { UserService } from "src/module/user/user.service";
 import { Role } from "src/model/enum";
 import { User } from "src/module/user/user.entity";
+import { ConfigService } from '@nestjs/config';
+require('dotenv').config();
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     constructor(
         private readonly authenticateService: AuthenticateService,
         private readonly userService: UserService,
+        private readonly configService: ConfigService,
     ) {
         super({
             clientID: process.env.GOOGLE_CLIENT_ID, // from Google Cloud Console
             clientSecret: process.env.GOOGLE_CLIENT_SECRET, // from Google Cloud Console
-            callbackURL: 'https://localhost:8080/zypaws/api/authenticate/google-callback',
-            scope: ['email', 'profile'],
+            callbackURL: 'http://localhost:8080/zypaws/api/authenticate/google-callback',
+            scope: ['openid', 'profile', 'email'],
             passReqToCallback: true,
         });
     }
 
     // _ is the refresh token which we don't need, so we ignore it by using _
-    async validate(accessToken: string, _: string, profile: any, done: VerifyCallback): Promise<any> {
-        const { name, emails, photos } = profile;
+    async validate(accessToken: string, _: string, profile: any): Promise<any> {
+        console.log("Google Profile:", profile);
 
-        // Kiểm tra người dùng đã tồn tại trong cơ sở dữ liệu chưa
-        let user = await this.userService.findUserByEmail(emails[0].value);
-
-        // Nếu người dùng chưa tồn tại, tạo mới người dùng
-        if (!user) {
-            user = new User();
-            user.email = emails[0].value;
-            user.firstName = name.givenName;
-            user.lastName = name.familyName;
-            user.password = 'loginWithGoogle'; // set a default password
-            user.avatar = photos[0].value; // set the avatar from Google
-            user.role = Role.USER; // default role is USER
-
-            const savedUser = await this.userService.createUser(user);
-            user = savedUser; // update user with the saved user
+        if (!profile) {
+            throw new Error("Google profile is undefined");
         }
 
-        // Tạo payload để cấp accessToken
+        const email = profile.emails?.[0]?.value;
+        const firstName = profile.name?.givenName || profile.displayName?.split(" ")[0] || "Unknown";
+        const lastName = profile.name?.familyName || profile.displayName?.split(" ").slice(1).join(" ") || "";
+        const avatar = profile.photos?.[0]?.value || "";
+
+        if (!email) {
+            throw new Error("Google did not return an email");
+        }
+
+        let user = await this.userService.findUserByEmail(email);
+
+        if (!user) {
+            user = new User();
+            user.email = email;
+            user.firstName = firstName;
+            user.lastName = lastName;
+            user.password = 'loginWithGoogle';
+            user.avatar = avatar;
+            user.role = Role.USER;
+
+            user = await this.userService.createUser(user);
+        }
+
         const userPayload = {
             userId: user.id,
             email: user.email,
@@ -51,13 +63,8 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
             role: user.role,
         };
 
-        // Tạo accessToken
         const token = await this.authenticateService.generateToken(userPayload);
-
-        // Trả về thông tin người dùng và accessToken
-        done(null, {
-            user,
-            accessToken: token,
-        });
+        return { user, accessToken: token };
     }
+
 }

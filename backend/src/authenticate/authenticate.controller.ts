@@ -1,8 +1,10 @@
-import { BadRequestException, Body, Controller, Get, Post, Req, UseGuards, ValidationPipe } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, Req, Res, UseGuards, ValidationPipe } from '@nestjs/common';
 import { AuthenticateService } from './authenticate.service';
 import { LoginRequest } from 'src/model/loginRequest';
 import { RegisterRequest } from 'src/model/registerRequest';
 import { AuthGuard } from '@nestjs/passport';
+import { Response } from 'express';
+require('dotenv').config();
 
 @Controller('authenticate')
 export class AuthenticateController {
@@ -34,14 +36,15 @@ export class AuthenticateController {
 
     @Get('google-callback')
     @UseGuards(AuthGuard('google'))
-    async googleLoginRedirect(@Req() req): Promise<any> {
-        // Return user information and accessToken from Google
-        const { user, accessToken } = req.user;
+    async googleLoginRedirect(@Req() req, @Res() res: Response) {
+        if (!req.user) {
+            return res.status(401).json({ message: 'Google authentication failed' });
+        }
 
-        return {
-            message: 'User information from Google',
-            user,
-            accessToken,
-        };
+        const { accessToken } = req.user;
+        const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+
+        // ✅ Redirect về frontend với accessToken
+        res.redirect(`${frontendUrl}/login-success?token=${accessToken}`);
     }
 }

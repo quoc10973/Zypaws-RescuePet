@@ -1,6 +1,7 @@
 import { Injectable, NestMiddleware, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { UserService } from "src/module/user/user.service";
+import { parse } from 'url'; // Import thư viện parse URL
 require('dotenv').config();
 
 const contextPath = '/zypaws/api';
@@ -11,6 +12,7 @@ const PUBLIC_ROUTES = [
     `${contextPath}/authenticate/google-callback`,
     `${contextPath}/donation/success`,
     `${contextPath}/donation/cancel`,
+    `${contextPath}/pet/getall`,
 ];
 
 @Injectable()
@@ -24,15 +26,13 @@ export class JwtMiddleware implements NestMiddleware {
     async use(req: any, res: any, next: () => void) {
 
         const authHeader = req.headers.authorization;
-        const currentPath = req.originalUrl // Get the current path req.path is from express 
+        const currentPath = parse(req.originalUrl).pathname; // Loại bỏ query params
 
-        // If the current path is a public route, skip the middleware
+        // Nếu đường dẫn hiện tại thuộc danh sách PUBLIC_ROUTES, bỏ qua kiểm tra JWT
         if (PUBLIC_ROUTES.includes(currentPath)) {
-            next();
-            return;
+            return next();
         }
 
-        // If the Authorization header is not present, throw an error, otherwise, verify the token
         if (authHeader) {
             const token = authHeader.split(' ')[1];
             try {
@@ -43,10 +43,9 @@ export class JwtMiddleware implements NestMiddleware {
                     throw new UnauthorizedException("Unauthorized");
                 }
 
-                // Attach the user to the request object
+                // Gán thông tin người dùng vào request object
                 req.current = payload;
-
-                next();
+                return next();
 
             } catch (error) {
                 console.error("JWT verification failed:", error);
@@ -57,8 +56,7 @@ export class JwtMiddleware implements NestMiddleware {
                     throw new UnauthorizedException("Invalid token");
                 }
             }
-        }
-        else {
+        } else {
             throw new UnauthorizedException("Unauthorized");
         }
     }
