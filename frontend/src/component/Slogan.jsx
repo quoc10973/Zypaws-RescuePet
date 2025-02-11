@@ -1,19 +1,42 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link từ react-router-dom
+import React, { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // Import Link từ react-router-dom
 import { assets } from '../assets/assets';
 import { Bars3Icon } from '@heroicons/react/24/outline';
-import { UserIcon, UserPlusIcon, HeartIcon, LifebuoyIcon } from '@heroicons/react/24/solid'; // Import các icon từ Heroicons
+import { UserIcon, UserPlusIcon, HeartIcon, LifebuoyIcon, UserCircleIcon } from '@heroicons/react/24/solid'; // Import các icon từ Heroicons
+import { AuthContext } from '../context/AuthContext';
 
 const Slogan = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const { auth, setAuth } = useContext(AuthContext);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
 
     // Handler for toggling sidebar
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
 
+    // Handler for logout
+    const handleLogout = () => {
+        setAuth({
+            isAuthenticated: false,
+            user: {
+                id: '',
+                email: '',
+                name: '',
+                role: ''
+            }
+        });
+        localStorage.removeItem('accessToken');
+        window.location.href = '/';
+    };
+
     return (
-        <div className="flex flex-wrap justify-between items-center p-2 sm:p-4 bg-zinc-50 relative font-quicksand">
+        <div className="flex flex-wrap justify-between items-center ml-4 mr-4 sm:p-3 bg-zinc-50 relative font-quicksand">
             {/* Donate Button */}
             <Link
                 to="/donation" // Link đến trang donation
@@ -25,7 +48,7 @@ const Slogan = () => {
 
 
             {/* Logo and Decorations */}
-            <div className="flex gap-5 items-center ml-0 sm:ml-16 sm:mt-0">
+            <div className="flex gap-5 items-center mr-5 sm:ml-16 sm:mt-0">
                 {/* Decorate 1 - Hidden on small screens */}
                 <img
                     src={assets.decorate7}
@@ -49,23 +72,61 @@ const Slogan = () => {
             </div>
 
             {/* Login and Sign Up Buttons */}
-            <div className="hidden mr-2 sm:flex gap-3 items-center mt-2 sm:mt-0">
-                <Link
-                    to="/login"
-                    className="flex items-center gap-2 bg-slate-500 text-white font-semibold py-1.5 px-3 rounded-lg hover:bg-slate-600 transition duration-300 shadow-lg hover:shadow-xl text-sm sm:text-base"
-                >
-                    <UserIcon className="h-4 w-4" />
-                    Login
-                </Link>
-                <div className="h-6 w-px bg-gray-300"></div>
-                <Link
-                    to="/signup"
-                    className="flex items-center gap-2 bg-slate-500 text-white font-semibold py-1.5 px-3 rounded-lg hover:bg-slate-600 transition duration-300 shadow-lg hover:shadow-xl text-sm sm:text-base"
-                >
-                    <UserPlusIcon className="h-4 w-4" />
-                    Sign Up
-                </Link>
-            </div>
+            {auth.isAuthenticated ? (
+                <div className="relative flex items-center gap-3">
+                    {/* Icon Heart - Link đến trang yêu thích */}
+                    <Link to="/favorite" className="text-red-500 hover:text-red-600 transition duration-3500">
+                        <HeartIcon className="h-7 w-7" />
+                    </Link>
+
+                    {/* User Avatar Button */}
+                    {/* User Avatar Button */}
+                    <button
+                        onClick={toggleDropdown}
+                        className="flex items-center justify-center bg-gray-300 text-gray-800 font-semibold rounded-full h-8 w-8 hover:bg-gray-400 transition"
+                    >
+                        {auth.user.name.charAt(0).toUpperCase()}
+                    </button>
+
+                    {/* Dropdown Menu */}
+                    <div className={`absolute right-0 w-64 mb-[-220px] z-10 bg-white border rounded-lg shadow-lg transition-all duration-300 transform origin-top ${isDropdownOpen ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0 pointer-events-none"
+                        }`}>
+                        <p className="px-4 py-2 text-gray-700 font-semibold">Hi, {auth.user.name}!</p>
+                        <hr />
+                        <ul className="space-y-2">
+                            <li>
+                                <Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">
+                                    Profile
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/change-password" className="block px-4 py-2 hover:bg-gray-100">
+                                    Change Password
+                                </Link>
+                            </li>
+                        </ul>
+                        <button
+                            onClick={handleLogout}
+                            className="w-full text-left px-4 py-3 text-red-500 hover:bg-gray-100"
+                        >
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            ) : (
+                <div className="hidden sm:flex gap-3 items-center mt-2 sm:mt-0">
+                    <Link
+                        to="/login"
+                        className="flex items-center font-quicksand gap-2 text-black font-semibold py-2 rounded-lg transition duration-300 text-lg"
+                    >
+                        <UserIcon className="h-5 w-5" />
+                        Login
+                    </Link>
+
+                </div>
+            )
+            }
+
 
             {/* Menu Icon for Small Screens */}
             <div className="sm:hidden mt-2">

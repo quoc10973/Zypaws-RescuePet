@@ -1,22 +1,40 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { UserIcon, UserPlusIcon } from '@heroicons/react/24/solid';
-import { loginAPI } from '../axios/axios.api';
+import { loginAPI, loginGoogleAPI } from '../axios/axios.api';
+import { AuthContext } from '../context/AuthContext';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
+    const { setAuth } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
             const response = await loginAPI(email, password);
             console.log('Login successful:', response);
+            console.log(response);
             localStorage.setItem('accessToken', response.accessToken);
+            setAuth({
+                isAuthenticated: true,
+                user: {
+                    id: response.id,
+                    email: response.email,
+                    name: response.firstName,
+                    role: response.role
+                }
+            });
+            navigate('/');
         } catch (err) {
             setError(err.response?.data?.message || 'Login failed');
         }
+    };
+
+    const handleGoogleLogin = () => {
+        window.location.href = import.meta.env.VITE_BACKEND_URL + '/authenticate/login-google';
     };
 
     return (
@@ -65,12 +83,27 @@ const LoginPage = () => {
                         </label>
                         <NavLink to='/forgot-password' className='text-blue-500 text-sm hover:underline'>Forgot password?</NavLink>
                     </div>
-                    <button
-                        type='submit'
-                        className='w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition duration-300'
-                    >
-                        Sign In
-                    </button>
+                    <div className='space-y-4'>
+                        <button
+                            type='submit'
+                            className='w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition duration-300'
+                        >
+                            Sign In
+                        </button>
+                        <button
+                            type="button"
+                            onClick={handleGoogleLogin} // Gọi API khi click
+                            className="w-full flex items-center justify-center gap-2 border border-red-400 text-gray-700 p-3 rounded-lg hover:bg-gray-100 transition duration-300"
+                        >
+                            <img
+                                src="https://www.svgrepo.com/show/475656/google-color.svg"
+                                alt="Google Logo"
+                                className="h-5 w-5"
+                            />
+                            Login with Google
+                        </button>
+                    </div>
+
                 </form>
             </div>
         </div >

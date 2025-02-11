@@ -9,4 +9,18 @@ const loginAPI = (email, password) => {
     return axios.post(URL_API, data);
 }
 
-export { loginAPI };
+const loginGoogleAPI = () => {
+    const URL_API = "/authenticate/login-google";
+    return axios.get(URL_API);
+}
+
+const getAllPetsAPI = () => {
+    const URL_API = "/pet/getall";
+    return axios.get(URL_API);
+}
+
+export {
+    loginAPI,
+    loginGoogleAPI,
+    getAllPetsAPI
+};

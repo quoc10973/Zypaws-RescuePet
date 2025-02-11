@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { motion } from 'framer-motion'; // Import framer-motion
 import Banner from '../component/Banner';
 import { Link } from 'react-router-dom';
@@ -7,10 +7,13 @@ import WaveBackground from '../component/WaveBackground';
 import Search from '../component/Search';
 import DonatetionBanner from '../component/DonatetionBanner';
 import Partners from '../component/Partners';
+import { AuthContext } from '../context/AuthContext';
+import PetAvailable from '../component/PetAvailable';
 
 const HomePage = () => {
     const [isVisible, setIsVisible] = useState(false);
     const elementRef = useRef(null);
+    const { auth } = useContext(AuthContext);
 
     // Kiểm tra xem phần tử có vào trong vùng nhìn thấy không khi cuộn chuột
     const handleScroll = () => {
@@ -109,6 +112,7 @@ const HomePage = () => {
                 </div>
                 <Search />
             </div>
+            <PetAvailable />
             <Partners />
             <DonatetionBanner />
 
