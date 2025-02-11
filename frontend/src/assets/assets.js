@@ -19,6 +19,15 @@ import bestie from './bestie.png'
 import partner1 from './partner1.png'
 import partner2 from './partner2.png'
 import partner3 from './partner3.svg'
+import Bella from './Pets/Bella.jpg'
+import Buddy from './Pets/Buddy.jpg'
+import Charlie from './Pets/Charlie.jpg'
+import Luna from './Pets/Luna.jpg'
+import Lucy from './Pets/Lucy.jpg'
+import Max from './Pets/Max.jpg'
+import Milo from './Pets/Milo.jpg'
+import Shadow from './Pets/Shadow.jpg'
+import Toka from './Pets/Toka.jpg'
 
 export const assets = {
     logo,
@@ -42,4 +51,16 @@ export const assets = {
     partner1,
     partner2,
     partner3
-}
+};
+
+export const pets = {
+    Bella,
+    Buddy,
+    Charlie,
+    Luna,
+    Lucy,
+    Max,
+    Milo,
+    Shadow,
+    Toka
+};
