@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
 import { Strategy, VerifyCallback } from "passport-google-oauth20";
 import { AuthenticateService } from "./authenticate.service";
@@ -16,20 +16,19 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
         private readonly configService: ConfigService,
     ) {
         super({
-            clientID: process.env.GOOGLE_CLIENT_ID, // from Google Cloud Console
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET, // from Google Cloud Console
-            callbackURL: 'http://localhost:8080/zypaws/api/authenticate/google-callback',
+            clientID: configService.get<string>('GOOGLE_CLIENT_ID'),
+            clientSecret: configService.get<string>('GOOGLE_CLIENT_SECRET'),
+            callbackURL: configService.get<string>('GOOGLE_CALLBACK_URL') || 'http://localhost:8080/zypaws/api/authenticate/google-callback',
             scope: ['openid', 'profile', 'email'],
             passReqToCallback: true,
         });
     }
 
-    // _ is the refresh token which we don't need, so we ignore it by using _
-    async validate(accessToken: string, _: string, profile: any): Promise<any> {
-        console.log("Google Profile:", profile);
 
+    // _ is the refresh token which we don't need, so we ignore it by using _
+    async validate(req: any, accessToken: string, _: string, profile: any): Promise<any> {
         if (!profile) {
-            throw new Error("Google profile is undefined");
+            throw new BadRequestException("Google profile is undefined");
         }
 
         const email = profile.emails?.[0]?.value;
@@ -38,21 +37,29 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
         const avatar = profile.photos?.[0]?.value || "";
 
         if (!email) {
-            throw new Error("Google did not return an email");
+            throw new BadRequestException("Google did not return an email");
         }
 
-        let user = await this.userService.findUserByEmail(email);
+        let user: User | null = null;
 
+        user = await this.userService.getUserByEmail(email);
+
+        // Nếu không tìm thấy user, tạo mới
         if (!user) {
-            user = new User();
-            user.email = email;
-            user.firstName = firstName;
-            user.lastName = lastName;
-            user.password = 'loginWithGoogle';
-            user.avatar = avatar;
-            user.role = Role.USER;
+            try {
+                user = new User();
+                user.email = email;
+                user.firstName = firstName;
+                user.lastName = lastName;
+                user.password = 'loginWithGoogle';
+                user.avatar = avatar;
+                user.role = Role.USER;
 
-            user = await this.userService.createUser(user);
+                user = await this.userService.createUser(user);
+            } catch (error) {
+                console.error("Error creating user:", error.message);
+                throw new BadRequestException("Failed to create user");
+            }
         }
 
         const userPayload = {
@@ -66,5 +73,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
         const token = await this.authenticateService.generateToken(userPayload);
         return { user, accessToken: token };
     }
+
+
 
 }

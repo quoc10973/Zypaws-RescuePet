@@ -37,14 +37,18 @@ export class AuthenticateController {
     @Get('google-callback')
     @UseGuards(AuthGuard('google'))
     async googleLoginRedirect(@Req() req, @Res() res: Response) {
-        if (!req.user) {
-            return res.status(401).json({ message: 'Google authentication failed' });
+        try {
+            if (!req.user) {
+                return res.status(401).json({ message: 'Google authentication failed' });
+            }
+
+            const { accessToken } = req.user;
+            const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+
+            // Redirect to frontend with access token
+            res.redirect(`${frontendUrl}/?accessToken=${accessToken}`);
+        } catch (error) {
+            throw new BadRequestException(error.message);
         }
-
-        const { accessToken } = req.user;
-        const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
-
-        // ✅ Redirect về frontend với accessToken
-        res.redirect(`${frontendUrl}/login-success?token=${accessToken}`);
     }
 }
