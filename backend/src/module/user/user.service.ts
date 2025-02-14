@@ -16,7 +16,7 @@ export class UserService {
             const newUser = await this.userRepository.save(user);
             return newUser;
         } catch (error) {
-            throw new Error("The email is already in use, please try another one!");
+            throw new Error(error.message);
         }
     }
 
@@ -52,5 +52,13 @@ export class UserService {
         } catch (error) {
             throw new Error(error.message);
         }
+    }
+
+    async getUserByEmail(email: string) {
+        const user = await this.userRepository.findOne({ where: { email: email } });
+        if (!user) {
+            return null;
+        }
+        return user;
     }
 }

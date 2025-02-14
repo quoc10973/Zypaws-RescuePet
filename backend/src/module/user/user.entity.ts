@@ -29,7 +29,7 @@ export class User {
     @ApiProperty()
     lastName: string;
 
-    @Column()
+    @Column({ nullable: true })
     @IsPhoneNumber('VN')
     @ApiProperty()
     phone: string;

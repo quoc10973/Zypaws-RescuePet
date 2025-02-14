@@ -44,7 +44,14 @@ export class JwtMiddleware implements NestMiddleware {
                 }
 
                 // Gán thông tin người dùng vào request object
-                req.current = payload;
+                req.current = {
+                    id: user.id,
+                    email: user.email,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    role: user.role,
+                    acessToken: token
+                };
                 return next();
 
             } catch (error) {

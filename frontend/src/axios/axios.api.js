@@ -19,8 +19,14 @@ const getAllPetsAPI = () => {
     return axios.get(URL_API);
 }
 
+const getCurrentUserAPI = () => {
+    const URL_API = "/user/getcurrent";
+    return axios.get(URL_API);
+}
+
 export {
     loginAPI,
     loginGoogleAPI,
-    getAllPetsAPI
+    getAllPetsAPI,
+    getCurrentUserAPI,
 };
