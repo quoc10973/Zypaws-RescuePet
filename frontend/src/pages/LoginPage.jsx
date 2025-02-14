@@ -27,6 +27,15 @@ const LoginPage = () => {
                     role: response.role
                 }
             });
+            const storeUser = {
+                accessToken: response.accessToken,
+                id: response.id,
+                email: response.email,
+                firstName: response.firstName,
+                lastName: response.lastName,
+                role: response.role
+            }
+            localStorage.setItem('user', JSON.stringify(storeUser));
             navigate('/');
         } catch (err) {
             setError(err.response?.data?.message || 'Login failed');
