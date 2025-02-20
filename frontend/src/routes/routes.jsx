@@ -4,8 +4,7 @@ import App from '../App';
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
 import SignUpPage from '../pages/SignUpPage';
-import DogPage from '../pages/DogPage';
-import CatPage from '../pages/CatPage';
+import PetPage from '../pages/PetPage';
 import SafeSoundProgramPage from '../pages/SafeSoundProgramPage';
 
 
@@ -17,8 +16,7 @@ const AppRoutes = () => {
                 <Route index element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignUpPage />} />
-                <Route path="/dog" element={<DogPage />} />
-                <Route path="/cat" element={<CatPage />} />
+                <Route path="/pet/:id" element={<PetPage />} />
                 <Route path="/about-the-safe-sound-pets-program" element={<SafeSoundProgramPage />} />
             </Route>
         </Routes>

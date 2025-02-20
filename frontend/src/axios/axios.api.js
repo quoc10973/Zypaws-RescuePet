@@ -24,9 +24,15 @@ const getCurrentUserAPI = () => {
     return axios.get(URL_API);
 }
 
+const getPetAPI = (id) => {
+    const URL_API = `/pet/${id}`;
+    return axios.get(URL_API);
+}
+
 export {
     loginAPI,
     loginGoogleAPI,
     getAllPetsAPI,
     getCurrentUserAPI,
+    getPetAPI,
 };
