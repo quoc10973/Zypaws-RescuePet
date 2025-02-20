@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, HttpCode, Post, ValidationPipe } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, HttpCode, Param, Post, ValidationPipe } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { PetService } from './pet.service';
 import { Pet } from './pet.entity';
@@ -22,6 +22,15 @@ export class PetController {
     async createPet(@Body(new ValidationPipe()) pet: Pet) {
         try {
             return await this.petService.createPet(pet);
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
+    @Get(':id')
+    async getPetById(@Param('id') id: number) {
+        try {
+            return await this.petService.getPetById(Number(id)); // Chuyển đổi thành số
         } catch (error) {
             throw new BadRequestException(error.message);
         }
