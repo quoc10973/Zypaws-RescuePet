@@ -7,14 +7,11 @@ import WaveBackground from '../component/WaveBackground';
 import Search from '../component/Search';
 import DonatetionBanner from '../component/DonatetionBanner';
 import Partners from '../component/Partners';
-import { AuthContext } from '../context/AuthContext';
 import PetAvailable from '../component/PetAvailable';
-import { getCurrentUserAPI } from '../axios/axios.api';
 
 const HomePage = () => {
     const [isVisible, setIsVisible] = useState(false);
     const elementRef = useRef(null);
-    const { auth, setAuth } = useContext(AuthContext);
     const navigate = useNavigate();
 
     // Kiểm tra xem phần tử có vào trong vùng nhìn thấy không khi cuộn chuột
@@ -28,35 +25,13 @@ const HomePage = () => {
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
-        const accessToken = params.get('accessToken');
+        const accessToken = params.get("accessToken");
 
         if (accessToken) {
-            // Lưu token vào localStorage
-            localStorage.setItem('accessToken', accessToken);
-
-            // Gọi API lấy thông tin user
-            getCurrentUserAPI(accessToken)
-                .then(response => {
-                    setAuth({
-                        isAuthenticated: true, user: {
-                            id: response.id,
-                            email: response.email,
-                            name: response.firstName,
-                            role: response.role
-                        }
-                    });
-                    localStorage.setItem('user', JSON.stringify(response));
-                })
-                .catch(error => {
-                    console.error("Failed to fetch user info:", error);
-                    localStorage.removeItem('accessToken');
-                });
-
-            // Xóa token khỏi URL
+            localStorage.setItem("accessToken", accessToken);
             navigate("/", { replace: true });
         }
-        console.log(auth);
-    }, [location, navigate, setAuth]);
+    }, [navigate]);
 
 
     useEffect(() => {
