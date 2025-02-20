@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { getAllPetsAPI } from '../axios/axios.api';
+import { getAllPetsAPI, getPetAPI } from '../axios/axios.api';
 import { pets as petImages } from '../assets/assets';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -28,6 +28,17 @@ const PetAvailable = () => {
         fetchPets();
     }, []);
 
+    const handlePetClick = async (id) => {
+        try {
+            const petDetails = await getPetAPI(id); // Gọi API lấy thông tin pet
+            if (petDetails) {
+                navigate(`/pet/${id}`, { state: { petDetails } }); // Điều hướng kèm dữ liệu
+            }
+        } catch (error) {
+            console.error('Failed to fetch pet details:', error);
+        }
+    };
+
     return (
         <div className='flex flex-col items-center justify-center p-10 space-y-10 my-4 relative'>
             <h1 className='text-4xl text-slate-800 font-lora font-semibold'>Pets Available for Adoption</h1>
@@ -53,13 +64,13 @@ const PetAvailable = () => {
                     autoplay={{ delay: 2500, disableOnInteraction: false }} // Thêm autoplay
                     onSwiper={(swiper) => {
                         setTimeout(() => {
-                            if (swiper && swiper.params.navigation) {
+                            if (swiper && swiper.params.navigation && prevRef.current && nextRef.current) {
                                 swiper.params.navigation.prevEl = prevRef.current;
                                 swiper.params.navigation.nextEl = nextRef.current;
-                                swiper.navigation.init();
-                                swiper.navigation.update();
+                                swiper.navigation?.init(); // Dùng optional chaining để tránh lỗi nếu navigation chưa sẵn sàng
+                                swiper.navigation?.update();
                             }
-                        });
+                        }, 0); // Đảm bảo chạy sau khi component render xong
                     }}
                     breakpoints={{
                         640: { slidesPerView: 1 },
@@ -77,7 +88,7 @@ const PetAvailable = () => {
                                     className='bg-white shadow-md rounded-lg p-3 w-80 sm:w-96 relative overflow-hidden cursor-pointer'
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    onClick={() => navigate(`/pet/${pet.id}`)}
+                                    onClick={() => handlePetClick(pet.id)} // Gọi API khi click vào pet
                                 >
                                     <img
                                         src={petImage}
@@ -88,6 +99,7 @@ const PetAvailable = () => {
                                     <p className='text-gray-600 text-sm font-poppins'>{pet.status}</p>
                                 </motion.div>
                             </SwiperSlide>
+
                         );
                     })}
                 </Swiper>
