@@ -32,7 +32,7 @@ const PetAvailable = () => {
         <div className='flex flex-col items-center justify-center p-10 space-y-10 my-4 relative'>
             <h1 className='text-4xl text-slate-800 font-lora font-semibold'>Pets Available for Adoption</h1>
 
-            <div className="relative w-full max-w-4xl">
+            <div className="relative w-full max-w-6xl">
                 {/* Nút điều hướng trái */}
                 <button
                     ref={prevRef}
@@ -43,7 +43,7 @@ const PetAvailable = () => {
 
                 <Swiper
                     modules={[Navigation, Pagination, Autoplay]}
-                    spaceBetween={20}
+                    spaceBetween={40}
                     slidesPerView={1}
                     navigation={{
                         prevEl: prevRef.current,
