@@ -8,6 +8,8 @@ import Search from '../component/Search';
 import DonatetionBanner from '../component/DonatetionBanner';
 import Partners from '../component/Partners';
 import PetAvailable from '../component/PetAvailable';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const HomePage = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -29,9 +31,24 @@ const HomePage = () => {
 
         if (accessToken) {
             localStorage.setItem("accessToken", accessToken);
-            navigate("/", { replace: true });
+
+            // 🟢 Thêm timeout để đảm bảo toast hiển thị trước khi chuyển trang
+            toast.success("Login successful!", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+
+            setTimeout(() => {
+                navigate("/", { replace: true });
+            }, 500); // Đợi 0.5s để toast hiển thị
         }
-    }, [navigate]);
+    }, [location, navigate]); // ✅ Thêm `location` vào dependency array
 
 
     useEffect(() => {

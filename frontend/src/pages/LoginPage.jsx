@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { UserIcon, UserPlusIcon } from '@heroicons/react/24/solid';
 import { loginAPI, loginGoogleAPI } from '../axios/axios.api';
 import { AuthContext } from '../context/AuthContext';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -27,6 +29,7 @@ const LoginPage = () => {
                     role: response.role
                 }
             });
+
             const storeUser = {
                 accessToken: response.accessToken,
                 id: response.id,
@@ -34,8 +37,21 @@ const LoginPage = () => {
                 firstName: response.firstName,
                 lastName: response.lastName,
                 role: response.role
-            }
+            };
             localStorage.setItem('user', JSON.stringify(storeUser));
+
+            // notify login successful
+            toast.success("Login successful!", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light", // Màu sắc nhẹ hơn
+            });
+
             navigate('/');
         } catch (err) {
             setError(err.response?.data?.message || 'Login failed');
