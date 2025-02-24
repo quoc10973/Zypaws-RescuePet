@@ -142,7 +142,6 @@ const HomePage = () => {
             <PetAvailable />
             <Partners />
             <DonatetionBanner />
-
         </div>
     );
 };
