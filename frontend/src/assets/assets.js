@@ -1,4 +1,5 @@
 import logo from './logo.png'
+import pawlogo from './pawlogo.png'
 import decorate1 from './decorate1.svg'
 import decorate2 from './decorate2.svg'
 import decorate3 from './decorate3.png'
@@ -31,6 +32,7 @@ import Toka from './Pets/Toka.jpg'
 
 export const assets = {
     logo,
+    pawlogo,
     decorate1,
     decorate2,
     decorate3,
