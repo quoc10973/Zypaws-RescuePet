@@ -120,7 +120,7 @@ const PetAvailable = () => {
                 <div className="flex justify-center mt-6">
                     <button
                         onClick={() => navigate('/all-pets')}
-                        className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 transition duration-300"
+                        className="px-6 py-3 bg-purple-600 text-white font-semibold rounded-md shadow-md hover:bg-purple-700 transition duration-300"
                     >
                         Meet more friends
                     </button>

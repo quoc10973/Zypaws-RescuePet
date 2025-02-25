@@ -6,7 +6,7 @@ const Search = () => {
         <div className="flex flex-col my-10 py-4 px-6 sm:px-10 md:flex-row justify-between items-center space-y-8 md:space-y-0">
             {/* Form */}
             <form className="flex flex-col items-start justify-between space-y-4 md:space-y-3 md:space-x-3">
-                <p className="font-lora font-bold sm:ml-0 md:ml-2 text-slate-700 text-3xl md:text-4xl">
+                <p className="font-lora font-bold sm:ml-0 md:ml-2 text-slate-800 text-3xl md:text-4xl">
                     Start your rescue pet here.
                 </p>
                 <p className="font-quicksand font-bold">I'm looking for...</p>
