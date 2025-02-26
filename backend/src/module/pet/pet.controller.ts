@@ -17,6 +17,15 @@ export class PetController {
         }
     }
 
+    @Get('getavailable')
+    async getAvailablePets() {
+        try {
+            return await this.petService.getAvailablePets();
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
     @Post('create')
     @HttpCode(201)
     async createPet(@Body(new ValidationPipe()) pet: Pet) {

@@ -14,8 +14,8 @@ const loginGoogleAPI = () => {
     return axios.get(URL_API);
 }
 
-const getAllPetsAPI = () => {
-    const URL_API = "/pet/getall";
+const getPetAvailable = () => {
+    const URL_API = "/pet/getavailable";
     return axios.get(URL_API);
 }
 
@@ -32,7 +32,7 @@ const getPetAPI = (id) => {
 export {
     loginAPI,
     loginGoogleAPI,
-    getAllPetsAPI,
+    getPetAvailable,
     getCurrentUserAPI,
     getPetAPI,
 };

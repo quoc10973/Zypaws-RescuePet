@@ -13,6 +13,7 @@ const PUBLIC_ROUTES = [
     `${contextPath}/donation/success`,
     `${contextPath}/donation/cancel`,
     `${contextPath}/pet/getall`,
+    `${contextPath}/pet/getavailable`,
     `${contextPath}/pet/:id`,
 ];
 
