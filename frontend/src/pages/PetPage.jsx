@@ -78,11 +78,22 @@ const PetDetail = () => {
 
                 <div className="flex-1 bg-purple-700 p-6 rounded-lg text-white space-y-4">
                     <h2 className="text-xl font-semibold">Considering {pet.name} for adoption?</h2>
-                    <button className="w-full bg-white text-purple-700 font-semibold py-2 rounded-lg hover:bg-gray-100">Start Your Inquiry</button>
-                    <button className="w-full border border-white py-2 rounded-lg hover:bg-white hover:text-purple-700">Read FAQs</button>
-                    <div className="flex justify-between mt-4">
-                        <button className="text-white font-semibold">Sponsor</button>
-                        <button className="text-white font-semibold">❤️ Favorite</button>
+
+                    <Link to="/inquiry" className="w-full block text-center bg-white text-purple-700 font-semibold py-2 rounded-lg hover:bg-gray-100">
+                        Start Your Inquiry
+                    </Link>
+
+                    <Link to="/faqs" className="w-full block text-center border border-white py-2 rounded-lg hover:bg-white hover:text-purple-700">
+                        Read FAQs
+                    </Link>
+
+                    <div className="flex justify-center gap-7 mt-4">
+                        <Link to="/donation" className="flex items-center mt-5 gap-2 bg-white text-purple-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-100">
+                            🎗 Sponsor
+                        </Link>
+                        <Link to="/favorite" className="flex items-center mt-5 gap-2 bg-white text-purple-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-100">
+                            ❤️ Favorite
+                        </Link>
                     </div>
                 </div>
             </div>
