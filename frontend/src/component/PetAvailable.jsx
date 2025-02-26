@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { getAllPetsAPI, getPetAPI } from '../axios/axios.api';
+import { getPetAvailable, getPetAPI } from '../axios/axios.api';
 import { pets as petImages } from '../assets/assets';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -16,11 +16,20 @@ const PetAvailable = () => {
     const nextRef = useRef(null);
     const navigate = useNavigate();
 
+    const shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    };
+
     useEffect(() => {
         const fetchPets = async () => {
             try {
-                const response = await getAllPetsAPI();
-                setPets(response);
+                const response = await getPetAvailable();
+                const shuffledPets = shuffleArray(response);
+                setPets(shuffledPets);
             } catch (error) {
                 console.log(error);
             }
