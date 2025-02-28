@@ -7,8 +7,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { ChevronRightIcon } from '@heroicons/react/24/solid';
 
 const PetAvailable = () => {
     const [pets, setPets] = useState([]);
@@ -127,12 +128,24 @@ const PetAvailable = () => {
 
                 {/* View All Button */}
                 <div className="flex justify-center mt-6">
-                    <button
-                        onClick={() => navigate('/all-pets')}
-                        className="px-6 py-3 bg-purple-600 text-white font-semibold rounded-md shadow-md hover:bg-purple-700 transition duration-300"
+                    <motion.div
+                        whileHover={{ scale: 1.05 }} // Phóng to nhẹ khi hover
+                        transition={{ type: "spring", stiffness: 200 }}
                     >
-                        Meet more friends
-                    </button>
+                        <Link
+                            to="/all-pets"
+                            className="text-lg text-slate-800 font-signika underline hover:text-slate-600 transition-all duration-300 flex items-center gap-1"
+                        >
+                            Meet more friends
+                            <motion.div
+                                initial={{ x: 0 }}
+                                whileHover={{ x: 5 }} // Dịch sang phải khi hover
+                                transition={{ type: "spring", stiffness: 200 }}
+                            >
+                                <ChevronRightIcon className="w-5 h-5" />
+                            </motion.div>
+                        </Link>
+                    </motion.div>
                 </div>
 
             </div>
