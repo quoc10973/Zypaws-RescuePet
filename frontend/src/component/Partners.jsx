@@ -5,7 +5,7 @@ const Partners = () => {
     return (
         <div className='flex flex-col items-center justify-center p-5 py- mb-10'>
             <div className='space-y-3'>
-                <h1 className="text-3xl text-green-800 font-bold text-center font-lora">Our Partners</h1>
+                <h1 className="text-3xl text-slate-800 font-bold text-center font-lora">Our Partners</h1>
                 <p className="text-center font-lora text-gray-800">We are proud to work with these companies</p>
             </div>
             <div className='flex justify-center items-center gap-5 mt-8 space-x-5'>
