@@ -17,6 +17,7 @@ const PetDetail = () => {
     const [pet, setPet] = useState(location.state?.petDetails || null);
     const { setLoading } = useContext(AuthContext);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -55,19 +56,25 @@ const PetDetail = () => {
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 className="max-w-4xl mx-auto text-center py-6"
             >
-                <h1 className="text-xl mt-0 mb-[-30px] md:mb-0 md:mt-5 md:text-4xl font-lora font-bold text-gray-900 shadow-sm">
-                    Will you give <span className="text-purple-700">{pet.name}</span> a forever home? 🏡
+                <h1 className="text-lg mt-0 mb-[-30px] md:mb-0 md:mt-5 md:text-4xl font-lora font-bold text-gray-900">
+                    Will you give <span className="text-green-800 text-2xl md:text-6xl font-dancing">{pet.name}</span> a forever home? 🏡
                 </h1>
             </motion.div>
             <div className="max-w-7xl mx-auto mb-10 p-6 md:p-10 shadow-lg rounded-lg bg-white flex flex-col md:flex-row gap-10">
                 <div className="flex-1 flex justify-center">
-                    <img src={petImage} alt={pet.name} className="w-full max-w-md h-auto object-cover rounded-lg shadow-md cursor-pointer" onClick={() => setIsModalOpen(true)} />
+                    <img
+                        src={petImage}
+                        alt={pet.name}
+                        className="w-full max-w-md h-auto object-cover rounded-lg shadow-md cursor-pointer transition-transform transform hover:scale-105"
+                        onClick={() => setIsModalOpen(true)}
+                    />
                 </div>
 
                 <div className="flex-1 space-y-4">
-                    <h1 className="text-4xl font-bold text-gray-900">{pet.name}</h1>
+                    <h1 className="text-4xl font-bold text-gray-900">🐾{pet.name}🐾</h1>
                     <p className="text-lg text-gray-700">Age: <span className="font-semibold">{pet.age} months</span></p>
                     <p className="text-lg text-gray-700">Gender: <span className="font-semibold">{pet.gender}</span></p>
+                    <p className="text-lg text-gray-700">Weight: <span className="font-semibold">{pet.weight || "Not available"} kg</span></p>
                     <p className="text-gray-600">{pet.description}</p>
 
                     <div className="bg-gray-100 p-4 rounded-lg">
@@ -79,13 +86,32 @@ const PetDetail = () => {
                 <div className="flex-1 bg-purple-700 p-6 rounded-lg text-white space-y-4">
                     <h2 className="text-xl font-semibold">Considering {pet.name} for adoption?</h2>
 
-                    <Link to="/inquiry" className="w-full block text-center bg-white text-purple-700 font-semibold py-2 rounded-lg hover:bg-gray-100">
+                    <Link
+                        to="/inquiry"
+                        className={`w-full block text-center font-semibold py-2 rounded-lg ${isChecked ? "bg-white text-purple-700 hover:bg-gray-100" : "bg-gray-400 text-gray-200 cursor-not-allowed"
+                            }`}
+                        onClick={(e) => !isChecked && e.preventDefault()}
+                    >
                         Start Your Inquiry
                     </Link>
-
                     <Link to="/faqs" className="w-full block text-center border border-white py-2 rounded-lg hover:bg-white hover:text-purple-700">
                         Read FAQs
                     </Link>
+
+                    {/* Checkbox */}
+                    <div className="flex items-center gap-3">
+                        <input
+                            type="checkbox"
+                            id="adopt-agreement"
+                            className="w-5 h-5 cursor-pointer"
+                            checked={isChecked}
+                            onChange={() => setIsChecked(!isChecked)}
+                        />
+                        <label htmlFor="adopt-agreement" className="text-sm">
+                            I confirm that I have read and agree to the adoption details.
+                        </label>
+                    </div>
+
 
                     <div className="flex justify-center gap-7 mt-4">
                         <Link to="/donation" className="flex items-center mt-5 gap-2 bg-white text-purple-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-100">
@@ -96,6 +122,34 @@ const PetDetail = () => {
                         </Link>
                     </div>
                 </div>
+            </div>
+
+            <div className="max-w-7xl mx-auto bg-white p-6 shadow-lg rounded-lg mb-10">
+                <h2 className="text-2xl font-semibold text-gray-900 mb-4">Adoption Details</h2>
+                <p className="text-gray-700 mb-4">
+                    From here, <span className="font-semibold">Zypaws Home</span> will be in touch to learn more about you and chat with you about the pet.
+                    It’s a great opportunity for you to ask any questions you may have about the pet, including its likes and dislikes, needs, and how it may fit into your lifestyle and family.
+                </p>
+                <p className="text-gray-700 mb-4">
+                    If your home and lifestyle match the pet's needs, the next step will be arranging a <span className="font-semibold">meet-and-greet</span> to make sure everyone is happy to proceed with a formal adoption.
+                    This session allows you to interact with the pet in a comfortable environment, observe its behavior, and ensure that it is the right fit for you and your household.
+                </p>
+                <p className="text-gray-700 mb-4">
+                    Our team will also provide essential guidance on the pet's diet, exercise needs, training requirements, and medical history.
+                    If needed, we will arrange for follow-up consultations to assist you in ensuring a smooth transition for your new companion.
+                </p>
+                <p className="text-gray-700 mb-4">
+                    Once both parties are satisfied, we will proceed with the official adoption process.
+                    This includes signing an <span className="font-semibold">adoption agreement</span> that outlines the responsibilities of pet ownership, as well as receiving a detailed adoption packet that contains useful resources on pet care, training tips, and emergency contacts.
+                </p>
+                <p className="text-gray-700 mb-4">
+                    Following the adoption, change of ownership paperwork will be completed, and proof of vaccination, microchipping, and desexing (if applicable, as indicated on the listing) will be provided.
+                    You will also receive records of the pet's past medical history and any recommended future treatments or check-ups.
+                </p>
+                <p className="text-gray-700">
+                    At <span className="font-semibold">Zypaws Home</span>, we believe that adopting a pet is a lifelong commitment, and we are here to support you every step of the way.
+                    We offer post-adoption support, including training resources, behavioral advice, and connections to veterinary services to help ensure a happy and fulfilling life for both you and your new furry friend.
+                </p>
             </div>
 
             {/* Google Map & More About Us */}
@@ -138,7 +192,41 @@ const PetDetail = () => {
                         More About Us
                     </Link>
                 </div>
+
             </div>
+            <div className="bg-purple-700 font-quicksand text-white text-center py-8 px-4">
+                {/* Pet + Detail */}
+                <div className="flex flex-col items-center">
+                    <img
+                        src={petImage}
+                        alt="pet-name"
+                        className="h-24 w-24 rounded-full border-4 border-white mb-4"
+                    />
+                    <h2 className="text-2xl font-semibold">Ask About {pet.name}</h2>
+                    <p className="text-sm text-gray-200">Baby •  {pet.species
+                        .split(" ")
+                        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                        .join(" ")}
+                        {" "}• {pet.gender.charAt(0).toUpperCase() + pet.gender.slice(1).toLowerCase()}</p>
+                </div>
+
+                {/* Split*/}
+                <div className="border-t border-gray-300 my-6 w-3/4 mx-auto"></div>
+
+                {/* Infor */}
+                <div className="text-sm">
+                    <p className="mb-2">
+                        Please note that Zypaws is not able to answer inquiries via email through Petfinder at this time.
+                    </p>
+                    <p className="mb-2">
+                        You may call them with your inquiry at: <span className="font-bold">(+84) 38699817</span>
+                    </p>
+                    <p>
+                        You may also find more information about the organization on homepage: <span className="font-bold">zypaws.com</span>
+                    </p>
+                </div>
+            </div>
+
             {isModalOpen && (
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -158,6 +246,7 @@ const PetDetail = () => {
             )}
             <PetAvailable />
             <Partners />
+
             <DonatetionBanner />
         </>
     );
