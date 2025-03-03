@@ -29,10 +29,16 @@ const getPetAPI = (id) => {
     return axios.get(URL_API);
 }
 
+const getAllPetAPI = () => {
+    const URL_API = "/pet/getall";
+    return axios.get(URL_API);
+}
+
 export {
     loginAPI,
     loginGoogleAPI,
-    getPetAvailable,
     getCurrentUserAPI,
+    getPetAvailable,
+    getAllPetAPI,
     getPetAPI,
 };
