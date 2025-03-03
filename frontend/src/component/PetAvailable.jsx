@@ -133,7 +133,7 @@ const PetAvailable = () => {
                         transition={{ type: "spring", stiffness: 200 }}
                     >
                         <Link
-                            to="/all-pets"
+                            to="/listing"
                             className="text-lg text-slate-800 font-signika underline hover:text-slate-600 transition-all duration-300 flex items-center gap-1"
                         >
                             Meet more friends
