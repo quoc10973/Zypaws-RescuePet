@@ -29,6 +29,9 @@ import Max from './Pets/Max.jpg'
 import Milo from './Pets/Milo.jpg'
 import Shadow from './Pets/Shadow.jpg'
 import Toka from './Pets/Toka.jpg'
+import Nemo from './Pets/Nemo.jpg'
+import Chloe from './Pets/Chloe.jpg'
+import Lily from './Pets/Lily.jpg'
 
 export const assets = {
     logo,
@@ -64,5 +67,8 @@ export const pets = {
     Max,
     Milo,
     Shadow,
-    Toka
+    Toka,
+    Nemo,
+    Chloe,
+    Lily
 };
