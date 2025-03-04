@@ -83,7 +83,7 @@ const PetDetail = () => {
                     </div>
                 </div>
 
-                <div className="flex-1 bg-purple-700 p-6 rounded-lg text-white space-y-4">
+                <div className="flex-1 bg-cyan-800 p-6 rounded-lg text-white space-y-4">
                     <h2 className="text-xl font-semibold">Considering {pet.name} for adoption?</h2>
 
                     <Link
@@ -166,10 +166,10 @@ const PetDetail = () => {
                     </iframe>
                 </div>
 
-                {/* More About Us - Bên phải */}
+                {/* More About Us - Right */}
                 <div className="flex-1 bg-white p-6 shadow-lg rounded-lg">
                     <div className="flex items-center gap-4">
-                        <div className="bg-purple-500 p-4 rounded-full">
+                        <div className="bg-cyan-500 p-4 rounded-full">
                             <img src={assets.pawlogo} alt="Logo" className="w-12 h-12" />
                         </div>
                         <h2 className="text-2xl font-semibold">Zypaws Animals In Need</h2>
@@ -187,14 +187,14 @@ const PetDetail = () => {
                     </div>
                     <Link
                         to="/about"
-                        className="block text-center bg-purple-600 text-white font-semibold py-2 rounded-lg mt-11 hover:bg-purple-800"
+                        className="block text-center bg-cyan-700 text-white font-semibold py-2 rounded-lg mt-11 hover:bg-cyan-800"
                     >
                         More About Us
                     </Link>
                 </div>
 
             </div>
-            <div className="bg-purple-700 font-quicksand text-white text-center py-8 px-4">
+            <div className="bg-cyan-800 font-quicksand text-white text-center py-8 px-4">
                 {/* Pet + Detail */}
                 <div className="flex flex-col items-center">
                     <img

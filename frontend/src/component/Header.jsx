@@ -29,7 +29,7 @@ const Header = () => {
                             } origin-top`}
                     >
                         <li className='px-4 py-2 hover:bg-gray-100'>
-                            <NavLink to='/dog/listing'>View All Dogs</NavLink>
+                            <NavLink to='/listing?petType=DOG'>View All Dogs</NavLink>
                         </li>
                         <li className='px-4 py-2 hover:bg-gray-100'>
                             <NavLink to='/dog/feeding'>Feeding Your Dog</NavLink>
@@ -57,7 +57,7 @@ const Header = () => {
                             } origin-top`}
                     >
                         <li className='px-4 py-2 hover:bg-gray-100'>
-                            <NavLink to='/cat/listing'>View All Cats</NavLink>
+                            <NavLink to='/listing?petType=CAT'>View All Cats</NavLink>
                         </li>
                         <li className='px-4 py-2 hover:bg-gray-100'>
                             <NavLink to='/cat/feeding'>Feeding Your Cat</NavLink>
