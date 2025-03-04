@@ -8,16 +8,19 @@ import MobileTopBar from '../component/MobileTopBar';
 import { motion } from 'framer-motion';
 
 const ListingPage = () => {
-
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    const petTypeFromURL = searchParams.get('petType') || ''; // Get petType from URL
+    const petTypeFromURL = searchParams.get('petType') || '';
 
     const [pets, setPets] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredPets, setFilteredPets] = useState([]);
-    const [speciesFilter, setSpeciesFilter] = useState(petTypeFromURL.toUpperCase()); // Apply petType from URL
+    const [speciesFilter, setSpeciesFilter] = useState(petTypeFromURL.toUpperCase());
     const [genderFilter, setGenderFilter] = useState('');
+
+    // Pagination states
+    const [currentPage, setCurrentPage] = useState(1);
+    const petsPerPage = 12; // set pet per page
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -36,12 +39,12 @@ const ListingPage = () => {
         fetchPets();
     }, []);
 
-    // Cập nhật bộ lọc khi URL thay đổi
+    // update species filter when petTypeFromURL changes
     useEffect(() => {
-        setSpeciesFilter(petTypeFromURL.toUpperCase()); // Chuyển đổi về dạng chữ in hoa để so sánh với dữ liệu API
+        setSpeciesFilter(petTypeFromURL.toUpperCase());
     }, [petTypeFromURL]);
 
-    // Lọc danh sách thú cưng
+    // Filter pets based on search term, species, gender
     useEffect(() => {
         const results = pets.filter(pet =>
             pet.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
@@ -49,7 +52,13 @@ const ListingPage = () => {
             (genderFilter ? pet.gender === genderFilter : true)
         );
         setFilteredPets(results);
+        setCurrentPage(1); // Reset to first page when filters change.
     }, [searchTerm, speciesFilter, genderFilter, pets]);
+
+    // Caculate index of last and first pet for pagination
+    const indexOfLastPet = currentPage * petsPerPage;
+    const indexOfFirstPet = indexOfLastPet - petsPerPage;
+    const currentPets = filteredPets.slice(indexOfFirstPet, indexOfLastPet);
 
     return (
         <div>
@@ -110,7 +119,7 @@ const ListingPage = () => {
                         </select>
                     </div>
 
-                    {/* Clear */}
+                    {/* Clear Filters */}
                     <button
                         className="mt-4 w-full bg-slate-700 text-white py-2 rounded-md hover:bg-slate-800 transition"
                         onClick={() => {
@@ -143,18 +152,15 @@ const ListingPage = () => {
                             Learn More About Our Mission
                         </Link>
                     </div>
-
                 </div>
 
                 {/* Pet Listing */}
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 min-h-[300px] justify-center items-start">
-
-
-                    {filteredPets.map((pet) => {
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 min-h-[300px]">
+                    {currentPets.map((pet) => {
                         const petImage = petImages[pet.image] || '/default-image.jpg';
                         return (
-                            <div key={pet.id} className="border rounded-lg shadow-md p-3 relative transition-transform transform hover:-translate-y-2 duration-300 cursor-pointer">
-                                <div className="absolute top-5 right-5 bg-zinc-800 rounded-full p-3 flex items-center justify-center hover:scale-110 transition-transform duration-200">
+                            <div key={pet.id} className="border rounded-lg shadow-md p-3 relative transition-transform transform hover:-translate-y-2 duration-300">
+                                <div className="absolute top-5 right-5 bg-zinc-800 rounded-full p-3">
                                     <Link to={`/favorite/${pet.id}`} className="text-white hover:text-red-500">
                                         <HeartIcon className="h-5 w-5" />
                                     </Link>
@@ -168,7 +174,28 @@ const ListingPage = () => {
                     })}
                 </div>
             </div>
-        </div>
+
+            {/* Pagination Controls */}
+            <div className="flex justify-center mt-6 mb-10 gap-2">
+                <button
+                    className={`px-4 py-2 rounded-md ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
+                    disabled={currentPage === 1}
+                    onClick={() => setCurrentPage(currentPage - 1)}
+                >
+                    Previous
+                </button>
+                <span className="px-4 py-2 bg-gray-200 rounded-md">
+                    Page {currentPage} of {Math.ceil(filteredPets.length / petsPerPage)}
+                </span>
+                <button
+                    className={`px-4 py-2 rounded-md ${indexOfLastPet >= filteredPets.length ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
+                    disabled={indexOfLastPet >= filteredPets.length}
+                    onClick={() => setCurrentPage(currentPage + 1)}
+                >
+                    Next
+                </button>
+            </div>
+        </div >
     );
 };
 
