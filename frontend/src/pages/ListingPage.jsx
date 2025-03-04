@@ -155,7 +155,7 @@ const ListingPage = () => {
                 </div>
 
                 {/* Pet Listing */}
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 min-h-[300px]">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 min-h-[300px] items-start">
                     {currentPets.map((pet) => {
                         const petImage = petImages[pet.image] || '/default-image.jpg';
                         return (
