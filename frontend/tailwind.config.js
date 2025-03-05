@@ -19,6 +19,7 @@ export default {
         heartbeat: "heartbeat 1.5s infinite", // define animation heartbeat
         'fade-in': 'fadeIn 1.5s ease-in forwards',
         'fade-in-delayed': 'fadeIn 2s ease-in forwards',
+        'tilt': "tilt 1.5s infinite ease-in-out"
       },
       keyframes: {
         heartbeat: {
@@ -38,6 +39,11 @@ export default {
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
+        },
+        tilt: {
+          "0%, 100%": { transform: "rotate(0deg)" },  // Bình thường
+          "50%": { transform: "rotate(-1deg)" },  // Nghiêng trái nhẹ (-1 độ)
+          "75%": { transform: "rotate(1deg)" },   // Nghiêng phải nhẹ (1 độ)
         },
       },
     },
