@@ -20,6 +20,7 @@ import bestie from './bestie.png'
 import partner1 from './partner1.png'
 import partner2 from './partner2.png'
 import partner3 from './partner3.svg'
+import catdonatebanner from './catdonatebanner.jpg'
 import Bella from './Pets/Bella.jpg'
 import Buddy from './Pets/Buddy.jpg'
 import Charlie from './Pets/Charlie.jpg'
@@ -55,7 +56,8 @@ export const assets = {
     bestie,
     partner1,
     partner2,
-    partner3
+    partner3,
+    catdonatebanner
 };
 
 export const pets = {
