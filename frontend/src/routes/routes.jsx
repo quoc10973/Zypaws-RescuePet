@@ -7,6 +7,7 @@ import SignUpPage from '../pages/SignUpPage';
 import PetPage from '../pages/PetPage';
 import SafeSoundProgramPage from '../pages/SafeSoundProgramPage';
 import ListingPage from '../pages/ListingPage';
+import DonatePage from '../pages/DonatePage';
 
 
 const AppRoutes = () => {
@@ -20,6 +21,7 @@ const AppRoutes = () => {
                 <Route path="/pet/:id" element={<PetPage />} />
                 <Route path="/about-the-safe-sound-pets-program" element={<SafeSoundProgramPage />} />
                 <Route path="/listing" element={<ListingPage />} />
+                <Route path="donation" element={<DonatePage />} />
             </Route>
         </Routes>
     );
