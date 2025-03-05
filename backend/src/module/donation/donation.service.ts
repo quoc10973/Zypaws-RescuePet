@@ -7,6 +7,7 @@ import axios from 'axios';
 import { User } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 import { application } from 'express';
+import { CreateDonationDTO } from 'src/model/createDonationDTO';
 
 @Injectable()
 export class DonationService {
@@ -17,7 +18,7 @@ export class DonationService {
         private readonly userService: UserService,
     ) { }
 
-    async createDonation(user: User, createDonationDTO) {
+    async createDonation(user: User, createDonationDTO: CreateDonationDTO) {
         const accessPaypalToken = await this.paypalService.getPayPalAccessToken();
         try {
             const response = await axios.post(
@@ -34,7 +35,7 @@ export class DonationService {
                                 currency_code: 'USD',
                                 value: createDonationDTO.amount.toString(),
                             },
-                            description: createDonationDTO.message,
+                            custom_id: createDonationDTO.message, // Save message to custom_id
                         },
                     ],
                 },
@@ -72,6 +73,8 @@ export class DonationService {
                 },
             );
 
+            // console.log('PayPal Capture Response:', JSON.stringify(response.data, null, 2)); check response data from paypal
+
             const captureDetails = response.data?.status;
             if (captureDetails !== 'COMPLETED') {
                 throw new HttpException(
@@ -86,7 +89,7 @@ export class DonationService {
             const donatorEmail = response.data.payment_source.paypal.email_address;
             donation.donator = donatorEmail;
             donation.amount = response.data.purchase_units[0].payments.captures[0].amount.value;
-            donation.message = response.data.purchase_units[0].reference_id;
+            donation.message = response.data.purchase_units[0]?.payments?.captures[0]?.custom_id || 'No message'; // Get message from custom_id
             await this.donationRepository.save(donation);
             return donation;
         } catch (error) {
