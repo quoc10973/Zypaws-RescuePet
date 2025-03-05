@@ -21,7 +21,7 @@ const AppRoutes = () => {
                 <Route path="/pet/:id" element={<PetPage />} />
                 <Route path="/about-the-safe-sound-pets-program" element={<SafeSoundProgramPage />} />
                 <Route path="/listing" element={<ListingPage />} />
-                <Route path="donation" element={<DonationPage />} />
+                <Route path="/donation" element={<DonationPage />} />
             </Route>
         </Routes>
     );
