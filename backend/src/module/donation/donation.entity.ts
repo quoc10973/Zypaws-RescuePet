@@ -16,6 +16,9 @@ export class Donation {
     @Column()
     donator: string;
 
+    @Column({ unique: true })
+    transactionId: string;
+
     @Column()
     @CreateDateColumn()
     createdAt: Date;

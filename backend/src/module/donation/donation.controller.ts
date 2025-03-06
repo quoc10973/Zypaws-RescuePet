@@ -4,6 +4,7 @@ import { CurrentUser } from 'src/decorator/customDecorator';
 import { User } from '../user/user.entity';
 import { CreateDonationDTO } from 'src/model/createDonationDTO';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { TokenDTO } from 'src/model/tokenDTO';
 
 @Controller('donation')
 @ApiBearerAuth()
@@ -21,9 +22,15 @@ export class DonationController {
     }
 
     @Post('success')
-    async handleSuccess(@Query('token') token: string) {
+    async handleSuccess(@Body() tokenDTO: TokenDTO) {
+
+        // Check if tokenDTO is empty
+        if (!tokenDTO) {
+            throw new HttpException('Missing PayPal token', HttpStatus.BAD_REQUEST);
+        }
+
         try {
-            const result = await this.donationService.captureDonation(token);
+            const result = await this.donationService.captureDonation(tokenDTO.token);
             return {
                 message: 'Donation successful',
                 transaction: result,
