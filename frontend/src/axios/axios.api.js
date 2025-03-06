@@ -34,6 +34,23 @@ const getAllPetAPI = () => {
     return axios.get(URL_API);
 }
 
+const createDonationAPI = (amount, message) => {
+    const URL_API = "/donation/create";
+    let data = {
+        amount: amount,
+        message: message,
+    };
+    return axios.post(URL_API, data);
+}
+
+const captureSuccessDonationAPI = (token) => {
+    const URL_API = "/donation/success";
+    let data = {
+        token: token,
+    };
+    return axios.post(URL_API, data);
+}
+
 export {
     loginAPI,
     loginGoogleAPI,
@@ -41,4 +58,6 @@ export {
     getPetAvailable,
     getAllPetAPI,
     getPetAPI,
+    createDonationAPI,
+    captureSuccessDonationAPI
 };

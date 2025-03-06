@@ -8,6 +8,7 @@ import PetPage from '../pages/PetPage';
 import SafeSoundProgramPage from '../pages/SafeSoundProgramPage';
 import ListingPage from '../pages/ListingPage';
 import DonationPage from '../pages/DonationPage';
+import DonationResult from '../pages/DonationResult';
 
 
 const AppRoutes = () => {
@@ -22,6 +23,8 @@ const AppRoutes = () => {
                 <Route path="/about-the-safe-sound-pets-program" element={<SafeSoundProgramPage />} />
                 <Route path="/listing" element={<ListingPage />} />
                 <Route path="/donation" element={<DonationPage />} />
+                <Route path="/donation/success" element={<DonationResult />} />
+                <Route path="/donation/cancel" element={<DonationResult />} />
             </Route>
         </Routes>
     );
