@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getAllPetAPI } from '../axios/axios.api';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { pets as petImages } from '../assets/assets';
 import { assets } from '../assets/assets';
 import { HeartIcon } from '@heroicons/react/20/solid';
@@ -9,22 +9,33 @@ import { motion } from 'framer-motion';
 
 const ListingPage = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const searchParams = new URLSearchParams(location.search);
     const petTypeFromURL = searchParams.get('petType') || '';
+
+    // Get the current page from local storage or URL
+    const storedPage = localStorage.getItem("currentPage");
+    const initialPage = storedPage ? parseInt(storedPage) : parseInt(searchParams.get("page")) || 1;
 
     const [pets, setPets] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredPets, setFilteredPets] = useState([]);
     const [speciesFilter, setSpeciesFilter] = useState(petTypeFromURL.toUpperCase());
     const [genderFilter, setGenderFilter] = useState('');
-
-    // Pagination states
-    const [currentPage, setCurrentPage] = useState(1);
-    const petsPerPage = 12; // set pet per page
+    const [currentPage, setCurrentPage] = useState(initialPage);
+    const petsPerPage = 12;
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    // Handle pagination
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+        localStorage.setItem("currentPage", newPage);
+        navigate(`/listing?page=${newPage}`);
+        window.scrollTo(0, 0);
+    };
 
     useEffect(() => {
         const fetchPets = async () => {
@@ -36,15 +47,16 @@ const ListingPage = () => {
                 console.error('Error fetching pets:', error);
             }
         };
-        fetchPets();
+
+        if (pets.length === 0) {
+            fetchPets();
+        }
     }, []);
 
-    // update species filter when petTypeFromURL changes
     useEffect(() => {
         setSpeciesFilter(petTypeFromURL.toUpperCase());
     }, [petTypeFromURL]);
 
-    // Filter pets based on search term, species, gender
     useEffect(() => {
         const results = pets.filter(pet =>
             pet.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
@@ -52,10 +64,13 @@ const ListingPage = () => {
             (genderFilter ? pet.gender === genderFilter : true)
         );
         setFilteredPets(results);
-        setCurrentPage(1); // Reset to first page when filters change.
+
+        // If any filter is applied, reset the page to 1
+        if (searchTerm || speciesFilter || genderFilter) {
+            setCurrentPage(1);
+        }
     }, [searchTerm, speciesFilter, genderFilter, pets]);
 
-    // Caculate index of last and first pet for pagination
     const indexOfLastPet = currentPage * petsPerPage;
     const indexOfFirstPet = indexOfLastPet - petsPerPage;
     const currentPets = filteredPets.slice(indexOfFirstPet, indexOfLastPet);
@@ -77,10 +92,12 @@ const ListingPage = () => {
                 </div>
             </div>
 
+
+            {/* Sidebar filter */}
             <div className="flex flex-col sm:flex-row gap-4 p-4 px-5 mx-auto">
 
-                {/* Sidebar filter */}
                 <div className="sm:w-1/5 flex-shrink-0 px-3">
+                    {/* Search bar */}
                     <div className="text-xl font-semibold">Search results: {filteredPets.length} pets</div>
                     <input
                         type="text"
@@ -180,22 +197,24 @@ const ListingPage = () => {
                 <button
                     className={`px-4 py-2 rounded-md ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
                     disabled={currentPage === 1}
-                    onClick={() => setCurrentPage(currentPage - 1)}
+                    onClick={() => handlePageChange(currentPage - 1)}
                 >
                     Previous
                 </button>
+
                 <span className="px-4 py-2 bg-gray-200 rounded-md">
                     Page {currentPage} of {Math.ceil(filteredPets.length / petsPerPage)}
                 </span>
+
                 <button
                     className={`px-4 py-2 rounded-md ${indexOfLastPet >= filteredPets.length ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
                     disabled={indexOfLastPet >= filteredPets.length}
-                    onClick={() => setCurrentPage(currentPage + 1)}
+                    onClick={() => handlePageChange(currentPage + 1)}
                 >
                     Next
                 </button>
             </div>
-        </div >
+        </div>
     );
 };
 
