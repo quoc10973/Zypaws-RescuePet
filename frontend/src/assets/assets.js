@@ -34,6 +34,12 @@ import Toka from './Pets/Toka.jpg'
 import Nemo from './Pets/Nemo.jpg'
 import Chloe from './Pets/Chloe.jpg'
 import Lily from './Pets/Lily.jpg'
+import Echo from './Pets/Echo.jpg'
+import Evie from './Pets/Evie.jpg'
+import Louie from './Pets/Louie.jpg'
+import Purry from './Pets/Purry.jpg'
+import Mickey from './Pets/Mickey.jpg'
+import Keen from './Pets/Keen.jpg'
 
 export const assets = {
     logo,
@@ -74,5 +80,11 @@ export const pets = {
     Toka,
     Nemo,
     Chloe,
-    Lily
+    Lily,
+    Echo,
+    Evie,
+    Louie,
+    Purry,
+    Mickey,
+    Keen
 };
