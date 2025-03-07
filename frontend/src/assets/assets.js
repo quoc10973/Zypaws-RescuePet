@@ -40,6 +40,12 @@ import Louie from './Pets/Louie.jpg'
 import Purry from './Pets/Purry.jpg'
 import Mickey from './Pets/Mickey.jpg'
 import Keen from './Pets/Keen.jpg'
+import Alfie from './Pets/Alfie.jpg'
+import Annie from './Pets/Annie.jpg'
+import Gulik from './Pets/Gulik.jpg'
+import Rex from './Pets/Rex.jpg'
+import Snow from './Pets/Snow.jpg'
+import Rocky from './Pets/Rocky.jpg'
 
 export const assets = {
     logo,
@@ -86,5 +92,11 @@ export const pets = {
     Louie,
     Purry,
     Mickey,
-    Keen
+    Keen,
+    Alfie,
+    Annie,
+    Gulik,
+    Rex,
+    Snow,
+    Rocky
 };

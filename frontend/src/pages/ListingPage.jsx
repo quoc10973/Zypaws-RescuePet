@@ -13,8 +13,8 @@ const ListingPage = () => {
     const searchParams = new URLSearchParams(location.search);
     const petTypeFromURL = searchParams.get('petType') || '';
 
-    // Get the current page from local storage or URL
-    const storedPage = localStorage.getItem("currentPage");
+    // Get the current page from session storage or URL
+    const storedPage = sessionStorage.getItem("currentPage");
     const initialPage = storedPage ? parseInt(storedPage) : parseInt(searchParams.get("page")) || 1;
 
     const [pets, setPets] = useState([]);
@@ -32,7 +32,7 @@ const ListingPage = () => {
     // Handle pagination
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
-        localStorage.setItem("currentPage", newPage);
+        sessionStorage.setItem("currentPage", newPage);
         navigate(`/listing?page=${newPage}`);
         window.scrollTo(0, 0);
     };
