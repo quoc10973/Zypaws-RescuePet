@@ -11,6 +11,7 @@ import PetAvailable from '../component/PetAvailable';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const HomePage = () => {
     const [isVisible, setIsVisible] = useState(false);
     const elementRef = useRef(null);
@@ -24,6 +25,10 @@ const HomePage = () => {
             setIsVisible(isInViewport);
         }
     };
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
