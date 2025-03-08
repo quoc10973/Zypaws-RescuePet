@@ -10,6 +10,7 @@ import Partners from '../component/Partners';
 import PetAvailable from '../component/PetAvailable';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ChatBot from '../component/ChatBot';
 
 
 const HomePage = () => {
@@ -147,6 +148,7 @@ const HomePage = () => {
             <PetAvailable />
             <Partners />
             <DonatetionBanner />
+            <ChatBot />
         </div>
     );
 };
