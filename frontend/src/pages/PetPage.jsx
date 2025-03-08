@@ -87,7 +87,7 @@ const PetDetail = () => {
                     <h2 className="text-xl font-semibold">Considering {pet.name} for adoption?</h2>
 
                     <Link
-                        to="/inquiry"
+                        to={`/pet/${pet.id}/enquire`}
                         className={`w-full block text-center font-semibold py-2 rounded-lg ${isChecked ? "bg-white text-purple-700 hover:bg-gray-100" : "bg-gray-400 text-gray-200 cursor-not-allowed"
                             }`}
                         onClick={(e) => !isChecked && e.preventDefault()}
