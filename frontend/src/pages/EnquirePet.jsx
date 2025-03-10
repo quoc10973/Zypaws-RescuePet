@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { pets as PetImage } from "../assets/assets";
 import { toast } from "react-toastify";
 import ReCAPTCHA from "react-google-recaptcha";
+import { createAdoptionAPI } from "../axios/axios.api";
 
 
 const EnquirePet = () => {
@@ -62,8 +63,8 @@ const EnquirePet = () => {
         if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "Valid email is required";
         if (!formData.phone.trim()) {
             newErrors.phone = "Phone number is required";
-        } else if (!/^\d{8,15}$/.test(formData.phone.trim())) {
-            newErrors.phone = "Phone number must be 8-15 digits and contain only numbers";
+        } else if (!/^\d{10}$/.test(formData.phone.trim())) {
+            newErrors.phone = "Phone number in VN must be exactly 10 digits";
         }
 
         setErrors(newErrors);
@@ -80,29 +81,47 @@ const EnquirePet = () => {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
         if (!captchaVerified) {
             toast.error("Please verify that you are not a robot!");
             return;
         }
+
         if (validateForm()) {
-            console.log("Form Data:", formData);
+            try {
+                const createAdoptionDTO = {
+                    petId: pet.id,
+                    userId: userId,
+                    name: formData.name,
+                    email: formData.email,
+                    phone: formData.phone,
+                    message: formData.message,
+                    enquireForSomeoneElse: formData.enquireForSomeoneElse,
+                    emailUpdates: formData.emailUpdates
+                }
+                const response = await createAdoptionAPI(createAdoptionDTO);
+                console.log(response)
+                // Check if the response has the name or petId property -> Success 201 or 200
+                if (response?.name || response?.petId) {
+                    toast.success("Your enquiry has been submitted successfully!", {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true
+                    });
 
-            // Hiển thị thông báo thành công
-            toast.success("Your enquiry has been submitted successfully!", {
-                position: "top-right",
-                autoClose: 3000,  // Ẩn sau 3 giây
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true
-            });
-
-            // Reset chỉ message, giữ lại dữ liệu khác
-            setFormData({ ...formData, message: "" });
+                    // Reset the form data
+                    setFormData({ ...formData, message: "" });
+                }
+            } catch (error) {
+                console.error("Error submitting adoption enquiry:", error);
+                toast.error(error.response?.data?.message || "Failed to submit enquiry!");
+            }
         }
-        console.log(formData);
     };
 
 
@@ -138,7 +157,7 @@ const EnquirePet = () => {
                     Enquire about <span className="text-green-800 text-2xl md:text-6xl font-dancing">{pet.name}🐾</span>
                 </h1>
             </motion.div>
-            <div className="max-w-4xl mx-auto py-6 px-10">
+            <div className="max-w-4xl mx-auto py-6 mb-6 px-10">
                 <div className="flex justify-center items-center">
                     <img
                         src={PetImage[pet.image]}
@@ -221,8 +240,16 @@ const EnquirePet = () => {
                                 onChange={handleCaptchaVerify}
                             />
                         </div>
-                        <button type="submit" className="bg-green-700 text-white px-4 py-2 rounded">Submit</button>
+
+                        <div className="flex justify-center">
+                            <button type="submit" className="bg-green-700 text-white px-20 mt-3 py-2 rounded">Submit</button>
+                        </div>
+                        <p className="text-gray-600 text-sm italic text-center">
+                            By enquiring about {pet.name}, <br /> I agree to be bound by the Terms of Use and accept PetRescue's Privacy Policy.
+                        </p>
+
                     </form>
+
                 </div>
             </div>
         </>

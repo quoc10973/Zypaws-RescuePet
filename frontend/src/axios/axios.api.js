@@ -51,6 +51,11 @@ const captureSuccessDonationAPI = (token) => {
     return axios.post(URL_API, data);
 }
 
+const createAdoptionAPI = (createAdoptionDTO) => {
+    const URL_API = "/adoption/create";
+    return axios.post(URL_API, createAdoptionDTO);
+}
+
 export {
     loginAPI,
     loginGoogleAPI,
@@ -59,5 +64,6 @@ export {
     getAllPetAPI,
     getPetAPI,
     createDonationAPI,
-    captureSuccessDonationAPI
+    captureSuccessDonationAPI,
+    createAdoptionAPI,
 };
