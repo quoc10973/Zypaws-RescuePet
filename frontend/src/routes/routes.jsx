@@ -10,6 +10,7 @@ import ListingPage from '../pages/ListingPage';
 import DonationPage from '../pages/DonationPage';
 import DonationResult from '../pages/DonationResult';
 import EnquirePet from '../pages/EnquirePet';
+import FavoritePage from '../pages/FavoritePage';
 
 
 const AppRoutes = () => {
@@ -27,6 +28,7 @@ const AppRoutes = () => {
                 <Route path="/donation" element={<DonationPage />} />
                 <Route path="/donation/success" element={<DonationResult />} />
                 <Route path="/donation/cancel" element={<DonationResult />} />
+                <Route path="favorite" element={<FavoritePage />} />
             </Route>
         </Routes>
     );

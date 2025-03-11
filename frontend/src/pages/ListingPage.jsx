@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { getAllPetAPI } from '../axios/axios.api';
+import { getAllPetAPI, getUserFavoritesAPI, addPetToFavoriteAPI, removePetFromFavoriteAPI } from '../axios/axios.api';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { pets as petImages } from '../assets/assets';
 import { assets } from '../assets/assets';
 import { HeartIcon } from '@heroicons/react/20/solid';
 import MobileTopBar from '../component/MobileTopBar';
 import { motion } from 'framer-motion';
+
 
 const ListingPage = () => {
     const location = useLocation();
@@ -22,6 +23,7 @@ const ListingPage = () => {
     const [filteredPets, setFilteredPets] = useState([]);
     const [speciesFilter, setSpeciesFilter] = useState(petTypeFromURL.toUpperCase());
     const [genderFilter, setGenderFilter] = useState('');
+    const [userFavorites, setUserFavorites] = useState([]);
     const [currentPage, setCurrentPage] = useState(initialPage);
     const petsPerPage = 12;
 
@@ -54,6 +56,19 @@ const ListingPage = () => {
     }, []);
 
     useEffect(() => {
+        const fetchFavorites = async () => {
+            try {
+                const response = await getUserFavoritesAPI();
+                const favoriteIds = response.map(pet => pet.id);
+                setUserFavorites(favoriteIds);
+            } catch (error) {
+                console.error('Error fetching user favorites:', error);
+            }
+        };
+        fetchFavorites();
+    }, []);
+
+    useEffect(() => {
         setSpeciesFilter(petTypeFromURL.toUpperCase());
     }, [petTypeFromURL]);
 
@@ -74,6 +89,21 @@ const ListingPage = () => {
     const indexOfLastPet = currentPage * petsPerPage;
     const indexOfFirstPet = indexOfLastPet - petsPerPage;
     const currentPets = filteredPets.slice(indexOfFirstPet, indexOfLastPet);
+
+    const handleFavorite = async (petId) => {
+        try {
+            const isFavorite = userFavorites.includes(petId);
+            if (isFavorite) {
+                await removePetFromFavoriteAPI(petId); // Remove pet from favorites by calling the API
+                setUserFavorites(prev => prev.filter(id => id !== petId)); // update  userFavorites state by remove pet from favorites by filtering out the petId
+            } else {
+                await addPetToFavoriteAPI(petId); // Add pet to favorites by calling the API
+                setUserFavorites(prev => [...prev, petId]); // Add pet to favorites by updating the userFavorites state
+            }
+        } catch (error) {
+            console.error('Error updating favorite pet:', error);
+        }
+    };
 
     return (
         <div>
@@ -177,15 +207,24 @@ const ListingPage = () => {
                         const petImage = petImages[pet.image] || '/default-image.jpg';
                         return (
                             <div key={pet.id} className="border rounded-lg shadow-md p-3 relative transition-transform transform hover:-translate-y-2 duration-300">
-                                <div className="absolute top-5 right-5 bg-zinc-800 rounded-full p-3">
-                                    <Link to={`/favorite/${pet.id}`} className="text-white hover:text-red-500">
+                                <div className="absolute top-5 right-5 bg-zinc-800 rounded-full p-3 group">
+                                    {/* check if pet is in userFavorites or not by ${userFavorites.includes(pet.id) then change the color of the heart icon */}
+                                    <div
+                                        className={`cursor-pointer relative
+                                           ${userFavorites.includes(pet.id) ? 'text-red-500 hover:text-white' : 'text-white hover:text-red-500'}`}
+                                        onClick={() => handleFavorite((pet.id))}
+                                    >
                                         <HeartIcon className="h-5 w-5" />
-                                    </Link>
+                                        {/* Tooltip show when hover */}
+                                        <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded-md px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            {userFavorites.includes(pet.id) ? 'Unfavorite' : 'Favorite'}
+                                        </span>
+                                    </div>
                                 </div>
                                 <img alt={pet.name} src={petImage} className="h-72 w-full object-cover rounded-md" />
                                 <h2 className="text-lg font-semibold mt-2">{pet.name}</h2>
                                 <p className="text-gray-500">{pet.age} month</p>
-                                <Link to={`/pet/${pet.id}`} className="text-blue-500 hover:underline">View Details</Link>
+                                <Link to={`/ pet / ${pet.id}`} className="text-blue-500 hover:underline">View Details</Link>
                             </div>
                         );
                     })}
