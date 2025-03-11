@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { plainToInstance } from 'class-transformer';
 import { UserDTO } from 'src/model/userDTO';
 import { PetService } from '../pet/pet.service';
-import { AddPetFavoriteDTO } from 'src/model/addPetFavoriteDTO';
 
 @Injectable()
 export class UserService {
@@ -37,10 +36,15 @@ export class UserService {
         return user;
     }
 
-    async addPetFavorite(currentUser: User, addPetFavoriteDTO: AddPetFavoriteDTO) {
+    async addPetFavorite(currentUser: User, petId: number) {
         try {
-            const pet = await this.petService.getPetById(addPetFavoriteDTO.petId);
-            const user = await this.findUserByEmail(currentUser.email);
+            const pet = await this.petService.getPetById(petId);
+            const user = await this.userRepository.findOne(
+                {
+                    where: { email: currentUser.email },
+                    relations: ['pets'] // eager load the pets array
+                }
+            );
             if (!user.pets) {
                 user.pets = []; // initialize the pets array if user has no pets yet
             }
@@ -48,6 +52,48 @@ export class UserService {
             await this.userRepository.save(user);
             return {
                 message: `Pet ${pet.name} added to favorites`,
+            }
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+
+    async getFavorites(currentUser: User) {
+        try {
+            const user = await this.userRepository.findOne(
+                {
+                    where: { email: currentUser.email },
+                    relations: ['pets'] // eager load the pets array
+                }
+            );
+            if (!user.pets) {
+                return [];
+            }
+            return user.pets;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+
+    async removePetFavorite(currentUser: User, petId: number) {
+        try {
+            const pet = await this.petService.getPetById(petId);
+            const user = await this.userRepository.findOne(
+                {
+                    where: { email: currentUser.email },
+                    relations: ['pets'] // eager load the pets array
+                }
+            )
+            if (!user.pets) {
+                throw new Error("User has no pets to remove");
+            }
+            const petIndex = user.pets.findIndex(p => p.id === pet.id);
+            if (petIndex !== -1) {
+                user.pets.splice(petIndex, 1);
+            }
+            await this.userRepository.save(user);
+            return {
+                message: `Pet ${pet.name} removed from favorites`,
             }
         } catch (error) {
             throw new Error(error.message);
