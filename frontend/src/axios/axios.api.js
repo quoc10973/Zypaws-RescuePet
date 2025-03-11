@@ -56,6 +56,21 @@ const createAdoptionAPI = (createAdoptionDTO) => {
     return axios.post(URL_API, createAdoptionDTO);
 }
 
+const addPetToFavoriteAPI = (petId) => {
+    const URL_API = `/user/add-favorites/${petId}`;
+    return axios.post(URL_API);
+}
+
+const getUserFavoritesAPI = () => {
+    const URL_API = "/user/get-favorites";
+    return axios.get(URL_API);
+}
+
+const removePetFromFavoriteAPI = (petId) => {
+    const URL_API = `user/remove-favorites/${petId}`;
+    return axios.delete(URL_API);
+}
+
 export {
     loginAPI,
     loginGoogleAPI,
@@ -66,4 +81,7 @@ export {
     createDonationAPI,
     captureSuccessDonationAPI,
     createAdoptionAPI,
+    addPetToFavoriteAPI,
+    getUserFavoritesAPI,
+    removePetFromFavoriteAPI
 };
