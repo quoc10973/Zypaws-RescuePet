@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { assets } from '../assets/assets';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { UserIcon, UserPlusIcon, HeartIcon, LifebuoyIcon } from '@heroicons/react/24/solid';
+import { UserIcon, UserPlusIcon, HeartIcon, LifebuoyIcon, ChatBubbleLeftIcon } from '@heroicons/react/24/solid';
 import { AuthContext } from '../context/AuthContext';
 
 const Slogan = () => {
@@ -22,11 +22,11 @@ const Slogan = () => {
     };
 
     return (
-        <div className="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 bg-zinc-50 font-quicksand relative">
+        <div className="flex justify-between items-center px-4 sm:px-8 py-4 sm:py-2.5 bg-zinc-50 font-quicksand relative">
             {/* Donate Button */}
-            <Link to="/donation" className="flex items-center gap-1 sm:gap-2 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white font-semibold py-1 px-3 sm:py-2 sm:px-4 rounded-md sm:rounded-lg hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-2xl">
-                <HeartIcon className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+            <Link to="/donation" className="flex items-center gap-1 sm:gap-2 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white py-0.5 px-1.5 sm:py-2 sm:px-4 rounded-md sm:rounded-lg hover:scale-105 transition-transform duration-300 text-sm font-poppins font-medium shadow-lg hover:shadow-2xl animate-pulseSoft">
                 Donate
+                <HeartIcon className="h-4 w-4 sm:h-3 sm:w-3 text-white" />
             </Link>
 
             {/* Logo and Decorations */}
@@ -42,16 +42,37 @@ const Slogan = () => {
             <div className="flex items-center gap-2 sm:gap-3">
                 {auth.isAuthenticated ? (
                     <>
-                        <Link to="/favorite" className="text-red-500 hover:text-red-600">
-                            <HeartIcon className="h-5 w-5 sm:h-7 sm:w-7" />
+                        <Link
+                            to="/my-inquiry"
+                            className="relative group text-slate-400 hover:text-gray-600 transition-transform duration-200 hover:translate-x-[2px]"
+                        >
+                            <ChatBubbleLeftIcon className="h-5 w-5 sm:h-7 sm:w-7" />
+                            <span className="absolute left-0 top-full mt-1 -translate-x-2 translate-y-2 hidden group-hover:block bg-gray-800 text-white text-xs px-2 py-1 rounded shadow-lg">
+                                My Inquiry
+                            </span>
                         </Link>
-                        <div className="relative">
+
+                        <Link
+                            to="/favorite"
+                            className="relative group text-red-500 hover:text-red-600 transition-transform duration-200 hover:translate-x-[2px]"
+                        >
+                            <HeartIcon className="h-5 w-5 sm:h-7 sm:w-7" />
+                            <span className="absolute left-0 top-full mt-1 -translate-x-2 translate-y-2 hidden group-hover:block bg-gray-800 text-white text-xs px-2 py-1 rounded shadow-lg">
+                                Favorite
+                            </span>
+                        </Link>
+
+                        <div className="relative group">
                             <button
                                 onClick={toggleDropdown}
-                                className="flex items-center justify-center bg-gray-300 text-gray-800 font-semibold rounded-full h-6 w-6 sm:h-8 sm:w-8 hover:bg-gray-400 text-xs sm:text-base"
+                                className="flex items-center justify-center bg-gray-300 text-gray-800 font-semibold rounded-full h-6 w-6 sm:h-8 sm:w-8 hover:bg-gray-400 text-xs sm:text-base transition-transform duration-200 hover:translate-x-[2px]"
                             >
                                 {auth.user.name.charAt(0).toUpperCase()}
                             </button>
+                            <span className="absolute left-0 top-full mt-1 -translate-x-2 translate-y-2 hidden group-hover:block bg-gray-800 text-white text-xs px-2 py-1 rounded shadow-lg">
+                                Account
+                            </span>
+
                             {isDropdownOpen && (
                                 <motion.div
                                     initial={{ opacity: 0, y: -10 }}
@@ -62,14 +83,28 @@ const Slogan = () => {
                                     <p className="px-4 py-2 text-gray-700 font-semibold">Hi, {auth.user.name}!</p>
                                     <hr />
                                     <ul className="space-y-2">
-                                        <li><Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</Link></li>
-                                        <li><Link to="/change-password" className="block px-4 py-2 hover:bg-gray-100">Change Password</Link></li>
+                                        <li>
+                                            <Link to="/profile" className="block px-4 py-2 hover:bg-gray-100 transition-transform duration-200 hover:translate-x-[2px]">
+                                                Profile
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/change-password" className="block px-4 py-2 hover:bg-gray-100 transition-transform duration-200 hover:translate-x-[2px]">
+                                                Change Password
+                                            </Link>
+                                        </li>
                                     </ul>
-                                    <button onClick={handleLogout} className="w-full text-left px-4 py-3 text-red-500 hover:bg-gray-100">Logout</button>
+                                    <button
+                                        onClick={handleLogout}
+                                        className="w-full text-left px-4 py-3 text-red-500 hover:bg-gray-100 transition-transform duration-200 hover:translate-x-[2px]"
+                                    >
+                                        Logout
+                                    </button>
                                 </motion.div>
                             )}
                         </div>
                     </>
+
                 ) : (
                     <div className="hidden sm:flex gap-3">
                         <Link to="/login" className="flex items-center gap-1 text-black font-quicksand py-1 sm:py-2 rounded-lg transition text-sm sm:text-md">

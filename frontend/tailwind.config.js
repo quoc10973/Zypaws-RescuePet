@@ -16,7 +16,8 @@ export default {
         signika: ['Signika Negative', 'serif'],
       },
       animation: {
-        heartbeat: "heartbeat 1.5s infinite", // define animation heartbeat
+        'heartbeat': "heartbeat 1.5s infinite", // define animation heartbeat
+        'pulseSoft': "pulseSoft 1.5s infinite ease-in-out",
         'fade-in': 'fadeIn 1.5s ease-in forwards',
         'fade-in-delayed': 'fadeIn 2s ease-in forwards',
         'tilt': "tilt 1.5s infinite ease-in-out"
@@ -35,6 +36,10 @@ export default {
           "75%": {
             transform: "scale(1.1)", // expand at 75% time
           },
+        },
+        pulseSoft: {
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.09)" },
         },
         fadeIn: {
           '0%': { opacity: '0' },
