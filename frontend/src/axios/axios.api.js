@@ -71,6 +71,11 @@ const removePetFromFavoriteAPI = (petId) => {
     return axios.delete(URL_API);
 }
 
+const getUserInquiriesAPI = () => {
+    const URL_API = "/adoption/get-user-adoptions";
+    return axios.get(URL_API);
+}
+
 export {
     loginAPI,
     loginGoogleAPI,
@@ -83,5 +88,6 @@ export {
     createAdoptionAPI,
     addPetToFavoriteAPI,
     getUserFavoritesAPI,
-    removePetFromFavoriteAPI
+    removePetFromFavoriteAPI,
+    getUserInquiriesAPI,
 };

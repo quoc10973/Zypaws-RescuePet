@@ -11,6 +11,7 @@ import DonationPage from '../pages/DonationPage';
 import DonationResult from '../pages/DonationResult';
 import EnquirePet from '../pages/EnquirePet';
 import FavoritePage from '../pages/FavoritePage';
+import MyInquiryPage from '../pages/MyInquiryPage';
 
 
 const AppRoutes = () => {
@@ -29,6 +30,7 @@ const AppRoutes = () => {
                 <Route path="/donation/success" element={<DonationResult />} />
                 <Route path="/donation/cancel" element={<DonationResult />} />
                 <Route path="favorite" element={<FavoritePage />} />
+                <Route path="/my-inquiry" element={<MyInquiryPage />} />
             </Route>
         </Routes>
     );
