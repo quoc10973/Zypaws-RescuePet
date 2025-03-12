@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { getPetAPI } from "../axios/axios.api";
 import MobileTopBar from "../component/MobileTopBar";
@@ -10,7 +10,9 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { createAdoptionAPI } from "../axios/axios.api";
 
 
+
 const EnquirePet = () => {
+    const navigate = useNavigate();
     const { id } = useParams();
     const { auth, setLoading } = useContext(AuthContext);
     const [pet, setPet] = useState(null);
@@ -84,6 +86,7 @@ const EnquirePet = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+
         if (!captchaVerified) {
             toast.error("Please verify that you are not a robot!");
             return;
@@ -116,6 +119,11 @@ const EnquirePet = () => {
 
                     // Reset the form data
                     setFormData({ ...formData, message: "" });
+
+                    setTimeout(() => {
+                        navigate("/my-inquiry");
+                    }, 700); // Redirect to My Inquiry page after 2 seconds
+
                 }
             } catch (error) {
                 console.error("Error submitting adoption enquiry:", error);
