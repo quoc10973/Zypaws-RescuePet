@@ -29,4 +29,14 @@ export class AdoptionController {
             throw new BadRequestException(error.message);
         }
     }
+
+    @Get('get-user-adoptions')
+    @HttpCode(200)
+    async getAdoptionByUserId(@CurrentUser() currentUser: User) {
+        try {
+            return await this.adoptionService.getAdoptionByUserId(currentUser);
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
 }

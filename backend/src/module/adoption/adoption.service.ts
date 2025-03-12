@@ -56,4 +56,24 @@ export class AdoptionService {
             throw new Error(error.message);
         }
     }
+
+    async getAdoptionByUserId(currentUser: User) {
+        try {
+            const user = await this.userService.getUserByEmail(currentUser.email);
+            const adoptions = await this.adoptionRepository.find(
+                {
+                    where: { user: { id: user.id } },
+                    relations: ['pet'],
+                    select: {
+                        pet: { id: true, name: true, species: true, status: true },
+                    }
+                }
+            );
+            return adoptions;
+        } catch (error) {
+            console.log(error.message);
+            throw new Error(error.message);
+        }
+    }
+
 }

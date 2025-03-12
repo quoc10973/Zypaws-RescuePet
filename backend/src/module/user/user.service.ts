@@ -101,7 +101,10 @@ export class UserService {
     }
 
     async getUserByEmail(email: string) {
-        const user = await this.userRepository.findOne({ where: { email: email } });
+        const user = await this.userRepository.findOne({
+            where: { email: email },
+            relations: ['pets', 'adoptions'] // eager load the pets array
+        });
         if (!user) {
             return null;
         }
