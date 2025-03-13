@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { plainToInstance } from 'class-transformer';
 import { UserDTO } from 'src/model/userDTO';
 import { PetService } from '../pet/pet.service';
+import { hashSync, genSaltSync } from 'bcryptjs';
 
 @Injectable()
 export class UserService {
@@ -12,6 +13,9 @@ export class UserService {
 
     async createUser(user: User) {
         try {
+            const salt = genSaltSync(10);
+            user.password = hashSync(user.password, salt);
+
             const newUser = await this.userRepository.save(user);
             return newUser;
         } catch (error) {

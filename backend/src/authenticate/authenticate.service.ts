@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { LoginRequest } from 'src/model/loginRequest';
 import { UserService } from 'src/module/user/user.service';
-import * as bcryptjs from 'bcryptjs';
+import { hashSync, compareSync, genSaltSync } from 'bcryptjs';
 import { User } from 'src/module/user/user.entity';
 import { UserResponse } from 'src/model/userResponse';
 import { RegisterRequest } from 'src/model/registerRequest';
@@ -20,7 +20,7 @@ export class AuthenticateService {
     async login(loginRequest: LoginRequest) {
         try {
             const user = await this.userService.findUserByEmail(loginRequest.email);
-            const isMatch = bcryptjs.compareSync(loginRequest.password, user.password);
+            const isMatch = compareSync(loginRequest.password, user.password);
             if (!isMatch) {
                 throw new Error("Invalid email or password");
             }
@@ -52,8 +52,8 @@ export class AuthenticateService {
                 throw new Error(`This user ${user.email} already exists`);
             }
             if (!userExist) {
-                const salt = bcryptjs.genSaltSync(10);
-                const hashedPassword = bcryptjs.hashSync(user.password, salt);
+                const salt = genSaltSync(10);
+                const hashedPassword = hashSync(user.password, salt);
                 const newUser = new User();
                 newUser.email = user.email;
                 newUser.firstName = user.firstName;
