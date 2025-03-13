@@ -3,6 +3,7 @@ import { getUserInquiriesAPI } from "../axios/axios.api";
 import { AuthContext } from "../context/AuthContext";
 import MobileTopBar from "../component/MobileTopBar";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const statusColors = {
     PENDING: "bg-yellow-500",
@@ -87,9 +88,12 @@ const InquiryCard = ({ inquiry }) => {
                         >
                             {inquiry.status}
                         </span>
-                        <span className="text-sm text-gray-700 font-semibold">
-                            🐾 {inquiry.pet.name} ({inquiry.pet.species})
-                        </span>
+                        <Link
+                            to={`/pet/${inquiry.pet.id}`}
+                            className="text-md text-green-800 font-semibold hover:underline"
+                        >
+                            {inquiry.pet.name} ({inquiry.pet.species.charAt(0).toUpperCase() + inquiry.pet.species.slice(1).toLowerCase()}) 🐾
+                        </Link>
                     </div>
 
                     {/* Your Name */}

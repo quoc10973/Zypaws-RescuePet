@@ -24,6 +24,11 @@ const getCurrentUserAPI = () => {
     return axios.get(URL_API);
 }
 
+const getAllUserAPI = () => {
+    const URL_API = "/user/getall";
+    return axios.get(URL_API);
+}
+
 const getPetAPI = (id) => {
     const URL_API = `/pet/${id}`;
     return axios.get(URL_API);
@@ -90,4 +95,5 @@ export {
     getUserFavoritesAPI,
     removePetFromFavoriteAPI,
     getUserInquiriesAPI,
+    getAllUserAPI
 };

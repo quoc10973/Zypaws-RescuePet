@@ -12,8 +12,11 @@ import DonationResult from '../pages/DonationResult';
 import EnquirePet from '../pages/EnquirePet';
 import FavoritePage from '../pages/FavoritePage';
 import MyInquiryPage from '../pages/MyInquiryPage';
-
-
+import AdminPage from '../pages/AdminPage';
+import ManagementPage from '../pages/ManagementPage';
+import UserManagement from '../pages/UserManagement';
+import PetManagement from '../pages/PetManagement';
+import DonationManagement from '../pages/DonationManagement';
 const AppRoutes = () => {
     return (
         <Routes>
@@ -31,6 +34,12 @@ const AppRoutes = () => {
                 <Route path="/donation/cancel" element={<DonationResult />} />
                 <Route path="favorite" element={<FavoritePage />} />
                 <Route path="/my-inquiry" element={<MyInquiryPage />} />
+            </Route>
+            <Route path="/admin" element={<AdminPage />} >
+                <Route index element={<ManagementPage />} />
+                <Route path="/admin/users-management" element={<UserManagement />} />
+                <Route path="/admin/pets-management" element={<PetManagement />} />
+                <Route path="/admin/donations-management" element={<DonationManagement />} />
             </Route>
         </Routes>
     );
