@@ -16,6 +16,7 @@ const EnquirePet = () => {
     const { id } = useParams();
     const { auth, setLoading } = useContext(AuthContext);
     const [pet, setPet] = useState(null);
+    const [showModal, setShowModal] = useState(false);
     const [formData, setFormData] = useState({
         name: auth?.user?.name || "",
         email: auth?.user?.email || "",
@@ -83,54 +84,38 @@ const EnquirePet = () => {
         }
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-
-
         if (!captchaVerified) {
             toast.error("Please verify that you are not a robot!");
             return;
         }
-
         if (validateForm()) {
-            try {
-                const createAdoptionDTO = {
-                    petId: pet.id,
-                    userId: userId,
-                    name: formData.name,
-                    email: formData.email,
-                    phone: formData.phone,
-                    message: formData.message,
-                    enquireForSomeoneElse: formData.enquireForSomeoneElse,
-                    emailUpdates: formData.emailUpdates
-                }
-                const response = await createAdoptionAPI(createAdoptionDTO);
-                console.log(response)
-                // Check if the response has the name or petId property -> Success 201 or 200
-                if (response?.name || response?.petId) {
-                    toast.success("Your enquiry has been submitted successfully!", {
-                        position: "top-right",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true
-                    });
-
-                    // Reset the form data
-                    setFormData({ ...formData, message: "" });
-
-                    setTimeout(() => {
-                        navigate("/my-inquiry");
-                    }, 700); // Redirect to My Inquiry page after 2 seconds
-
-                }
-            } catch (error) {
-                console.error("Error submitting adoption enquiry:", error);
-                toast.error(error.response?.data?.message || "Failed to submit enquiry!");
-            }
+            setShowModal(true); // Hiển thị modal
         }
     };
+
+    const handleConfirmSubmit = async () => {
+        try {
+            const createAdoptionDTO = {
+                petId: pet.id, userId: userId, name: formData.name,
+                email: formData.email, phone: formData.phone, message: formData.message,
+                enquireForSomeoneElse: formData.enquireForSomeoneElse,
+                emailUpdates: formData.emailUpdates
+            };
+            const response = await createAdoptionAPI(createAdoptionDTO);
+            if (response?.name || response?.petId) {
+                toast.success("Your enquiry has been submitted successfully!");
+                setFormData({ ...formData, message: "" });
+                setTimeout(() => navigate("/my-inquiry"), 700);
+            }
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Failed to submit enquiry!");
+        } finally {
+            setShowModal(false); // Đóng modal
+        }
+    };
+
 
 
     if (!pet) {
@@ -257,6 +242,20 @@ const EnquirePet = () => {
                         </p>
 
                     </form>
+
+                    {showModal && (
+                        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                            <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+                                <h2 className="text-xl font-bold text-gray-800">Confirm Submission</h2>
+                                <p className="text-gray-600 mt-2">Are you sure all information is correct?</p>
+                                <div className="flex justify-end mt-4">
+                                    <button onClick={() => setShowModal(false)} className="bg-gray-500 text-white px-4 py-2 rounded mr-2">No</button>
+                                    <button onClick={handleConfirmSubmit} className="bg-green-700 text-white px-4 py-2 rounded">Yes</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
 
                 </div>
             </div>
