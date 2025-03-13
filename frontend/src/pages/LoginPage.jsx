@@ -18,7 +18,7 @@ const LoginPage = () => {
         try {
             const response = await loginAPI(email, password);
             console.log('Login successful:', response);
-            console.log(response);
+
             localStorage.setItem('accessToken', response.accessToken);
             setAuth({
                 isAuthenticated: true,
@@ -40,7 +40,6 @@ const LoginPage = () => {
             };
             localStorage.setItem('user', JSON.stringify(storeUser));
 
-            // notify login successful
             toast.success("Login successful!", {
                 position: "top-right",
                 autoClose: 3000,
@@ -49,14 +48,20 @@ const LoginPage = () => {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "light", // Màu sắc nhẹ hơn
+                theme: "light",
             });
 
-            navigate('/');
+            // Kiểm tra role để điều hướng
+            if (response.role === "ADMIN") {
+                navigate('/admin');
+            } else {
+                navigate('/');
+            }
         } catch (err) {
             setError(err.response?.data?.message || 'Login failed');
         }
     };
+
 
     const handleGoogleLogin = () => {
         window.location.href = import.meta.env.VITE_BACKEND_URL + '/authenticate/login-google';
