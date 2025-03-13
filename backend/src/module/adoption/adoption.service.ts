@@ -19,9 +19,23 @@ export class AdoptionService {
 
     async createAdoption(user: User, createAdoptionDTO: CreateAdoptionDTO) {
         try {
-            const newAdoption = new Adoption();
+
             const pet = await this.petService.getPetById(createAdoptionDTO.petId);
             const adopter = await this.userService.findUserByEmail(user.email);
+
+            //Check if user already submitted an adoption request for this pet
+            const existingAdoption = await this.adoptionRepository.findOne({
+                where: {
+                    pet: { id: pet.id }, // only check id for foreign key
+                    user: { id: adopter.id }, // only check id for foreign key
+                },
+            });
+
+            if (existingAdoption) {
+                throw new Error("You have already submitted an adoption request for this pet.");
+            }
+
+            const newAdoption = new Adoption();
             newAdoption.pet = pet;
             newAdoption.user = adopter;
             newAdoption.name = createAdoptionDTO.name;
