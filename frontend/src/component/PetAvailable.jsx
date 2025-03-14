@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { getPetAvailable, getPetAPI } from '../axios/axios.api';
-import { pets as petImages } from '../assets/assets';
+import { getPetImage } from '../assets/assets';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -90,8 +90,6 @@ const PetAvailable = () => {
                     className='w-full flex justify-center'
                 >
                     {pets.map((pet) => {
-                        const petImage = petImages[pet.image] || '/default-image.jpg';
-
                         return (
                             <SwiperSlide key={pet.id} className='flex justify-center items-center'>
                                 <motion.div
@@ -101,7 +99,7 @@ const PetAvailable = () => {
                                     onClick={() => handlePetClick(pet.id)} // Gọi API khi click vào pet
                                 >
                                     <img
-                                        src={petImage}
+                                        src={getPetImage(pet.image)}
                                         alt={pet.name}
                                         className='w-full h-64 object-cover rounded-md transition-all duration-300'
                                     />
