@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Post, ValidationPipe } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Post, Put, ValidationPipe } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.entity';
 import { ApiBearerAuth } from '@nestjs/swagger';
@@ -63,6 +63,24 @@ export class UserController {
     async getFavorites(@CurrentUser() user: User) {
         try {
             return await this.userService.getFavorites(user);
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
+    @Put('update/:id')
+    async updateUser(@Param('id') id: string, @Body(new ValidationPipe()) user: Partial<User>) {
+        try {
+            return await this.userService.updateUser(id, user);
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
+    @Delete('delete/:id')
+    async deleteUser(@Param('id') id: string) {
+        try {
+            return await this.userService.deleteUser(id);
         } catch (error) {
             throw new BadRequestException(error.message);
         }

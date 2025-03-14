@@ -81,6 +81,21 @@ const getUserInquiriesAPI = () => {
     return axios.get(URL_API);
 }
 
+const updateUserAPI = (id, updateUserDTO) => {
+    const URL_API = `/user/update/${id}`;
+    return axios.put(URL_API, updateUserDTO);
+}
+
+const deleteUserAPI = (id) => {
+    const URL_API = `/user/delete/${id}`;
+    return axios.delete(URL_API);
+}
+
+const createUserAPI = (createUserDTO) => {
+    const URL_API = "/user/create";
+    return axios.post(URL_API, createUserDTO);
+}
+
 export {
     loginAPI,
     loginGoogleAPI,
@@ -95,5 +110,8 @@ export {
     getUserFavoritesAPI,
     removePetFromFavoriteAPI,
     getUserInquiriesAPI,
-    getAllUserAPI
+    getAllUserAPI,
+    updateUserAPI,
+    deleteUserAPI,
+    createUserAPI,
 };

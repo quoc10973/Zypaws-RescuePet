@@ -114,4 +114,25 @@ export class UserService {
         }
         return user;
     }
+
+    async updateUser(id: string, partialUser: Partial<User>) {
+        try {
+            await this.userRepository.update(id, partialUser);
+            return this.userRepository.findOne({ where: { id } });
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+
+    async deleteUser(id: string) {
+        try {
+            await this.userRepository.delete(id);
+            return {
+                message: `User with id ${id} deleted`
+            }
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+
 }
