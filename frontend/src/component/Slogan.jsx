@@ -42,25 +42,41 @@ const Slogan = () => {
             <div className="flex items-center gap-2 sm:gap-3">
                 {auth.isAuthenticated ? (
                     <>
-                        <Link
-                            to="/my-inquiry"
-                            className="relative group text-slate-400 hover:text-gray-600 transition-transform duration-200 hover:translate-x-[2px]"
-                        >
-                            <ChatBubbleLeftIcon className="h-5 w-5 sm:h-7 sm:w-7" />
-                            <span className="absolute left-0 top-full mt-1 -translate-x-2 translate-y-2 hidden group-hover:block bg-gray-800 text-white text-xs px-2 py-1 rounded shadow-lg">
-                                My Inquiry
-                            </span>
-                        </Link>
+                        {auth.user.role !== 'ADMIN' && (
+                            <>
+                                <Link
+                                    to="/my-inquiry"
+                                    className="relative group text-slate-400 hover:text-gray-600 transition-transform duration-200 hover:translate-x-[2px]"
+                                >
+                                    <ChatBubbleLeftIcon className="h-5 w-5 sm:h-7 sm:w-7" />
+                                    <span className="absolute left-0 top-full mt-1 -translate-x-2 translate-y-2 hidden group-hover:block bg-gray-800 text-white text-xs px-2 py-1 rounded shadow-lg">
+                                        My Inquiry
+                                    </span>
+                                </Link>
 
-                        <Link
-                            to="/favorite"
-                            className="relative group text-red-500 hover:text-red-600 transition-transform duration-200 hover:translate-x-[2px]"
-                        >
-                            <HeartIcon className="h-5 w-5 sm:h-7 sm:w-7" />
-                            <span className="absolute left-0 top-full mt-1 -translate-x-2 translate-y-2 hidden group-hover:block bg-gray-800 text-white text-xs px-2 py-1 rounded shadow-lg">
-                                Favorite
-                            </span>
-                        </Link>
+                                <Link
+                                    to="/favorite"
+                                    className="relative group text-red-500 hover:text-red-600 transition-transform duration-200 hover:translate-x-[2px]"
+                                >
+                                    <HeartIcon className="h-5 w-5 sm:h-7 sm:w-7" />
+                                    <span className="absolute left-0 top-full mt-1 -translate-x-2 translate-y-2 hidden group-hover:block bg-gray-800 text-white text-xs px-2 py-1 rounded shadow-lg">
+                                        Favorite
+                                    </span>
+                                </Link>
+                            </>
+                        )}
+
+                        {auth.user.role === 'ADMIN' && (
+                            <Link
+                                to="/admin-dashboard"
+                                className="relative group text-blue-500 hover:text-blue-600 transition-transform duration-200 hover:translate-x-[2px]"
+                            >
+                                <LifebuoyIcon className="h-5 w-5 sm:h-7 sm:w-7" />
+                                <span className="absolute left-0 top-full mt-1 -translate-x-2 translate-y-2 hidden group-hover:block bg-gray-800 text-white text-xs px-2 py-1 rounded shadow-lg">
+                                    Dashboard
+                                </span>
+                            </Link>
+                        )}
 
                         <div className="relative group">
                             <button
@@ -104,7 +120,6 @@ const Slogan = () => {
                             )}
                         </div>
                     </>
-
                 ) : (
                     <div className="hidden sm:flex gap-3">
                         <Link to="/login" className="flex items-center gap-1 text-black font-quicksand py-1 sm:py-2 rounded-lg transition text-sm sm:text-md">
@@ -112,14 +127,8 @@ const Slogan = () => {
                         </Link>
                     </div>
                 )}
-
-                {/* Menu Icon for Small Screens */}
-                {!auth.isAuthenticated && (
-                    <div className="sm:hidden">
-                        <Bars3Icon className="h-6 w-6 sm:h-8 sm:w-8 text-gray-700 cursor-pointer" onClick={toggleSidebar} />
-                    </div>
-                )}
             </div>
+
 
             {/* Sidebar */}
             <motion.div
