@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { getPetAvailable, getPetAPI } from '../axios/axios.api';
-import { getPetImage } from '../assets/assets';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -99,7 +98,7 @@ const PetAvailable = () => {
                                     onClick={() => handlePetClick(pet.id)} // Gọi API khi click vào pet
                                 >
                                     <img
-                                        src={getPetImage(pet.image)}
+                                        src={pet.image}
                                         alt={pet.name}
                                         className='w-full h-64 object-cover rounded-md transition-all duration-300'
                                     />

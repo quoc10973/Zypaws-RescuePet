@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getAllPetAPI, getUserFavoritesAPI, addPetToFavoriteAPI, removePetFromFavoriteAPI } from '../axios/axios.api';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { getPetImage } from '../assets/assets';
 import { assets } from '../assets/assets';
 import { HeartIcon } from '@heroicons/react/20/solid';
 import MobileTopBar from '../component/MobileTopBar';
@@ -220,10 +219,10 @@ const ListingPage = () => {
                                         </span>
                                     </div>
                                 </div>
-                                <img alt={pet.name} src={getPetImage(pet.image)} className="h-72 w-full object-cover rounded-md" />
+                                <img alt={pet.name} src={pet.image} className="h-72 w-full object-cover rounded-md" />
                                 <h2 className="text-lg font-semibold mt-2">{pet.name}</h2>
                                 <p className="text-gray-500">{pet.age} month</p>
-                                <Link to={`/ pet / ${pet.id}`} className="text-blue-500 hover:underline">View Details</Link>
+                                <Link to={`/pet/${pet.id}`} className="text-blue-500 hover:underline">View Details</Link>
                             </div>
                         );
                     })}

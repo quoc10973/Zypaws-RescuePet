@@ -3,7 +3,6 @@ import { getUserFavoritesAPI, removePetFromFavoriteAPI } from "../axios/axios.ap
 import { AuthContext } from "../context/AuthContext";
 import MobileTopBar from "../component/MobileTopBar";
 import { motion } from "framer-motion";
-import { getPetImage } from '../assets/assets';
 import { Link } from "react-router-dom";
 import { HeartIcon } from '@heroicons/react/20/solid';
 
@@ -167,7 +166,7 @@ const FavoritePage = () => {
                                 </div>
 
 
-                                <img alt={pet.name} src={getPetImage(pet.image)} className="h-72 w-full object-cover rounded-md" />
+                                <img alt={pet.name} src={pet.image} className="h-72 w-full object-cover rounded-md" />
                                 <h2 className="text-lg font-semibold mt-2">{pet.name}</h2>
                                 <p className="text-gray-500">{pet.age} month</p>
                                 <Link to={`/pet/${pet.id}`} className="text-blue-500 hover:underline">View Details</Link>

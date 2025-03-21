@@ -4,7 +4,6 @@ import { AuthContext } from "../context/AuthContext";
 import { getPetAPI } from "../axios/axios.api";
 import MobileTopBar from "../component/MobileTopBar";
 import { motion } from "framer-motion";
-import { getPetImage } from "../assets/assets";
 import { toast } from "react-toastify";
 import ReCAPTCHA from "react-google-recaptcha";
 import { createAdoptionAPI } from "../axios/axios.api";
@@ -153,7 +152,7 @@ const EnquirePet = () => {
             <div className="max-w-4xl mx-auto py-6 mb-6 px-10">
                 <div className="flex justify-center items-center">
                     <img
-                        src={getPetImage(pet.image)}
+                        src={pet.image}
                         alt={pet.name}
                         className="w-[150px] h-[150px] md:w-[250px] md:h-[250px] mt-0 md:mt-[-15px] object-cover rounded-full"
                     />

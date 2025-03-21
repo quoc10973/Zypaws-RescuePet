@@ -1,7 +1,6 @@
 import { useLocation, useParams } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { getPetAPI } from '../axios/axios.api';
-import { getPetImage } from '../assets/assets';
 import { AuthContext } from '../context/AuthContext';
 import PetAvailable from '../component/PetAvailable';
 import Partners from '../component/Partners';
@@ -61,7 +60,7 @@ const PetDetail = () => {
             <div className="max-w-7xl mx-auto mb-10 p-6 md:p-10 shadow-lg rounded-lg bg-white flex flex-col md:flex-row gap-10">
                 <div className="flex-1 flex justify-center">
                     <img
-                        src={getPetImage(pet.image)}
+                        src={pet.image}
                         alt={pet.name}
                         className="w-full max-w-md h-auto object-cover rounded-lg shadow-md cursor-pointer transition-transform transform hover:scale-105"
                         onClick={() => setIsModalOpen(true)}
@@ -196,7 +195,7 @@ const PetDetail = () => {
                 {/* Pet + Detail */}
                 <div className="flex flex-col items-center">
                     <img
-                        src={getPetImage(pet.image)}
+                        src={pet.image}
                         alt="pet-name"
                         className="h-24 w-24 rounded-full border-4 border-white mb-4"
                     />
