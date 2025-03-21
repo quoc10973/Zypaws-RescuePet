@@ -39,6 +39,21 @@ const getAllPetAPI = () => {
     return axios.get(URL_API);
 }
 
+const deletePetAPI = (id) => {
+    const URL_API = `/pet/delete/${id}`;
+    return axios.delete(URL_API);
+}
+
+const updatePetAPI = (id, updatePetDTO) => {
+    const URL_API = `/pet/update/${id}`;
+    return axios.put(URL_API, updatePetDTO);
+}
+
+const createPetAPI = (createPetDTO) => {
+    const URL_API = "/pet/create";
+    return axios.post(URL_API, createPetDTO);
+}
+
 const createDonationAPI = (amount, message) => {
     const URL_API = "/donation/create";
     let data = {
@@ -96,6 +111,7 @@ const createUserAPI = (createUserDTO) => {
     return axios.post(URL_API, createUserDTO);
 }
 
+
 export {
     loginAPI,
     loginGoogleAPI,
@@ -114,4 +130,7 @@ export {
     updateUserAPI,
     deleteUserAPI,
     createUserAPI,
+    deletePetAPI,
+    updatePetAPI,
+    createPetAPI,
 };

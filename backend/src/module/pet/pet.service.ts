@@ -48,4 +48,23 @@ export class PetService {
             throw new Error("Failed to get available pets");
         }
     }
+
+    async deletePet(id: number) {
+        try {
+            const pet = await this.getPetById(id);
+            await this.petRepository.remove(pet);
+        } catch (error) {
+            throw new Error("Failed to delete pet");
+        }
+    }
+
+    async updatePet(id: number, partialPet: Partial<Pet>) {
+        try {
+            await this.petRepository.update(id, partialPet);
+            return await this.getPetById(id);
+        } catch (error) {
+            throw new Error("Failed to update pet");
+        }
+
+    }
 }
