@@ -2,7 +2,6 @@ import { Outlet } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { UserIcon, HomeIcon, ArrowRightOnRectangleIcon, BanknotesIcon } from '@heroicons/react/24/solid';
 import { FaPaw } from "react-icons/fa";
-import Footer from '../component/Footer';
 import AdminHeader from '../component/AdminHeader';
 
 const AdminLayout = () => {
@@ -12,7 +11,7 @@ const AdminLayout = () => {
             <AdminHeader />
             <div className="flex h-screen">
                 {/* Sidebar */}
-                <aside className="w-64 bg-gray-800 text-white p-5 space-y-6">
+                <aside className="w-64 h-full bg-gray-800 text-white p-5 space-y-6">
                     <h1 className="text-xl font-bold">Zypaws Admin</h1>
                     <nav className="space-y-4">
                         <NavLink to="/admin" className="flex items-center gap-2 p-2 hover:bg-gray-700 rounded">

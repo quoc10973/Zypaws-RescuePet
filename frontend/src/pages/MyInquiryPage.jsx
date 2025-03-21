@@ -56,7 +56,7 @@ const MyInquiryPage = () => {
                 </p>
 
                 {inquiries.length === 0 ? (
-                    <p className="text-gray-500 text-center text-lg ">You have no inquiries.</p>
+                    <p className="text-gray-500 py-32 text-center text-lg ">You have no inquiries.</p>
                 ) : (
                     [...inquiries].reverse().map((inquiry) => (
                         <InquiryCard key={inquiry.id} inquiry={inquiry} />

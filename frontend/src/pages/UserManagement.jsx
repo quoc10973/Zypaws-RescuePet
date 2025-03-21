@@ -126,127 +126,129 @@ const UserManagement = () => {
                 </button>
             </div>
 
+            <div className="max-h-[340px] overflow-y-auto border border-gray-300 rounded-lg">
+                <table className="w-full border-collapse border border-gray-300">
+                    <thead>
+                        <tr className="bg-gray-100">
+                            <th className="border p-3">ID</th>
+                            <th className="border p-3">First Name</th>
+                            <th className="border p-3">Last Name</th>
+                            <th className="border p-3">Email</th>
+                            <th className="border p-3">Phone</th>
+                            <th className="border p-3">Age</th>
+                            <th className="border p-3">Address</th>
+                            <th className="border p-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {users.length > 0 ? (
+                            users.map((user) => (
+                                <tr key={user.id} className="text-center hover:bg-gray-50">
+                                    <td className="border p-3">{user.id}</td>
 
-            <table className="w-full border-collapse border border-gray-300">
-                <thead>
-                    <tr className="bg-gray-100">
-                        <th className="border p-3">ID</th>
-                        <th className="border p-3">First Name</th>
-                        <th className="border p-3">Last Name</th>
-                        <th className="border p-3">Email</th>
-                        <th className="border p-3">Phone</th>
-                        <th className="border p-3">Age</th>
-                        <th className="border p-3">Address</th>
-                        <th className="border p-3">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {users.length > 0 ? (
-                        users.map((user) => (
-                            <tr key={user.id} className="text-center hover:bg-gray-50">
-                                <td className="border p-3">{user.id}</td>
-
-                                {/* input place when editing*/}
-                                {editableUserId === user.id ? (
-                                    <>
-                                        <td className="border p-3">
-                                            <input
-                                                type="text"
-                                                value={editedUser.firstName}
-                                                onChange={(e) => handleChange(e, "firstName")}
-                                                className="w-full border px-2 py-1"
-                                            />
-                                        </td>
-                                        <td className="border p-3">
-                                            <input
-                                                type="text"
-                                                value={editedUser.lastName}
-                                                onChange={(e) => handleChange(e, "lastName")}
-                                                className="w-full border px-2 py-1"
-                                            />
-                                        </td>
-                                        <td className="border p-3">
-                                            <input
-                                                type="email"
-                                                value={editedUser.email}
-                                                onChange={(e) => handleChange(e, "email")}
-                                                className="w-full border px-2 py-1"
-                                            />
-                                        </td>
-                                        <td className="border p-3">
-                                            <input
-                                                type="text"
-                                                value={editedUser.phone}
-                                                onChange={(e) => handleChange(e, "phone")}
-                                                className="w-full border px-2 py-1"
-                                            />
-                                        </td>
-                                        <td className="border p-3">
-                                            <input
-                                                type="number"
-                                                value={editedUser.age}
-                                                onChange={(e) => handleChange(e, "age")}
-                                                className="w-full border px-2 py-1"
-                                            />
-                                        </td>
-                                        <td className="border p-3">
-                                            <input
-                                                type="text"
-                                                value={editedUser.address}
-                                                onChange={(e) => handleChange(e, "address")}
-                                                className="w-full border px-2 py-1"
-                                            />
-                                        </td>
-                                    </>
-                                ) : (
-                                    // static data if not being edited
-                                    <>
-                                        <td className="border p-3">{user.firstName}</td>
-                                        <td className="border p-3">{user.lastName}</td>
-                                        <td className="border p-3">{user.email}</td>
-                                        <td className="border p-3">{user.phone}</td>
-                                        <td className="border p-3">{user.age}</td>
-                                        <td className="border p-3">{user.address}</td>
-                                    </>
-                                )}
-
-                                {/* Actions */}
-                                <td className="border p-3 flex justify-center gap-2">
+                                    {/* input place when editing*/}
                                     {editableUserId === user.id ? (
                                         <>
-                                            {/* Save */}
-                                            <button className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-700" onClick={handleSave}>
-                                                <CheckIcon className="h-5 w-5 inline" />
-                                            </button>
-                                            {/* Cancel */}
-                                            <button className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-700" onClick={handleCancelEdit}>
-                                                <XMarkIcon className="h-5 w-5 inline" />
-                                            </button>
+                                            <td className="border p-3">
+                                                <input
+                                                    type="text"
+                                                    value={editedUser.firstName}
+                                                    onChange={(e) => handleChange(e, "firstName")}
+                                                    className="w-full border px-2 py-1"
+                                                />
+                                            </td>
+                                            <td className="border p-3">
+                                                <input
+                                                    type="text"
+                                                    value={editedUser.lastName}
+                                                    onChange={(e) => handleChange(e, "lastName")}
+                                                    className="w-full border px-2 py-1"
+                                                />
+                                            </td>
+                                            <td className="border p-3">
+                                                <input
+                                                    type="email"
+                                                    value={editedUser.email}
+                                                    onChange={(e) => handleChange(e, "email")}
+                                                    className="w-full border px-2 py-1"
+                                                />
+                                            </td>
+                                            <td className="border p-3">
+                                                <input
+                                                    type="text"
+                                                    value={editedUser.phone}
+                                                    onChange={(e) => handleChange(e, "phone")}
+                                                    className="w-full border px-2 py-1"
+                                                />
+                                            </td>
+                                            <td className="border p-3">
+                                                <input
+                                                    type="number"
+                                                    value={editedUser.age}
+                                                    onChange={(e) => handleChange(e, "age")}
+                                                    className="w-full border px-2 py-1"
+                                                />
+                                            </td>
+                                            <td className="border p-3">
+                                                <input
+                                                    type="text"
+                                                    value={editedUser.address}
+                                                    onChange={(e) => handleChange(e, "address")}
+                                                    className="w-full border px-2 py-1"
+                                                />
+                                            </td>
                                         </>
                                     ) : (
+                                        // static data if not being edited
                                         <>
-                                            {/* Edit */}
-                                            <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700" onClick={() => handleEdit(user)}>
-                                                <PencilIcon className="h-5 w-5 inline" />
-                                            </button>
-                                            {/* Delete */}
-                                            <button className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700" onClick={() => handleDelete(user.id)}>
-                                                <TrashIcon className="h-5 w-5 inline" />
-                                            </button>
+                                            <td className="border p-3">{user.firstName}</td>
+                                            <td className="border p-3">{user.lastName}</td>
+                                            <td className="border p-3">{user.email}</td>
+                                            <td className="border p-3">{user.phone}</td>
+                                            <td className="border p-3">{user.age}</td>
+                                            <td className="border p-3">{user.address}</td>
                                         </>
                                     )}
+
+                                    {/* Actions */}
+                                    <td className="border p-3 flex justify-center gap-2">
+                                        {editableUserId === user.id ? (
+                                            <>
+                                                {/* Save */}
+                                                <button className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-700" onClick={handleSave}>
+                                                    <CheckIcon className="h-5 w-5 inline" />
+                                                </button>
+                                                {/* Cancel */}
+                                                <button className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-700" onClick={handleCancelEdit}>
+                                                    <XMarkIcon className="h-5 w-5 inline" />
+                                                </button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                {/* Edit */}
+                                                <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700" onClick={() => handleEdit(user)}>
+                                                    <PencilIcon className="h-5 w-5 inline" />
+                                                </button>
+                                                {/* Delete */}
+                                                <button className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700" onClick={() => handleDelete(user.id)}>
+                                                    <TrashIcon className="h-5 w-5 inline" />
+                                                </button>
+                                            </>
+                                        )}
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="8" className="border p-3 text-center text-gray-500">
+                                    No data available
                                 </td>
                             </tr>
-                        ))
-                    ) : (
-                        <tr>
-                            <td colSpan="8" className="border p-3 text-center text-gray-500">
-                                No data available
-                            </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     );
 };
