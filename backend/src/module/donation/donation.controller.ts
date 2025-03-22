@@ -1,10 +1,11 @@
-import { BadRequestException, Body, Controller, Get, HttpException, HttpStatus, Post, Query } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, HttpException, HttpStatus, Post, Query, SetMetadata, UseGuards } from '@nestjs/common';
 import { DonationService } from './donation.service';
 import { CurrentUser } from 'src/decorator/customDecorator';
 import { User } from '../user/user.entity';
 import { CreateDonationDTO } from 'src/model/createDonationDTO';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { TokenDTO } from 'src/model/tokenDTO';
+import { AuthorizationGuard } from 'src/guard/authorization.guard';
 
 @Controller('donation')
 @ApiBearerAuth()
@@ -54,5 +55,16 @@ export class DonationController {
         }
     }
 
+    @Get('statistics')
+    @SetMetadata('roles', ['ADMIN'])
+    @UseGuards(AuthorizationGuard)
+    async getStatistics() {
+        try {
+            return await this.donationService.getDonationStats();
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+
+    }
 
 }

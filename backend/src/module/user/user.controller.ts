@@ -1,8 +1,9 @@
-import { BadRequestException, Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Post, Put, ValidationPipe } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Post, Put, SetMetadata, UseGuards, ValidationPipe } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.entity';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { CurrentUser } from 'src/decorator/customDecorator';
+import { AuthorizationGuard } from 'src/guard/authorization.guard';
 
 @Controller('user')
 @ApiBearerAuth()
@@ -10,6 +11,8 @@ export class UserController {
     constructor(private readonly userService: UserService) { }
 
     @Get('getall')
+    @SetMetadata('roles', ['ADMIN'])
+    @UseGuards(AuthorizationGuard)
     async getUsers() {
         try {
             return await this.userService.getUsers();
@@ -78,6 +81,8 @@ export class UserController {
     }
 
     @Delete('delete/:id')
+    @SetMetadata('roles', ['ADMIN'])
+    @UseGuards(AuthorizationGuard)
     async deleteUser(@Param('id') id: string) {
         try {
             return await this.userService.deleteUser(id);
