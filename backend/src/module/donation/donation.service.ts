@@ -138,5 +138,32 @@ export class DonationService {
         }
     }
 
+    async getDonationStats() {
+        try {
+            const totalAmountResult = await this.donationRepository.query
+                (
+                    `SELECT SUM(amount) as totalAmount FROM donation`
+                )
+            const totalDonationsResult = await this.donationRepository.query
+                (
+                    `SELECT COUNT(*) as totalDonations FROM donation`
+                )
+            const avgAmountByMonth = await this.donationRepository.query
+                (
+                    `SELECT DATE_FORMAT(createdAt, '%Y-%m') as month, AVG(amount) as avgAmount
+                        FROM donation
+                        GROUP BY month
+                        ORDER BY month DESC`
+                )
+
+            // cause the query returns an array of objects even if it's only one object, we need to extract the value
+            const totalAmount = totalAmountResult[0]?.totalAmount || 0;
+            const totalDonations = totalDonationsResult[0]?.totalDonations || 0;
+            return { totalAmount, totalDonations, avgAmountByMonth };
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    }
 
 }

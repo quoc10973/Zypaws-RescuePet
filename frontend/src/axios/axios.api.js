@@ -111,6 +111,10 @@ const createUserAPI = (createUserDTO) => {
     return axios.post(URL_API, createUserDTO);
 }
 
+const getDonationStatisticsAPI = () => {
+    const URL_API = "/donation/statistics";
+    return axios.get(URL_API);
+}
 
 export {
     loginAPI,
@@ -133,4 +137,5 @@ export {
     deletePetAPI,
     updatePetAPI,
     createPetAPI,
+    getDonationStatisticsAPI,
 };
