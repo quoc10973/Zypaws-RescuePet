@@ -17,6 +17,7 @@ import ManagementPage from '../pages/ManagementPage';
 import UserManagement from '../pages/UserManagement';
 import PetManagement from '../pages/PetManagement';
 import DonationManagement from '../pages/DonationManagement';
+import AdoptionManagement from '../pages/AdoptionManagement';
 const AppRoutes = () => {
     return (
         <Routes>
@@ -40,6 +41,7 @@ const AppRoutes = () => {
                 <Route path="/admin/users-management" element={<UserManagement />} />
                 <Route path="/admin/pets-management" element={<PetManagement />} />
                 <Route path="/admin/donations-management" element={<DonationManagement />} />
+                <Route path="/admin/adoptions-management" element={<AdoptionManagement />} />
             </Route>
         </Routes>
     );

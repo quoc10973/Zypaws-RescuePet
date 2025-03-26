@@ -8,6 +8,7 @@ import { CreateAdoptionDTO } from 'src/model/createAdoptionDTO';
 import { UserService } from '../user/user.service';
 import { User } from '../user/user.entity';
 import { plainToInstance } from 'class-transformer';
+import { UpdateAdoptionStatusDTO } from 'src/model/updateStatusAdoptionDTO';
 
 @Injectable()
 export class AdoptionService {
@@ -45,6 +46,7 @@ export class AdoptionService {
             newAdoption.enquireForSomeoneElse = createAdoptionDTO.enquireForSomeoneElse;
             newAdoption.emailUpdates = createAdoptionDTO.emailUpdates;
             newAdoption.status = AdoptionStatus.PENDING;
+            newAdoption.replyMessage = "";
             await this.adoptionRepository.save(newAdoption);
             return plainToInstance(Adoption, newAdoption, { excludeExtraneousValues: true })
         } catch (error) {
@@ -71,6 +73,60 @@ export class AdoptionService {
         }
     }
 
+    async getAllPendingAdoptions() {
+        try {
+            const pendingAdoptions = await this.adoptionRepository.find(
+                {
+                    where: { status: AdoptionStatus.PENDING },
+                    relations: ['pet', 'user'],
+                    select: {
+                        user: { id: true, email: true },
+                        pet: { id: true, name: true, species: true, status: true },
+                    }
+                }
+            );
+            return pendingAdoptions;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+
+    async getAllApprovedAdoptions() {
+        try {
+            const pendingAdoptions = await this.adoptionRepository.find(
+                {
+                    where: { status: AdoptionStatus.APPROVED },
+                    relations: ['pet', 'user'],
+                    select: {
+                        user: { id: true, email: true },
+                        pet: { id: true, name: true, species: true, status: true },
+                    }
+                }
+            );
+            return pendingAdoptions;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+
+    async getAllRejectedAdoptions() {
+        try {
+            const pendingAdoptions = await this.adoptionRepository.find(
+                {
+                    where: { status: AdoptionStatus.REJECTED },
+                    relations: ['pet', 'user'],
+                    select: {
+                        user: { id: true, email: true },
+                        pet: { id: true, name: true, species: true, status: true },
+                    }
+                }
+            );
+            return pendingAdoptions;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+
     async getAdoptionByUserId(currentUser: User) {
         try {
             const user = await this.userService.getUserByEmail(currentUser.email);
@@ -84,6 +140,27 @@ export class AdoptionService {
                 }
             );
             return adoptions;
+        } catch (error) {
+            console.log(error.message);
+            throw new Error(error.message);
+        }
+    }
+
+    async aprroveAdoption(adoptionId: number, updateStatusMessage: UpdateAdoptionStatusDTO) {
+        try {
+            const adoption = await this.adoptionRepository.findOne(
+                {
+                    where: { id: adoptionId },
+                    relations: ['pet', 'user'],
+                }
+            );
+            if (!adoption) {
+                throw new Error("Adoption request not found");
+            }
+            adoption.status = AdoptionStatus.APPROVED;
+            adoption.replyMessage = updateStatusMessage.replyMessage;
+            await this.adoptionRepository.save(adoption);
+            return plainToInstance(Adoption, adoption, { excludeExtraneousValues: true });
         } catch (error) {
             console.log(error.message);
             throw new Error(error.message);

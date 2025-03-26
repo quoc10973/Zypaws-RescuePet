@@ -76,6 +76,31 @@ const createAdoptionAPI = (createAdoptionDTO) => {
     return axios.post(URL_API, createAdoptionDTO);
 }
 
+const getAllAdoptionAPI = () => {
+    const URL_API = "/adoption/getall";
+    return axios.get(URL_API);
+}
+
+const getPendingAdoptionAPI = () => {
+    const URL_API = "/adoption/get-pending";
+    return axios.get(URL_API);
+}
+
+const getApprovedAdoptionAPI = () => {
+    const URL_API = "/adoption/get-approved";
+    return axios.get(URL_API);
+}
+
+const getRejectedAdoptionAPI = () => {
+    const URL_API = "/adoption/get-rejected";
+    return axios.get(URL_API);
+}
+
+const approveAdoptionAPI = (id, replyMessage) => {
+    const URL_API = `/adoption/approve/${id}`;
+    return axios.put(URL_API, { replyMessage: String(replyMessage) });
+}
+
 const addPetToFavoriteAPI = (petId) => {
     const URL_API = `/user/add-favorites/${petId}`;
     return axios.post(URL_API);
@@ -138,4 +163,9 @@ export {
     updatePetAPI,
     createPetAPI,
     getDonationStatisticsAPI,
+    getAllAdoptionAPI,
+    getPendingAdoptionAPI,
+    getApprovedAdoptionAPI,
+    getRejectedAdoptionAPI,
+    approveAdoptionAPI,
 };

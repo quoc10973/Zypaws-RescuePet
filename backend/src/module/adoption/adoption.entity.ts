@@ -57,6 +57,14 @@ export class Adoption {
     @Column()
     enquireForSomeoneElse: boolean;
 
+    @Expose()
+    @ApiProperty()
+    @Column({
+        nullable: true
+    })
+    replyMessage: string;
+
+
     @ManyToOne(() => User, user => user.adoptions)
     @ApiProperty()
     @Exclude()

@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import { UserIcon, HomeIcon, ArrowRightOnRectangleIcon, BanknotesIcon } from '@heroicons/react/24/solid';
+import { UserIcon, HomeIcon, ArrowRightOnRectangleIcon, BanknotesIcon, BellIcon } from '@heroicons/react/24/solid';
 import { FaPaw } from "react-icons/fa";
 import AdminHeader from '../component/AdminHeader';
 
@@ -25,6 +25,9 @@ const AdminLayout = () => {
                         </NavLink>
                         <NavLink to="/admin/donations-management" className="flex items-center gap-2 p-2 hover:bg-gray-700 rounded">
                             <BanknotesIcon className="h-5 w-5" /> Donations
+                        </NavLink>
+                        <NavLink to="/admin/adoptions-management" className="flex items-center gap-2 p-2 hover:bg-gray-700 rounded">
+                            <BellIcon className="h-5 w-5" /> Adoption Request
                         </NavLink>
                         <button className="flex items-center gap-2 p-2 hover:bg-gray-700 rounded w-full">
                             <ArrowRightOnRectangleIcon className="h-5 w-5" /> Logout
