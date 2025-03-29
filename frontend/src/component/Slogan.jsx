@@ -68,7 +68,7 @@ const Slogan = () => {
 
                         {auth.user.role === 'ADMIN' && (
                             <Link
-                                to="/admin-dashboard"
+                                to="/admin"
                                 className="relative group text-blue-500 hover:text-blue-600 transition-transform duration-200 hover:translate-x-[2px]"
                             >
                                 <LifebuoyIcon className="h-5 w-5 sm:h-7 sm:w-7" />

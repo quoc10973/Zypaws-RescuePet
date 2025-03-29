@@ -1,10 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import {
-    getPendingAdoptionAPI,
-    getApprovedAdoptionAPI,
-    getRejectedAdoptionAPI,
-    approveAdoptionAPI
-} from "../axios/axios.api";
+import { getPendingAdoptionAPI, getApprovedAdoptionAPI, getRejectedAdoptionAPI, approveAdoptionAPI, rejectAdoptionAPI } from "../axios/axios.api";
 import { AuthContext } from "../context/AuthContext";
 
 const AdoptionManagement = () => {
@@ -14,8 +9,9 @@ const AdoptionManagement = () => {
     const [activeTab, setActiveTab] = useState("pending"); // pending, approved, rejected
 
     useEffect(() => {
+        window.scrollTo(0, 0); // Scroll to top when component mounts
         fetchAdoptions();
-    }, [activeTab]); // Gọi API mỗi khi đổi tab
+    }, [activeTab]); // Call fetchAdoptions when activeTab changes
 
     const fetchAdoptions = async () => {
         try {
@@ -47,10 +43,21 @@ const AdoptionManagement = () => {
         }
     };
 
-    const handleReject = (id) => {
-        console.log(`Adoption ID: ${id} rejected.`);
-        // TODO: Thêm API từ chối nếu cần
+    const handleReject = async (id) => {
+        try {
+            setLoading(true);
+            const message = String(messages[id] || "");
+            await rejectAdoptionAPI(id, message);
+            setAdoptions((prev) => prev.filter((adoption) => adoption.id !== id));
+            alert("Adoption request rejected successfully!");
+        } catch (error) {
+            console.error("Error rejecting adoption:", error);
+            alert("Failed to reject adoption request.");
+        } finally {
+            setLoading(false);
+        }
     };
+
 
     const handleMessageChange = (id, value) => {
         setMessages((prev) => ({ ...prev, [id]: value }));
@@ -100,7 +107,7 @@ const AdoptionManagement = () => {
 
 const AdoptionList = ({ adoptions, onApprove, onReject, messages, handleMessageChange }) => {
     return (
-        <div className="space-y-4">
+        <div className="space-y-4 text-sm max-h-[70vh] overflow-y-auto">
             {adoptions.map((adoption) => (
                 <div key={adoption.id} className="border p-4 rounded-lg shadow flex justify-between items-center">
                     <div>

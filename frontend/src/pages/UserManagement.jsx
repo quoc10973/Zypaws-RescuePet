@@ -36,6 +36,7 @@ const UserManagement = () => {
 
     // Fetch all users
     useEffect(() => {
+        window.scrollTo(0, 0); // Scroll to top when component mounts
         fetchUsers();
     }, []);
 
