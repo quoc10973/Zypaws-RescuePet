@@ -27,6 +27,15 @@ export class PetController {
         }
     }
 
+    @Get('get-all-available')
+    async getAllAvailablePets() {
+        try {
+            return await this.petService.getAllAvailablePets();
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
     @Post('create')
     @HttpCode(201)
     @SetMetadata('roles', ['ADMIN'])

@@ -49,6 +49,18 @@ export class PetService {
         }
     }
 
+    async getAllAvailablePets() {
+        try {
+            const pets = await this.petRepository.find({
+                where: { status: PetStatus.AVAILABLE },
+            });
+            return pets;
+        } catch (error) {
+            console.log(error.message);
+            throw new Error("Failed to get available pets");
+        }
+    }
+
     async deletePet(id: number) {
         try {
             const pet = await this.getPetById(id);
@@ -65,6 +77,5 @@ export class PetService {
         } catch (error) {
             throw new Error("Failed to update pet");
         }
-
     }
 }
