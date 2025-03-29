@@ -72,7 +72,6 @@ export class AdoptionController {
     }
 
     @Put('approve/:id')
-    @HttpCode(200)
     async approveAdoptionStatus(@Param('id') id: number, @Body(new ValidationPipe()) updateStatusMessage: UpdateAdoptionStatusDTO) {
         try {
             return await this.adoptionService.aprroveAdoption(id, updateStatusMessage);
@@ -80,4 +79,14 @@ export class AdoptionController {
             throw new BadRequestException(error.message);
         }
     }
+
+    @Put('reject/:id')
+    async rejectAdoptionStatus(@Param('id') id: number, @Body(new ValidationPipe()) updateStatusMessage: UpdateAdoptionStatusDTO) {
+        try {
+            return await this.adoptionService.rejectAdoption(id, updateStatusMessage);
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
 }

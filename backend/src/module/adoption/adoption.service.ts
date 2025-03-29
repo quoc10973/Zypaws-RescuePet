@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Adoption } from './adoption.entity';
 import { Repository } from 'typeorm';
 import { PetService } from '../pet/pet.service';
-import { AdoptionStatus } from 'src/model/enum';
+import { AdoptionStatus, PetStatus } from 'src/model/enum';
 import { CreateAdoptionDTO } from 'src/model/createAdoptionDTO';
 import { UserService } from '../user/user.service';
 import { User } from '../user/user.entity';
@@ -158,6 +158,30 @@ export class AdoptionService {
                 throw new Error("Adoption request not found");
             }
             adoption.status = AdoptionStatus.APPROVED;
+            adoption.replyMessage = updateStatusMessage.replyMessage;
+            const pet = await this.petService.getPetById(adoption.pet.id);
+            pet.status = PetStatus.ADOPTED;
+            await this.petService.updatePet(pet.id, pet);
+            await this.adoptionRepository.save(adoption);
+            return plainToInstance(Adoption, adoption, { excludeExtraneousValues: true });
+        } catch (error) {
+            console.log(error.message);
+            throw new Error(error.message);
+        }
+    }
+
+    async rejectAdoption(adoptionId: number, updateStatusMessage: UpdateAdoptionStatusDTO) {
+        try {
+            const adoption = await this.adoptionRepository.findOne(
+                {
+                    where: { id: adoptionId },
+                    relations: ['pet', 'user'],
+                }
+            );
+            if (!adoption) {
+                throw new Error("Adoption request not found");
+            }
+            adoption.status = AdoptionStatus.REJECTED;
             adoption.replyMessage = updateStatusMessage.replyMessage;
             await this.adoptionRepository.save(adoption);
             return plainToInstance(Adoption, adoption, { excludeExtraneousValues: true });
