@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAllPetAPI, getUserFavoritesAPI, addPetToFavoriteAPI, removePetFromFavoriteAPI } from '../axios/axios.api';
+import { getAllAvailablePetAPI, getUserFavoritesAPI, addPetToFavoriteAPI, removePetFromFavoriteAPI } from '../axios/axios.api';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { assets } from '../assets/assets';
 import { HeartIcon } from '@heroicons/react/20/solid';
@@ -41,7 +41,7 @@ const ListingPage = () => {
     useEffect(() => {
         const fetchPets = async () => {
             try {
-                const response = await getAllPetAPI();
+                const response = await getAllAvailablePetAPI();
                 setPets(response);
                 setFilteredPets(response);
             } catch (error) {

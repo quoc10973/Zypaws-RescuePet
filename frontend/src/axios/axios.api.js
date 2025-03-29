@@ -19,6 +19,11 @@ const getPetAvailable = () => {
     return axios.get(URL_API);
 }
 
+const getAllAvailablePetAPI = () => {
+    const URL_API = "/pet/get-all-available";
+    return axios.get(URL_API);
+}
+
 const getCurrentUserAPI = () => {
     const URL_API = "/user/getcurrent";
     return axios.get(URL_API);
@@ -101,6 +106,11 @@ const approveAdoptionAPI = (id, replyMessage) => {
     return axios.put(URL_API, { replyMessage: String(replyMessage) });
 }
 
+const rejectAdoptionAPI = (id, replyMessage) => {
+    const URL_API = `/adoption/reject/${id}`;
+    return axios.put(URL_API, { replyMessage: String(replyMessage) });
+}
+
 const addPetToFavoriteAPI = (petId) => {
     const URL_API = `/user/add-favorites/${petId}`;
     return axios.post(URL_API);
@@ -147,6 +157,7 @@ export {
     getCurrentUserAPI,
     getPetAvailable,
     getAllPetAPI,
+    getAllAvailablePetAPI,
     getPetAPI,
     createDonationAPI,
     captureSuccessDonationAPI,
@@ -168,4 +179,5 @@ export {
     getApprovedAdoptionAPI,
     getRejectedAdoptionAPI,
     approveAdoptionAPI,
+    rejectAdoptionAPI,
 };
