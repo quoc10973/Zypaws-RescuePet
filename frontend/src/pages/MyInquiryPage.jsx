@@ -134,6 +134,9 @@ const InquiryCard = ({ inquiry }) => {
                     {/* Enquiring for Someone Else */}
                     <h3 className="text-lg font-semibold mt-4">Enquiring for Someone Else:</h3>
                     <p className="text-gray-700 text-md">{inquiry.enquireForSomeoneElse ? "✅ Yes" : "❌ No"}</p>
+
+                    <h3 className="text-lg font-semibold mt-4">Reply Message</h3>
+                    <p className="text-gray-700 text-md">{inquiry.replyMessage}</p>
                 </div>
             </div>
         </motion.div>
