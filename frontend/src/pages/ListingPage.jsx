@@ -147,7 +147,10 @@ const ListingPage = () => {
                             <option value="">All Species</option>
                             <option value="DOG">Dog</option>
                             <option value="CAT">Cat</option>
+                            <option value="RODENT">Rodent</option>
                             <option value="RABBIT">Rabbit</option>
+                            <option value="PARROT">Parrot</option>
+                            <option value="SHEEP">Sheep</option>
                         </select>
                     </div>
 
