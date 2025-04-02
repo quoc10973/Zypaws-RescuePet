@@ -6,7 +6,10 @@ export enum Role {
 export enum Species {
     DOG = 'DOG',
     CAT = 'CAT',
-    BIRD = 'BIRD'
+    PARROT = 'PARROT',
+    RABBIT = 'RABBIT',
+    RODENT = 'RODENT',
+    SHEEP = 'SHEEP'
 }
 
 export enum Gender {
