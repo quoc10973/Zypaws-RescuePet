@@ -237,7 +237,7 @@ const PetDetail = () => {
                             className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2"
                             onClick={() => setIsModalOpen(false)}
                         >✖</button>
-                        <img src={getPetImage(pet.image)} alt={pet.name} className="w-full h-auto max-w-2xl rounded-lg" />
+                        <img src={pet.image} alt={pet.name} className="w-full h-auto max-w-2xl rounded-lg" />
                     </div>
                 </motion.div>
             )}

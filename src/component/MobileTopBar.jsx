@@ -6,7 +6,7 @@ const MobileTopBar = () => {
             <p className="text-sm font-quicksand max-w-md mx-auto flex items-center gap-2">
 
                 <span>
-                    <a href="#" className="text-purple-600 font-semibold hover:underline">
+                    <a href="/about" className="text-purple-600 font-semibold hover:underline">
                         Learn more
                     </a>{' '}
                     about how we make a difference.

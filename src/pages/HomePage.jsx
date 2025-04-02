@@ -103,7 +103,7 @@ const HomePage = () => {
                     <br />
                     <div className="relative group">
                         <Link
-                            to="about-the-safe-sound-pets-program"
+                            to="/about"
                             className="relative inline-block font-lora italic text-white font-semibold py-2 px-9 rounded-lg bg-slate-800 transition-transform duration-300 group-hover:-translate-y-1 group-hover:shadow-lg group-hover:shadow-gray-900/50"
                         >
                             <span className="absolute inset-0 w-full h-full  rounded-lg opacity-0 group-hover:opacity-100 group-hover:blur-md transition-opacity duration-300"></span>
