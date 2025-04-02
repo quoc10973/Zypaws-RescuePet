@@ -18,6 +18,7 @@ import UserManagement from '../pages/UserManagement';
 import PetManagement from '../pages/PetManagement';
 import DonationManagement from '../pages/DonationManagement';
 import AdoptionManagement from '../pages/AdoptionManagement';
+import AboutPage from '../pages/AboutPage';
 const AppRoutes = () => {
     return (
         <Routes>
@@ -26,6 +27,7 @@ const AppRoutes = () => {
                 <Route index element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignUpPage />} />
+                <Route path="/about" element={<AboutPage />} />
                 <Route path="/pet/:id" element={<PetPage />} />
                 <Route path="/pet/:id/enquire" element={<EnquirePet />} />
                 <Route path="/about-the-safe-sound-pets-program" element={<SafeSoundProgramPage />} />
