@@ -85,16 +85,16 @@ const Header = () => {
                             } origin-top`}
                     >
                         <li className='px-4 py-2 hover:bg-gray-100'>
-                            <NavLink to='/parrot'>Parrots</NavLink>
+                            <NavLink to='/listing?petType=PARROT'>Parrots</NavLink>
                         </li>
                         <li className='px-4 py-2 hover:bg-gray-100'>
-                            <NavLink to='/rodent'>Rodents</NavLink>
+                            <NavLink to='/listing?petType=RODENT'>Rodents</NavLink>
                         </li>
                         <li className='px-4 py-2 hover:bg-gray-100'>
-                            <NavLink to='/rabbit'>Rabbits</NavLink>
+                            <NavLink to='/listing?petType=RABBIT'>Rabbits</NavLink>
                         </li>
                         <li className='px-4 py-2 hover:bg-gray-100'>
-                            <NavLink to='/sheep'>Sheeps</NavLink>
+                            <NavLink to='/listing?petType=SHEEP'>Sheeps</NavLink>
                         </li>
                     </ul>
                 </li>
