@@ -121,7 +121,7 @@ const Slogan = () => {
                         </div>
                     </>
                 ) : (
-                    <div className="hidden sm:flex gap-3">
+                    <div className=" gap-3">
                         <Link to="/login" className="flex items-center gap-1 text-black font-quicksand py-1 sm:py-2 rounded-lg transition text-sm sm:text-md">
                             <UserIcon className="h-4 w-4 sm:h-5 sm:w-8" /> Login
                         </Link>
